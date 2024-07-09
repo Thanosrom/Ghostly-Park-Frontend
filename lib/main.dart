@@ -291,7 +291,6 @@ class _MyAppState extends State<MyApp> {
     List<bool> conditions = [];
 
     bool permissions_granted = await check_Permissions();
-
     conditions.add(permissions_granted || isFirst_Landing);
 
     bool server_status = await server_Status();

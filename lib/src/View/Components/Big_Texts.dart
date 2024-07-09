@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 class Big_Texts extends StatelessWidget {
   final String bigText;
-  Big_Texts({super.key, required this.bigText});
+  final bool? medium;
+
+  Big_Texts({super.key, required this.bigText, this.medium});
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +15,17 @@ class Big_Texts extends StatelessWidget {
       bigText,
       textAlign: TextAlign.center,
       style: TextStyle(
-        fontSize: screenWidth <= 414
-            ? screenWidth * 0.08
-            : screenWidth <= 810
-                ? screenWidth * 0.05
-                : screenWidth * 0.05,
+        fontSize: medium == true
+            ? screenWidth <= 414
+                ? screenWidth * 0.035
+                : screenWidth <= 810
+                    ? screenWidth * 0.04
+                    : screenWidth * 0.04
+            : screenWidth <= 414
+                ? screenWidth * 0.08
+                : screenWidth <= 810
+                    ? screenWidth * 0.05
+                    : screenWidth * 0.05,
         color: Colors.white,
         fontWeight: FontWeight.bold,
         decoration: TextDecoration.none,

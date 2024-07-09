@@ -346,11 +346,14 @@ class _HomeState extends State<Home> {
                           setState(() {
                             isLoading = true;
                           });
-                          setState(() {
-                            search_Markers_Counter = 0;
-                          });
                           save_Search_Markers_Counter(search_Markers_Counter);
-                          onPressed_UnParked(mapController, markers, context);
+                          final unparked_bool = onPressed_UnParked(
+                              mapController, markers, context);
+                          if (await unparked_bool) {
+                            setState(() {
+                              search_Markers_Counter = 0;
+                            });
+                          }
                           setState(() {
                             isLoading = false;
                           });

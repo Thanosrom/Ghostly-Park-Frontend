@@ -19,26 +19,17 @@ class Update extends StatefulWidget {
 }
 
 class _Update_State extends State<Update> {
-  // String? version;
-  // bool _requiresUpdate = false;
   String? current_locale;
-  String selected_language = 'en';
 
   @override
   void initState() {
     super.initState();
-    //_checkForUpdate();
-
-    @override
-    void initState() {
-      super.initState();
-      //Privacy Load
-      load_Selected_Language().then((value) {
-        setState(() {
-          current_locale = value;
-        });
+    //Privacy Load
+    load_Selected_Language().then((value) {
+      setState(() {
+        current_locale = value;
       });
-    }
+    });
   }
 
   Future<void> _launchPlayStore() async {

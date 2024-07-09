@@ -21,7 +21,7 @@ mixin AppLocale {
       'you_did_not_accept_small_text';
   static const String currently_out_of_use_small_text =
       'currently_out_of_use_small_text';
-
+  static const String please_accept_big_text = 'please_accept_big_text';
   //Privacy Policy
   static const String privacy_policy_text = 'privacy_policy_text';
   static const String agree_text = 'agree_text';
@@ -419,7 +419,7 @@ mixin AppLocale {
     you_did_not_accept_small_text:
         'You did not accept the Privacy Policy & Terms of use,press the Text at the bottom of the screen to accept',
     currently_out_of_use_small_text: 'Currently out of Use',
-
+    please_accept_big_text: 'If its your first time \nplease Accept the Terms',
     //Privacy Policy
     privacy_policy_text: 'Privacy Policy',
     agree_text: 'Accept',
@@ -633,6 +633,8 @@ mixin AppLocale {
         'Δεν αποδεχθήκατε τους Όρους Απορρήτου και Χρήσης, πατήστε το κείμενο στο κάτω μέρος της οθόνης για να αποδεχθείτε',
     currently_out_of_use_small_text:
         'Προς το παρόν η συγκεκριμένη λειτουγεία είναι εκτός',
+    please_accept_big_text:
+        'Αν είναι η πρώτη φορά σας \nπαρακαλώ αποδεχθείτε τους όρους',
 
     //Privacy_Policy
     privacy_policy_text: 'Πολιτική απορρήτου',
@@ -850,6 +852,8 @@ mixin AppLocale {
         'No aceptaste la Política de Privacidad y los Términos de Uso, presiona el texto en la parte inferior de la pantalla para aceptar',
     currently_out_of_use_small_text:
         'Actualmente esta letanía en particular está fuera de uso',
+    please_accept_big_text:
+        'Si es la primera vez \npor favor acepte los términos',
 
     //Política_de_privacidad
     privacy_policy_text: 'Política de privacidad',
@@ -1063,6 +1067,8 @@ mixin AppLocale {
         'Você não aceitou a Política de Privacidade e os Termos de Uso, pressione o texto na parte inferior da tela para aceitar',
     currently_out_of_use_small_text:
         'Atualmente, esta ladainha em particular está fora de uso',
+    please_accept_big_text:
+        'Se é a sua primeira vez \npor favor aceite os termos',
 
     //Política de privacidade
     privacy_policy_text: 'Política de privacidade',
@@ -1275,6 +1281,8 @@ mixin AppLocale {
     you_did_not_accept_small_text:
         'Vous n`avez pas accepté la Politique de confidentialité et les Conditions d`utilisation, appuyez sur le texte en bas de l`écran pour accepter',
     currently_out_of_use_small_text: ' Actuellement hors service ',
+    please_accept_big_text:
+        'Si c`est votre première fois \nveuillez accepter les termes',
 
     //Politique de confidentialité
     privacy_policy_text: ' Politique de confidentialité ',
@@ -1489,7 +1497,8 @@ mixin AppLocale {
     you_did_not_accept_small_text:
         'Sie haben die Datenschutzrichtlinien und Nutzungsbedingungen nicht akzeptiert, tippen Sie auf den Text unten auf dem Bildschirm, um zu akzeptieren',
     currently_out_of_use_small_text: 'Derzeit nicht verfügbar',
-
+    please_accept_big_text:
+        'Wenn es das erste Mal ist \nbitte akzeptieren Sie die Bedingungen',
     //Datenschutzrichtlinie
     privacy_policy_text: 'Datenschutzrichtlinie',
     agree_text: 'Akzeptieren',
@@ -1699,6 +1708,8 @@ mixin AppLocale {
     you_did_not_accept_small_text:
         'Вы не приняли Политику конфиденциальности и Условия использования, нажмите текст внизу экрана, чтобы принять',
     currently_out_of_use_small_text: 'В настоящее время не используется',
+    please_accept_big_text:
+        'Если это ваш первый раз \nпожалуйста, примите условия',
 
     //Политика конфиденциальности
     privacy_policy_text: 'Политика конфиденциальности',
@@ -1909,6 +1920,7 @@ mixin AppLocale {
         'プライバシーポリシーおよび利用規約に同意していないため、画面下部のテキストをタップして同意してください',
 
     currently_out_of_use_small_text: '現在使用中です',
+    please_accept_big_text: '初めての場合は\n利用規約に同意してください',
 
     //プライバシーポリシー
     privacy_policy_text: 'プライバシーポリシー',
@@ -2106,6 +2118,7 @@ mixin AppLocale {
     terms_textbutton: '使用条款 ',
     you_did_not_accept_small_text: '您未接受隐私政策和使用条款，请按屏幕底部的文本接受',
     currently_out_of_use_small_text: '当前停止使用',
+    please_accept_big_text: '如果这是您第一次 \n请接受条款',
 
     //隐私政策
     privacy_policy_text: '隐私政策',

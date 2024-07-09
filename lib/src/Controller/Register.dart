@@ -44,6 +44,26 @@ bool validate_Fields(
       repeatPasswordController.isNotEmpty &&
       carInfoController.isNotEmpty) {
     return true;
+  } else if (emailController.isEmpty &&
+      usernameController.isEmpty &&
+      passwordController.isEmpty &&
+      repeatPasswordController.isEmpty &&
+      carInfoController.isEmpty) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Report_Modal(
+          context: context,
+          labelTexts: AppLocale.getString(
+            context,
+            AppLocale.some_fields,
+            languageCode: current_locale,
+          ),
+          its_error: true,
+        );
+      },
+    );
+    return false;
   } else if (!isValidEmail(emailController)) {
     showDialog(
       context: context,
@@ -140,6 +160,20 @@ bool validate_Fields(
     );
     return false;
   } else {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Report_Modal(
+          context: context,
+          labelTexts: AppLocale.getString(
+            context,
+            AppLocale.some_fields,
+            languageCode: current_locale,
+          ),
+          its_error: true,
+        );
+      },
+    );
     return false;
   }
   return false;

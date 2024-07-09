@@ -1,4 +1,5 @@
 // ignore_for_file: camel_case_types
+import 'dart:async';
 import 'package:flutter/material.dart';
 //Languages
 import 'package:ghostlypark/Languages.dart';
@@ -39,6 +40,8 @@ class Police_Ghost_AwareState extends State<Police_Ghost_Aware>
   List<String>? helpMessages;
   //Languages
   String? current_locale;
+  //Cloud Timer
+  Timer? autochange_timer;
 
   @override
   void initState() {
@@ -50,6 +53,7 @@ class Police_Ghost_AwareState extends State<Police_Ghost_Aware>
       setState(() {
         current_locale = value;
         helpMessages = ghostMessages[current_locale ?? 'en'] ?? [];
+        start_AutoChange_Timer();
       });
     });
   }
@@ -57,7 +61,25 @@ class Police_Ghost_AwareState extends State<Police_Ghost_Aware>
   @override
   void dispose() {
     controller.dispose;
+    autochange_timer?.cancel();
     super.dispose();
+  }
+
+  void start_AutoChange_Timer() {
+    autochange_timer = Timer.periodic(Duration(seconds: 4), (timer) {
+      setState(() {
+        if (helpMessages != null && helpMessages!.isNotEmpty) {
+          currentIndex = (currentIndex + 1) % helpMessages!.length;
+          if (currentIndex == 0) {
+            showGhost = false;
+            showCloud = false;
+            controller.stop();
+            controller.dispose();
+            autochange_timer?.cancel();
+          }
+        }
+      });
+    });
   }
 
   @override

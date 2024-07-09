@@ -1,9 +1,8 @@
 //Check for valud Email,Username,Password and Car Model
 bool isValidEmail(String email) {
-  //final RegExp emailPattern =
-  //RegExp(r'^[a-zA-Z0-9.!#$%&\*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,5}$');
-  //return emailPattern.hasMatch(email);
-  return true;
+  final RegExp emailPattern = RegExp(
+      r'^[a-zA-Z0-9.!#$%&\*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,5}$');
+  return emailPattern.hasMatch(email);
 }
 
 bool isValidUsername(String username) {

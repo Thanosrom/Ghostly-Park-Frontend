@@ -381,7 +381,7 @@ Future<Map<String, dynamic>> onPressed_FindLocation(
 }
 
 //About Parked - Unparked user locations
-Future<void> onPressed_UnParked(MapController mapController,
+Future<bool> onPressed_UnParked(MapController mapController,
     List<Marker> markers, BuildContext context) async {
   initializeSettings(context);
   final status = await Permission.location.request();
@@ -394,7 +394,7 @@ Future<void> onPressed_UnParked(MapController mapController,
     //Position Stream
     LocationSettings locationSettings = const LocationSettings(
       accuracy: LocationAccuracy.best,
-      timeLimit: Duration(minutes: 1),
+      timeLimit: Duration(seconds: 10),
       //distanceFilter: 0,
     );
     List<Position> positionList = [];
@@ -418,7 +418,7 @@ Future<void> onPressed_UnParked(MapController mapController,
       }
     });
 
-    Future.delayed(Duration(minutes: 1), () {
+    Future.delayed(Duration(seconds: 10), () {
       if (!highSpeedCompleter.isCompleted) {
         highSpeedCompleter.complete(false);
         positionStreamSubscription?.cancel();
@@ -462,6 +462,7 @@ Future<void> onPressed_UnParked(MapController mapController,
           ),
         );
       }
+      return true;
     } else {
       showDialog(
         context: context,
@@ -492,6 +493,7 @@ Future<void> onPressed_UnParked(MapController mapController,
       },
     );
   }
+  return false;
 }
 
 Future<void> onPressed_Parked(BuildContext context) async {
