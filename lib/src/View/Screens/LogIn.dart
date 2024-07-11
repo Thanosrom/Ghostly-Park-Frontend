@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, sort_child_properties_last
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 //Languages
 import 'package:ghostlypark/Languages.dart';
@@ -27,6 +26,8 @@ import 'package:ghostlypark/src/View/Theme/Layout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 
+//Screens
+//import 'package:ghostlypark/src/View/Screens/Google.dart';
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
 
@@ -422,7 +423,12 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                                             its_error: true);
                                       },
                                     ),
-                                    //signInWith_Google(context)
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) => Google_Auth(),
+                                    //   ),
+                                    // )
                                   },
                                   child: Container(
                                     width: screenWidth <= 414
