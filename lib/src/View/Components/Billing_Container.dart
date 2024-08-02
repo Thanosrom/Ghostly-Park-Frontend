@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 //Languages
 import 'package:ghostlypark/Languages.dart';
@@ -7,9 +9,8 @@ import 'package:ghostlypark/src/Controller/Utils/load_save_language.dart';
 import 'package:ghostlypark/src/View/Components/Height_Spacer.dart';
 import 'package:ghostlypark/src/View/Components/Small_Texts.dart';
 import 'package:ghostlypark/src/View/Components/Modals/Report_Modal.dart';
-
 //Libs
-//import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 
 class Billing_Container extends StatefulWidget {
   final String what_is_about;
@@ -38,6 +39,7 @@ class _Billing_Container_State extends State<Billing_Container> {
   @override
   void initState() {
     super.initState();
+    initializePurchases();
     load_Selected_Language().then((value) {
       setState(() {
         current_locale = value;
@@ -48,6 +50,80 @@ class _Billing_Container_State extends State<Billing_Container> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  Future<void> initializePurchases() async {
+    await Purchases.setLogLevel(LogLevel.debug);
+    PurchasesConfiguration? configuration;
+
+    if (Platform.isAndroid) {
+      configuration =
+          PurchasesConfiguration("goog_gfhcJJpsiAmsjeepIZKgHKqfZWx");
+    } else {
+      //configuration =
+      // PurchasesConfiguration("goog_gfhcJJpsiAmsjeepIZKgHKqfZWx");
+    }
+
+    if (configuration != null) {
+      await Purchases.configure(configuration);
+      //fetchProducts();
+      purchaseProduct();
+      print('configure');
+    } else {
+      print("No configure");
+    }
+  }
+
+  Future<void> fetchProducts() async {
+    try {
+      Offerings offerings = await Purchases.getOfferings();
+      if (offerings.current != null &&
+          offerings.current!.availablePackages.isNotEmpty) {
+        print('Offerings retrieved successfully');
+        print(offerings);
+        //purchaseProduct();
+      } else {
+        print(
+            'No offerings available. Ensure products are configured in the RevenueCat dashboard.');
+      }
+    } catch (e) {
+      print('PurchasesError: ${e}');
+    }
+  }
+
+  Future<void> purchaseProduct() async {
+    try {
+      // Fetch offerings
+      Offerings offerings = await Purchases.getOfferings();
+
+      // Select the specific offering and package
+      Offering? coinsOffering = offerings.all["Coins"];
+      if (coinsOffering != null) {
+        Package? package = coinsOffering.availablePackages.firstWhere(
+          (pkg) => pkg.identifier == "\$rc_lifetime",
+        );
+
+        if (package != null) {
+          try {
+            // Purchase the selected package
+            CustomerInfo customerInfo =
+                await Purchases.purchasePackage(package);
+            if (customerInfo.entitlements.all["Free"]?.isActive ?? false) {
+              // Unlock that great "pro" content
+              print("Purchased Coins package!");
+            }
+          } catch (e) {
+            print("Error during purchase: $e");
+          }
+        } else {
+          print("Package not found.");
+        }
+      } else {
+        print("Coins offering not found.");
+      }
+    } catch (e) {
+      print("Error fetching offerings: $e");
+    }
   }
 
   @override

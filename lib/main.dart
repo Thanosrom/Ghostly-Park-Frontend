@@ -239,10 +239,10 @@ class _MyAppState extends State<MyApp> {
           //---------------------------------------------------------------------//
           bool update_required = conditions.isNotEmpty ? conditions[3] : false;
           //---------------------------------------------------------------------//
-          // print('Permissions : ${permissions_granted}');
-          // print('Server Status : ${server_status}');
-          // print('Maintenance : ${server_under_maintenance}');
-          // print('Update : ${update_required}');
+          print('Permissions : ${permissions_granted}');
+          print('Server Status : ${server_status}');
+          print('Maintenance : ${server_under_maintenance}');
+          print('Update : ${update_required}');
           //---------------------------------------------------------------------//
 
           if (!permissions_granted || !server_status) {

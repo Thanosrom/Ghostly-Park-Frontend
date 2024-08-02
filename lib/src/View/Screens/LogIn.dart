@@ -25,9 +25,15 @@ import 'package:ghostlypark/src/View/Theme/Layout.dart';
 //Libs
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localization/flutter_localization.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-//Screens
-//import 'package:ghostlypark/src/View/Screens/Google.dart';
+//Google Config
+GoogleSignIn _googleSignIn = GoogleSignIn(
+  scopes: scopes,
+);
+const List<String> scopes = <String>['openid', 'profile'];
+
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
 
@@ -51,10 +57,12 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
   // First time Policy
   bool is_first_time_policy = false;
   bool is_visible = true;
-//Animation for Privacy
+  //Animation for Privacy
   bool visible = true;
   Timer? timer;
   int loopCount = 0;
+  //Google Config Variables
+  bool _isAuthorized = false;
 
   @override
   void initState() {
@@ -82,14 +90,88 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
     });
     //Arrow Animation Loop
     startLoop();
+    //_attemptSignInSilently();
   }
+
+  void _attemptSignInSilently() async {
+    print("Silently");
+    try {
+      GoogleSignInAccount? account = await _googleSignIn.signInSilently();
+      print(account);
+      if (account == null) {
+        print("No account found, attempting regular sign-in...");
+        await _handleSignIn();
+      } else {
+        final googleSignInAuthentication = await account.authentication;
+        print(googleSignInAuthentication.idToken);
+        bool token_verified =
+            await send_Auth(googleSignInAuthentication.idToken);
+        if (token_verified) {
+          google_Login(account.email, context, token_verified);
+        } else {
+          print("Not a Verified Email");
+        }
+      }
+    } catch (error) {
+      print("Silent sign-in failed: $error");
+    }
+  }
+
+  //Auth Scopes
+  Future<void> _handleAuthorizeScopes() async {
+    print("Scopes");
+    final bool isAuthorized = await _googleSignIn.requestScopes(scopes);
+    print(isAuthorized);
+    setState(() {
+      _isAuthorized = isAuthorized;
+    });
+  }
+
+  //Handle Sign In - Sign Out
+  Future<void> _handleSignIn() async {
+    try {
+      print("Sign in");
+      GoogleSignInAccount? account = await _googleSignIn.signIn();
+      if (account == null) {
+        return null;
+      }
+      final googleSignInAuthentication = await account.authentication;
+      print(googleSignInAuthentication.idToken);
+      bool token_verified = await send_Auth(googleSignInAuthentication.idToken);
+      if (token_verified) {
+        google_Login(account.email, context, token_verified);
+      } else {
+        print("Not a Verified Email");
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  Future<void> handleSignOut() async {
+    print("Sign Out");
+    try {
+      await _googleSignIn.signOut();
+      await _googleSignIn.disconnect();
+      // setState(() {
+      //   _currentUser = null;
+      //   _userJson = null;
+      // });
+    } catch (e) {
+      print(e);
+    }
+  }
+  //Apple configuration
 
   //Privacy Policy button handle
   Future<void> load_Privacy_Policy_Acceptance() async {
     final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      accepted_Privacy_Policy = prefs.getBool('acceptedPrivacyPolicy') ?? false;
-    });
+    if (mounted) {
+      setState(() {
+        accepted_Privacy_Policy =
+            prefs.getBool('acceptedPrivacyPolicy') ?? false;
+      });
+    }
   }
 
   Future<void> save_Privacy_Policy_Acceptance(bool accepted) async {
@@ -99,10 +181,12 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
 
   //Language
   void setLocale(String? value) {
-    setState(() {
-      current_locale = value;
-      save_Selected_Language(value!);
-    });
+    if (mounted) {
+      setState(() {
+        current_locale = value;
+        save_Selected_Language(value!);
+      });
+    }
   }
 
   //Check First Time Policy
@@ -133,9 +217,11 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
   }
 
   void toggleVisibility() {
-    setState(() {
-      visible = !visible;
-    });
+    if (mounted) {
+      setState(() {
+        visible = !visible;
+      });
+    }
   }
 
   @override
@@ -146,12 +232,15 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
     emailController.dispose();
     passwordController.dispose();
     timer?.cancel();
+    _googleSignIn.onCurrentUserChanged.drain();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    //Google Config User
+    //final GoogleSignInAccount? user = _currentUser;
     return Scaffold(
       body: Stack(
         children: [
@@ -164,7 +253,11 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Height_Spacer(),
+                    // ElevatedButton(
+                    //   onPressed: _handleSignOut,
+                    //   child: Text('Logout'),
+                    // ),
+                    // Height_Spacer(),
                     Align(
                       alignment: Alignment.topRight,
                       child: Padding(
@@ -408,132 +501,87 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                ElevatedButton(
-                                  onPressed: () => {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return Report_Modal(
-                                            context: context,
-                                            labelTexts: AppLocale.getString(
-                                                context,
-                                                AppLocale
-                                                    .currently_out_of_use_small_text,
-                                                languageCode: current_locale),
-                                            its_error: true);
-                                      },
+                                // Define a fixed size for the buttons
+                                SizedBox(
+                                  width: screenWidth <= 414
+                                      ? screenWidth * 0.2
+                                      : screenWidth <= 810
+                                          ? screenWidth * 0.2
+                                          : screenWidth * 0.2,
+                                  height: screenWidth <= 414
+                                      ? screenWidth * 0.12
+                                      : screenWidth <= 810
+                                          ? screenWidth * 0.08
+                                          : screenWidth * 0.08,
+                                  child: ElevatedButton(
+                                    onPressed: () => {
+                                      // Your existing Google Sign-In handling code
+                                      _handleSignIn(),
+                                    },
+                                    child: Image.asset(
+                                      'assets/google_logo.png',
+                                      fit: BoxFit.contain,
                                     ),
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) => Google_Auth(),
-                                    //   ),
-                                    // )
-                                  },
-                                  child: Container(
-                                    width: screenWidth <= 414
-                                        ? screenWidth * 0.06
-                                        : screenWidth <= 810
-                                            ? screenWidth * 0.2
-                                            : screenWidth * 0.06,
-                                    height: screenWidth <= 414
-                                        ? screenWidth * 0.12
-                                        : screenWidth <= 810
-                                            ? screenWidth * 0.08
-                                            : screenWidth * 0.08,
-                                    child: Column(
-                                      children: [
-                                        Image.asset(
-                                          'assets/google_logo.png',
-                                          fit: BoxFit.contain,
-                                          width: screenWidth <= 414
-                                              ? screenWidth * 0.06
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          screenWidth <= 414
+                                              ? screenWidth * 0.01
                                               : screenWidth <= 810
-                                                  ? screenWidth * 0.2
-                                                  : screenWidth * 0.06,
-                                          height: screenWidth <= 414
-                                              ? screenWidth * 0.12
-                                              : screenWidth <= 810
-                                                  ? screenWidth * 0.08
-                                                  : screenWidth * 0.08,
+                                                  ? screenWidth * 0.01
+                                                  : screenWidth * 0.01,
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                        screenWidth <= 414
-                                            ? screenWidth * 0.01
-                                            : screenWidth <= 810
-                                                ? screenWidth * 0.01
-                                                : screenWidth * 0.01,
                                       ),
                                     ),
                                   ),
                                 ),
                                 SizedBox(
-                                  width: screenWidth <= 414
-                                      ? screenWidth * 0.01
-                                      : screenWidth <= 810
-                                          ? screenWidth * 0.01
-                                          : screenWidth * 0.01,
+                                  width: screenWidth * 0.01,
                                 ),
-                                ElevatedButton(
-                                  onPressed: () => {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return Report_Modal(
-                                            context: context,
-                                            labelTexts: AppLocale.getString(
-                                                context,
-                                                AppLocale
-                                                    .currently_out_of_use_small_text,
-                                                languageCode: current_locale),
-                                            its_error: true);
-                                      },
-                                    ),
-                                    //signInWith_Apple(context)
-                                  },
-                                  child: Container(
-                                    width: screenWidth <= 414
-                                        ? screenWidth * 0.06
-                                        : screenWidth <= 810
-                                            ? screenWidth * 0.2
-                                            : screenWidth * 0.06,
-                                    height: screenWidth <= 414
-                                        ? screenWidth * 0.12
-                                        : screenWidth <= 810
-                                            ? screenWidth * 0.08
-                                            : screenWidth * 0.08,
-                                    child: Column(
-                                      children: [
-                                        Image.asset(
-                                          'assets/apple_logo.png',
-                                          fit: BoxFit.contain,
-                                          width: screenWidth <= 414
-                                              ? screenWidth * 0.06
-                                              : screenWidth <= 810
-                                                  ? screenWidth * 0.2
-                                                  : screenWidth * 0.06,
-                                          height: screenWidth <= 414
-                                              ? screenWidth * 0.12
-                                              : screenWidth <= 810
-                                                  ? screenWidth * 0.08
-                                                  : screenWidth * 0.08,
+                                SizedBox(
+                                  width: screenWidth <= 414
+                                      ? screenWidth * 0.2
+                                      : screenWidth <= 810
+                                          ? screenWidth * 0.2
+                                          : screenWidth * 0.2,
+                                  height: screenWidth <= 414
+                                      ? screenWidth * 0.12
+                                      : screenWidth <= 810
+                                          ? screenWidth * 0.08
+                                          : screenWidth * 0.08,
+                                  child: ElevatedButton(
+                                    onPressed: () async {
+                                      final credential = await SignInWithApple
+                                          .getAppleIDCredential(
+                                        scopes: [
+                                          AppleIDAuthorizationScopes.email,
+                                          AppleIDAuthorizationScopes.fullName,
+                                        ],
+                                        webAuthenticationOptions:
+                                            WebAuthenticationOptions(
+                                          clientId:
+                                              'com.ghostlypark.ghostlypark',
+                                          redirectUri: Uri.parse(
+                                              'https://ghostlypark.com'),
                                         ),
-                                      ],
+                                        nonce: 'example-nonce',
+                                        state: 'example-state',
+                                      );
+                                      print(credential);
+                                    },
+                                    child: Image.asset(
+                                      'assets/apple_logo.png',
+                                      fit: BoxFit.contain,
                                     ),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                        screenWidth <= 414
-                                            ? screenWidth * 0.01
-                                            : screenWidth <= 810
-                                                ? screenWidth * 0.01
-                                                : screenWidth * 0.01,
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          screenWidth <= 414
+                                              ? screenWidth * 0.01
+                                              : screenWidth <= 810
+                                                  ? screenWidth * 0.01
+                                                  : screenWidth * 0.01,
+                                        ),
                                       ),
                                     ),
                                   ),

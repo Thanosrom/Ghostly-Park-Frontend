@@ -394,7 +394,7 @@ Future<bool> onPressed_UnParked(MapController mapController,
     //Position Stream
     LocationSettings locationSettings = const LocationSettings(
       accuracy: LocationAccuracy.best,
-      timeLimit: Duration(seconds: 10),
+      timeLimit: Duration(minutes: 1),
       //distanceFilter: 0,
     );
     List<Position> positionList = [];
@@ -418,7 +418,7 @@ Future<bool> onPressed_UnParked(MapController mapController,
       }
     });
 
-    Future.delayed(Duration(seconds: 10), () {
+    Future.delayed(Duration(minutes: 1), () {
       if (!highSpeedCompleter.isCompleted) {
         highSpeedCompleter.complete(false);
         positionStreamSubscription?.cancel();

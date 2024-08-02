@@ -516,7 +516,7 @@ mixin AppLocale {
     left_parking_slot_toast: 'Left Parking Slot',
     just_parked_toast: 'Just Parked',
     you_are_currently_on_move_small_text:
-        'You are currently on move so you cant declare that position',
+        'You are currently on move so you cant declare that position or some time passed and you did not moved',
     address_small_text: 'Address : ',
     route_small_text: 'Route',
     no_coins: 'You have no Coins',
@@ -734,7 +734,7 @@ mixin AppLocale {
     left_parking_slot_toast: 'Ελευθερώθηκε η θέση στάθμευσης',
     just_parked_toast: 'Μόλις σταθμεύσατε',
     you_are_currently_on_move_small_text:
-        'Αυτή τη στιγμή βρίσκεστε σε κίνηση, οπότε δεν μπορείτε να δηλώσετε αυτή τη θέση',
+        'Βρίσκεστε σε κίνηση, επομένως δεν μπορείτε να δηλώσετε αυτήν τη θέση ή έχει περάσει κάποιος χρόνος που δεν κινηθήκατε',
     address_small_text: 'Διεύθυνση : ',
     route_small_text: 'Διαδρομή',
     no_coins: 'Δεν έχετε Νομίσματα',
@@ -951,7 +951,7 @@ mixin AppLocale {
     left_parking_slot_toast: 'Plaza de aparcamiento liberada',
     just_parked_toast: 'Acaba de aparcar',
     you_are_currently_on_move_small_text:
-        'Actualmente estás en movimiento, por lo que no puedes declarar esta posición',
+        'Estás en movimiento, así que no puedes declarar esa posición o ha pasado algún tiempo y no te has movido',
     address_small_text: 'Dirección : ',
     route_small_text: 'Ruta',
     no_coins: 'No tienes Monedas',
@@ -1166,7 +1166,7 @@ mixin AppLocale {
     left_parking_slot_toast: 'Espaço de estacionamento libertado',
     just_parked_toast: 'Acabou de estacionar',
     you_are_currently_on_move_small_text:
-        'Está atualmente em movimento, pelo que não pode declarar esta posição',
+        ' Você está em movimento, portanto não pode declarar essa posição ou algum tempo passou e você não se moveu',
     address_small_text: 'Endereço : ',
     route_small_text: 'rota',
     no_coins: 'Você não tem Moedas',
@@ -1381,7 +1381,7 @@ mixin AppLocale {
     left_parking_slot_toast: ' Emplacement de parking à gauche ',
     just_parked_toast: ' Vient d`être garé ',
     you_are_currently_on_move_small_text:
-        'Vous êtes actuellement en déplacement, vous ne pouvez donc pas déclarer cette position',
+        'Vous êtes actuellement en déplacement donc vous ne pouvez pas déclarer cette position ou il s`est écoulé un certain temps et vous n`avez pas bougé',
     address_small_text: ' Adresse : ',
     route_small_text: 'Route',
     no_coins: 'Vous n\'avez pas de Pièces',
@@ -1593,7 +1593,7 @@ mixin AppLocale {
     left_parking_slot_toast: 'Linke Parklücke',
     just_parked_toast: 'Gerade geparkt',
     you_are_currently_on_move_small_text:
-        'Sie sind gerade in Bewegung und können diese Position nicht angeben',
+        ' Sie sind gerade am Zug, daher können Sie diese Position nicht erklären oder es ist einige Zeit vergangen und Sie haben sich nicht bewegt',
     address_small_text: 'Adresse : ',
     route_small_text: 'Route',
     no_coins: 'Du hast keine Münzen',
@@ -1807,7 +1807,7 @@ mixin AppLocale {
     left_parking_slot_toast: 'Левый парковочный слот',
     just_parked_toast: 'Только что припарковался',
     you_are_currently_on_move_small_text:
-        'Вы сейчас находитесь в движении, поэтому не можете объявить эту позицию',
+        'Вы сейчас на ходу, поэтому не можете объявить эту позицию, или прошло некоторое время, и вы не сделали ход',
     address_small_text: 'Адрес : ',
     route_small_text: 'Маршрут',
     no_coins: 'У вас нет Монет',
@@ -2013,7 +2013,8 @@ mixin AppLocale {
     search_location_is_empty_small_text: '検索場所が空です',
     left_parking_slot_toast: '左駐車枠',
     just_parked_toast: '駐車したばかりです',
-    you_are_currently_on_move_small_text: 'あなたは現在移動中なので、その位置を宣言することはできません',
+    you_are_currently_on_move_small_text:
+        '現在あなたの手番ですので、その位置を宣言することはできません、または時間が経過し、動かなかった',
     address_small_text: '住所：',
     route_small_text: 'ルート',
     no_coins: 'コインがありません',
@@ -2210,7 +2211,7 @@ mixin AppLocale {
     search_location_is_empty_small_text: '搜索位置为空',
     left_parking_slot_toast: '左侧停车位',
     just_parked_toast: '刚刚停车',
-    you_are_currently_on_move_small_text: '您目前正在移动中，因此不能声明该位置',
+    you_are_currently_on_move_small_text: '您当前正在移动，因此无法声明该位置，或者经过了一段时间，您没有移动',
     address_small_text: '地址：',
     route_small_text: '路线',
     no_coins: '你没有硬币',

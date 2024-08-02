@@ -25,3 +25,22 @@ Future<http.Response> login_Model(
     return http.Response('Error occurred', 400);
   }
 }
+
+//Google Login
+
+Future<http.Response> google_Login_Model(String emailController) async {
+  try {
+    final response = await http.post(
+      Uri.parse('${dotenv.env['baseUrl']}/google_Login'),
+      body: jsonEncode(
+        {
+          'email': emailController,
+        },
+      ),
+      headers: simple_Headers(),
+    );
+    return response;
+  } catch (error) {
+    return http.Response('Error occurred', 400);
+  }
+}

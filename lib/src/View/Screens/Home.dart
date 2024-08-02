@@ -134,7 +134,7 @@ class _HomeState extends State<Home> {
                                 });
                               }
                               setState(() {
-                                isLoading = false; // Hide circular indicator
+                                isLoading = false;
                               });
                             }
                           },
@@ -346,6 +346,11 @@ class _HomeState extends State<Home> {
                           setState(() {
                             isLoading = true;
                           });
+                          Future.delayed(const Duration(seconds: 2), () {
+                            setState(() {
+                              isLoading = false;
+                            });
+                          });
                           save_Search_Markers_Counter(search_Markers_Counter);
                           final unparked_bool = onPressed_UnParked(
                               mapController, markers, context);
@@ -354,9 +359,6 @@ class _HomeState extends State<Home> {
                               search_Markers_Counter = 0;
                             });
                           }
-                          setState(() {
-                            isLoading = false;
-                          });
                         } else {
                           Toast_Message(
                             context,
