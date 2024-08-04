@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 //Languages
 import 'package:ghostlypark/Languages.dart';
+import 'package:ghostlypark/src/Controller/Utils/load_Save_Delete_UserInfo.dart';
 //Libs
 import 'package:provider/provider.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -63,51 +64,37 @@ Future<void> login(
   }
 
   if (await handle_Button_Click('LogIn')) {
-    if (emailController != null &&
-        passwordController != null &&
-        emailController.isNotEmpty &&
-        passwordController.isNotEmpty) {
-      if (isValidEmail(emailController) &&
-          isValidPassword(passwordController)) {
-        final response = await login_Model(emailController, passwordController);
-        if (response.statusCode == 200) {
-          //Set user profile variables
-          final token = jsonDecode(response.body)['token'].toString();
-          final email = jsonDecode(response.body)['email'].toString();
-          final username = jsonDecode(response.body)['username'].toString();
-          final carInfo = jsonDecode(response.body)['carInfo'].toString();
-          final coins = jsonDecode(response.body)['coins'];
-          final gems = jsonDecode(response.body)['gems'];
+    final response = await login_Model(emailController, passwordController);
 
-          //Save them into Provider
-          Provider.of<UserState>(context, listen: false).setUserId(
-              email: email,
-              username: username,
-              carInfo: carInfo,
-              coins: coins,
-              gems: gems);
+    if (response.statusCode == 200) {
+      save_Credentials(emailController, passwordController);
+      // Set user profile variables
+      final responseData = jsonDecode(response.body);
+      final token = responseData['token'].toString();
+      final email = responseData['email'].toString();
+      final username = responseData['username'].toString();
+      final carInfo = responseData['carInfo'].toString();
+      final coins = responseData['coins'];
+      final gems = responseData['gems'];
 
-          //Save token into shared Preferences
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setString('token', token);
-          //Navigate into Home screen
-          Navigator.pushNamed(context, AppRoutes.home);
-        } else {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return Report_Modal(
-                  context: context,
-                  labelTexts: AppLocale.getString(
-                    context,
-                    AppLocale.email_and_password_are_not_correct,
-                    languageCode: current_locale,
-                  ),
-                  its_error: true);
-            },
-          );
-        }
-      } else if (!isValidEmail(emailController)) {
+      // Save them into Provider
+      Provider.of<UserState>(context, listen: false).setUserId(
+          email: email,
+          username: username,
+          carInfo: carInfo,
+          coins: coins,
+          gems: gems);
+
+      // Save token into shared Preferences
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', token);
+      // Navigate into Home screen
+      Navigator.pushNamed(context, AppRoutes.home);
+    } else if (response.statusCode == 400) {
+      final responseData = jsonDecode(response.body);
+      final error = responseData['errors'][0]['msg'];
+      print(error);
+      if (error == 'Invalid email format') {
         showDialog(
           context: context,
           builder: (context) {
@@ -122,8 +109,9 @@ Future<void> login(
             );
           },
         );
-        return;
-      } else if (!isValidPassword(passwordController)) {
+      } else if (error == 'Password must be between 8 and 25 characters' ||
+          error ==
+              'Password must contain at least 1 lowercase letter, 1 uppercase letter, and 1 number') {
         showDialog(
           context: context,
           builder: (context) {
@@ -138,38 +126,52 @@ Future<void> login(
             );
           },
         );
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return Report_Modal(
+                context: context,
+                labelTexts: AppLocale.getString(
+                  context,
+                  AppLocale.error_big_text_1,
+                  languageCode: current_locale,
+                ),
+                its_error: true);
+          },
+        );
       }
-      return;
-    } else {
+    } else if (response.statusCode == 401) {
       showDialog(
         context: context,
         builder: (context) {
           return Report_Modal(
-              context: context,
-              labelTexts: AppLocale.getString(
-                context,
-                AppLocale.error_big_text_1,
-                languageCode: current_locale,
-              ),
-              its_error: true);
+            context: context,
+            labelTexts: AppLocale.getString(
+              context,
+              AppLocale.email_and_password_are_not_correct,
+              languageCode: current_locale,
+            ),
+            its_error: true,
+          );
         },
       );
-      return;
+    } else {
+      // showDialog(
+      //   context: context,
+      //   builder: (context) {
+      //     return Report_Modal(
+      //       context: context,
+      //       labelTexts: AppLocale.getString(
+      //         context,
+      //         AppLocale.error_big_text_1,
+      //         languageCode: current_locale,
+      //       ),
+      //       its_error: true,
+      //     );
+      //},
+      //);
     }
-  } else {
-    // showDialog(
-    //   context: context,
-    //   builder: (context) {
-    //     return Report_Modal(
-    //         context: context,
-    //         labelTexts: AppLocale.getString(
-    //           context,
-    //           AppLocale.you_are_out_of_tries_small_text,
-    //           languageCode: current_locale,
-    //         ),
-    //         its_error: true);
-    //   },
-    // );
   }
 }
 

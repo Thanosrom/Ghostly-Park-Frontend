@@ -1,24 +1,26 @@
 //Check for valud Email,Username,Password and Car Model
 bool isValidEmail(String email) {
-  final RegExp emailPattern = RegExp(
-      r'^[a-zA-Z0-9.!#$%&\*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,5}$');
+  // final RegExp emailPattern = RegExp(
+  //     r'^[a-zA-Z0-9.!#$%&\*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,5}$');
   return true;
-  return emailPattern.hasMatch(email);
+  //return emailPattern.hasMatch(email);
 }
 
 bool isValidUsername(String username) {
-  final RegExp usernamePattern = RegExp(r'^[A-Za-z][A-Za-z0-9]{2,25}$');
-  return usernamePattern.hasMatch(username);
+  //final RegExp usernamePattern = RegExp(r'^[A-Za-z][A-Za-z0-9]{2,25}$');
+  return true;
+  //return usernamePattern.hasMatch(username);
 }
 
 bool isValidPassword(String password) {
-  final RegExp passwordPattern = RegExp(
-      r'^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?!.*[\\/#$<>%;&|(){}"`[\]]).{8,25}$');
+  //final RegExp passwordPattern = RegExp(
+  //r'^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?!.*[\\/#$<>%;&|(){}"`[\]]).{8,25}$');
   return true;
-  return passwordPattern.hasMatch(password);
+  //return passwordPattern.hasMatch(password);
 }
 
 bool isValidCarModel(String carModel) {
-  final RegExp carModelPattern = RegExp(r'^[A-Za-z0-9\s-]{2,25}$');
-  return carModelPattern.hasMatch(carModel);
+  //final RegExp carModelPattern = RegExp(r'^[A-Za-z0-9\s-]{2,25}$');
+  return true;
+  //return carModelPattern.hasMatch(carModel);
 }

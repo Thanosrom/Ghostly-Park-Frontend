@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:ghostlypark/Languages.dart';
 //Components
 import 'package:ghostlypark/src/View/Components/Big_Buttons.dart';
-import 'package:ghostlypark/src/View/Components/Big_Texts.dart';
 import 'package:ghostlypark/src/View/Components/Height_Spacer.dart';
 import 'package:ghostlypark/src/View/Components/Custom_Card.dart';
-import 'package:ghostlypark/src/View/Components/Modals/Report_Modal.dart';
 import 'package:ghostlypark/src/View/Components/Secondary_Big_Buttons.dart';
 import 'package:ghostlypark/src/View/Components/Custom_TextFields.dart';
 import 'package:ghostlypark/src/View/Components/Small_Texts.dart';
@@ -23,7 +21,6 @@ import 'package:ghostlypark/src/Controller/Utils/load_Save_Language.dart';
 //Theme Data
 import 'package:ghostlypark/src/View/Theme/Layout.dart';
 //Libs
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -48,34 +45,16 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
   //Animations variables
   bool animate = true;
   late AnimationController controller;
-  //Button for Privacy Policy
-  bool accepted_Privacy_Policy = false;
   //Localization
   late FlutterLocalization flutter_localization;
   String? current_locale;
   String selected_language = 'en';
-  // First time Policy
-  bool is_first_time_policy = false;
-  bool is_visible = true;
-  //Animation for Privacy
-  bool visible = true;
-  Timer? timer;
-  int loopCount = 0;
   //Google Config Variables
   bool _isAuthorized = false;
 
   @override
   void initState() {
     super.initState();
-    //Check First Lanuch
-    check_First_Time_Policy();
-    Timer(const Duration(seconds: 10), () {
-      setState(() {
-        is_visible = false;
-      });
-    });
-    //Privacy Load
-    load_Privacy_Policy_Acceptance();
     //Load Credentials
     load_Saved_Credentials(context);
     //Animations
@@ -88,8 +67,6 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
         current_locale = value;
       });
     });
-    //Arrow Animation Loop
-    startLoop();
     //_attemptSignInSilently();
   }
 
@@ -163,75 +140,19 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
   }
   //Apple configuration
 
-  //Privacy Policy button handle
-  Future<void> load_Privacy_Policy_Acceptance() async {
-    final prefs = await SharedPreferences.getInstance();
-    if (mounted) {
-      setState(() {
-        accepted_Privacy_Policy =
-            prefs.getBool('acceptedPrivacyPolicy') ?? false;
-      });
-    }
-  }
-
-  Future<void> save_Privacy_Policy_Acceptance(bool accepted) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('acceptedPrivacyPolicy', accepted);
-  }
-
   //Language
   void setLocale(String? value) {
-    if (mounted) {
-      setState(() {
-        current_locale = value;
-        save_Selected_Language(value!);
-      });
-    }
-  }
-
-  //Check First Time Policy
-  Future<void> check_First_Time_Policy() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    is_first_time_policy = prefs.getBool('isFirstTimePolicy') ?? true;
-    if (is_first_time_policy) {
-      setState(() {
-        is_first_time_policy = true;
-      });
-      await prefs.setBool('isFirstTimePolicy', false);
-    }
-  }
-
-  //Arrow Animation Loop
-  void startLoop() {
-    timer?.cancel();
-    loopCount = 0;
-
-    timer = Timer.periodic(const Duration(milliseconds: 2000), (timer) {
-      toggleVisibility();
-      loopCount++;
-
-      if (loopCount * 500 >= 10000) {
-        timer.cancel();
-      }
+    setState(() {
+      current_locale = value;
+      save_Selected_Language(value!);
     });
-  }
-
-  void toggleVisibility() {
-    if (mounted) {
-      setState(() {
-        visible = !visible;
-      });
-    }
   }
 
   @override
   void dispose() {
-    // emailController.clear();
-    // passwordController.clear();
     controller.dispose();
     emailController.dispose();
     passwordController.dispose();
-    timer?.cancel();
     _googleSignIn.onCurrentUserChanged.drain();
     super.dispose();
   }
@@ -239,8 +160,6 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    //Google Config User
-    //final GoogleSignInAccount? user = _currentUser;
     return Scaffold(
       body: Stack(
         children: [
@@ -253,11 +172,6 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // ElevatedButton(
-                    //   onPressed: _handleSignOut,
-                    //   child: Text('Logout'),
-                    // ),
-                    // Height_Spacer(),
                     Align(
                       alignment: Alignment.topRight,
                       child: Padding(
@@ -437,31 +351,10 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                                   context, AppLocale.login_button,
                                   languageCode: current_locale),
                               onPressed: () {
-                                if (accepted_Privacy_Policy) {
-                                  save_Privacy_Policy_Acceptance(true);
-                                  save_Credentials(emailController.text,
-                                      passwordController.text);
-                                  login(emailController.text,
-                                      passwordController.text, context);
-                                  emailController.clear();
-                                  passwordController.clear();
-                                } else {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return Report_Modal(
-                                        context: context,
-                                        labelTexts: AppLocale.getString(
-                                          context,
-                                          AppLocale
-                                              .you_did_not_accept_small_text,
-                                          languageCode: current_locale,
-                                        ),
-                                        its_error: true,
-                                      );
-                                    },
-                                  );
-                                }
+                                login(emailController.text,
+                                    passwordController.text, context);
+                                emailController.clear();
+                                passwordController.clear();
                               }),
                           Height_Spacer(),
                           Secondary_Big_Button(
@@ -502,6 +395,16 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 // Define a fixed size for the buttons
+                                // ElevatedButton(
+                                //   onPressed: _handleSignOut,
+                                //   child: Text('Logout'),
+                                // ),
+                                // Height_Spacer(),
+                                // ElevatedButton(
+                                //   onPressed: _handleSignOut,
+                                //   child: Text('Logout'),
+                                // ),
+                                // Height_Spacer(),
                                 SizedBox(
                                   width: screenWidth <= 414
                                       ? screenWidth * 0.2
@@ -515,7 +418,6 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                                           : screenWidth * 0.08,
                                   child: ElevatedButton(
                                     onPressed: () => {
-                                      // Your existing Google Sign-In handling code
                                       _handleSignIn(),
                                     },
                                     child: Image.asset(
@@ -592,14 +494,8 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                           Height_Spacer(),
                           TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context,
-                                      AppRoutes.privacy_policy_and_terms)
-                                  .then((value) {
-                                setState(() {
-                                  accepted_Privacy_Policy =
-                                      (value as bool?) ?? false;
-                                });
-                              });
+                              Navigator.pushNamed(
+                                  context, AppRoutes.privacy_policy_and_terms);
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -651,50 +547,6 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
               ),
             ),
           ),
-          Visibility(
-            visible: is_first_time_policy && is_visible,
-            child: Container(
-              color: Colors.black.withOpacity(0.5),
-              child: AnimatedOpacity(
-                opacity: visible ? 1.0 : 0.0,
-                duration: const Duration(milliseconds: 500),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.arrow_drop_up,
-                        size: screenWidth * 0.1,
-                        color: const Color.fromARGB(255, 100, 7, 223),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          right: screenWidth <= 414
-                              ? screenWidth * 0.05
-                              : screenWidth <= 810
-                                  ? screenWidth * 0.05
-                                  : screenWidth * 0.05,
-                          left: screenWidth <= 414
-                              ? screenWidth * 0.05
-                              : screenWidth <= 810
-                                  ? screenWidth * 0.05
-                                  : screenWidth * 0.05,
-                        ),
-                        child: Big_Texts(
-                          medium: true,
-                          bigText: AppLocale.getString(
-                              context, AppLocale.please_accept_big_text,
-                              languageCode: current_locale),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          )
         ],
       ),
     );

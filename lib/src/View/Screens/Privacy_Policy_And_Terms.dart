@@ -48,7 +48,7 @@ class _Privacy_Policy_And_Terms_State extends State<Privacy_Policy_And_Terms> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
+    // double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
@@ -65,70 +65,6 @@ class _Privacy_Policy_And_Terms_State extends State<Privacy_Policy_And_Terms> {
               height: MediaQuery.of(context).size.height,
               child: WebViewWidget(
                 controller: controller,
-              ),
-            ),
-          ),
-          Height_Spacer(),
-          Container(
-            width: screenWidth <= 414
-                ? screenWidth * 0.4
-                : screenWidth <= 810
-                    ? screenWidth * 0.4
-                    : screenWidth * 0.4,
-            height: screenWidth <= 414
-                ? screenWidth * 0.1
-                : screenWidth <= 810
-                    ? screenWidth * 0.07
-                    : screenWidth * 0.07,
-            child: ElevatedButton(
-              onPressed: () => onPressed(true),
-              child: Text(
-                AppLocale.getString(context, AppLocale.agree_text,
-                    languageCode: current_locale),
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: screenWidth <= 414
-                      ? screenWidth * 0.04
-                      : screenWidth <= 810
-                          ? screenWidth * 0.04
-                          : screenWidth * 0.04,
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.none,
-                ),
-              ),
-            ),
-          ),
-          Height_Spacer(),
-          Container(
-            width: screenWidth <= 414
-                ? screenWidth * 0.4
-                : screenWidth <= 810
-                    ? screenWidth * 0.4
-                    : screenWidth * 0.4,
-            height: screenWidth <= 414
-                ? screenWidth * 0.1
-                : screenWidth <= 810
-                    ? screenWidth * 0.07
-                    : screenWidth * 0.07,
-            child: ElevatedButton(
-              onPressed: () => onPressed(false),
-              child: Text(
-                AppLocale.getString(context, AppLocale.decline_text,
-                    languageCode: current_locale),
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: screenWidth <= 414
-                      ? screenWidth * 0.04
-                      : screenWidth <= 810
-                          ? screenWidth * 0.04
-                          : screenWidth * 0.04,
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.none,
-                ),
               ),
             ),
           ),

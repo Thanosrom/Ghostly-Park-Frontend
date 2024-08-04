@@ -1,4 +1,6 @@
 // ignore_for_file: unnecessary_null_comparison, use_build_context_synchronously
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 //Languages
 import 'package:ghostlypark/Languages.dart';
@@ -247,6 +249,8 @@ Future<void> register_Data(
         digitCodeController,
         carInfoController);
 
+    final responseData = jsonDecode(response.body);
+
     if (response.statusCode == 200) {
       Navigator.pushNamed(context, AppRoutes.login);
       showDialog(
@@ -264,36 +268,182 @@ Future<void> register_Data(
         },
       );
     } else {
-      Navigator.pushNamed(context, AppRoutes.login);
-      showDialog(
-        context: context,
-        builder: (context) {
-          return Report_Modal(
+      final errors = responseData['errors'];
+      if (errors != null && errors.isNotEmpty) {
+        final errorMsg = errors[0]['msg'];
+
+        // Handle specific error messages
+        if (errorMsg == 'Username must be between 2 and 25 characters') {
+          showDialog(
             context: context,
-            labelTexts: AppLocale.getString(
-              context,
-              AppLocale.error_big_text_1,
-              languageCode: current_locale,
-            ),
-            its_error: true,
+            builder: (context) {
+              return Report_Modal(
+                context: context,
+                labelTexts: AppLocale.getString(
+                  context,
+                  AppLocale.username_is_false_small_text,
+                  languageCode: current_locale,
+                ),
+                its_error: true,
+              );
+            },
           );
-        },
-      );
-    }
-  } else {
-    Navigator.pushNamed(context, AppRoutes.login);
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Report_Modal(
+        } else if (errorMsg == 'Username must start with a letter') {
+          showDialog(
             context: context,
-            labelTexts: AppLocale.getString(
-              context,
-              AppLocale.digit_code_is_false_small_text,
-              languageCode: current_locale,
-            ),
-            its_error: true);
-      },
-    );
+            builder: (context) {
+              return Report_Modal(
+                context: context,
+                labelTexts: AppLocale.getString(
+                  context,
+                  AppLocale.username_is_false_small_text,
+                  languageCode: current_locale,
+                ),
+                its_error: true,
+              );
+            },
+          );
+        } else if (errorMsg ==
+            'Username must contain only letters, numbers, - and _') {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return Report_Modal(
+                context: context,
+                labelTexts: AppLocale.getString(
+                  context,
+                  AppLocale.username_is_false_small_text,
+                  languageCode: current_locale,
+                ),
+                its_error: true,
+              );
+            },
+          );
+        } else if (errorMsg == 'Password must be between 8 and 25 characters' ||
+            errorMsg ==
+                'Password must contain at least 1 lowercase letter, 1 uppercase letter, and 1 number') {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return Report_Modal(
+                context: context,
+                labelTexts: AppLocale.getString(
+                  context,
+                  AppLocale.password_is_false_small_text,
+                  languageCode: current_locale,
+                ),
+                its_error: true,
+              );
+            },
+          );
+        } else if (errorMsg == 'Invalid email format') {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return Report_Modal(
+                context: context,
+                labelTexts: AppLocale.getString(
+                  context,
+                  AppLocale.email_is_false_small_text,
+                  languageCode: current_locale,
+                ),
+                its_error: true,
+              );
+            },
+          );
+        } else if (errorMsg == 'Car info must be between 2 and 25 characters') {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return Report_Modal(
+                context: context,
+                labelTexts: AppLocale.getString(
+                  context,
+                  AppLocale.car_model_is_false_small_text,
+                  languageCode: current_locale,
+                ),
+                its_error: true,
+              );
+            },
+          );
+        } else if (errorMsg == 'Car info must start with a letter') {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return Report_Modal(
+                context: context,
+                labelTexts: AppLocale.getString(
+                  context,
+                  AppLocale.car_model_is_false_small_text,
+                  languageCode: current_locale,
+                ),
+                its_error: true,
+              );
+            },
+          );
+        } else if (errorMsg ==
+            'Car info must contain only letters, numbers, - and _') {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return Report_Modal(
+                context: context,
+                labelTexts: AppLocale.getString(
+                  context,
+                  AppLocale.car_model_is_false_small_text,
+                  languageCode: current_locale,
+                ),
+                its_error: true,
+              );
+            },
+          );
+        } else if (errorMsg == 'Invalid digit code') {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return Report_Modal(
+                context: context,
+                labelTexts: AppLocale.getString(
+                  context,
+                  AppLocale.digit_code_is_false_small_text,
+                  languageCode: current_locale,
+                ),
+                its_error: true,
+              );
+            },
+          );
+        } else {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return Report_Modal(
+                context: context,
+                labelTexts: AppLocale.getString(
+                  context,
+                  AppLocale.error_big_text_1,
+                  languageCode: current_locale,
+                ),
+                its_error: true,
+              );
+            },
+          );
+        }
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return Report_Modal(
+              context: context,
+              labelTexts: AppLocale.getString(
+                context,
+                AppLocale.error_big_text_1,
+                languageCode: current_locale,
+              ),
+              its_error: true,
+            );
+          },
+        );
+      }
+    }
   }
 }

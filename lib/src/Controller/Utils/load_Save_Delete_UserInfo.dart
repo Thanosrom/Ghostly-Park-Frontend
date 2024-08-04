@@ -15,6 +15,7 @@ Future<bool> load_Saved_Credentials(BuildContext context) async {
       password != null &&
       username.isNotEmpty &&
       password.isNotEmpty) {
+    print(username + password);
     login(username, password, context);
     return true;
   } else {
