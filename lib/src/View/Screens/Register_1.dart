@@ -143,7 +143,7 @@ class _Register_1_State extends State<Register_1> {
                             languageCode: current_locale),
                         onPressed: () async {
                           if (await handle_Button_Click('Register_1')) {
-                            bool validate = validate_Fields(
+                            bool validate = await validate_Fields(
                                 context,
                                 usernameController.text,
                                 passwordController.text,

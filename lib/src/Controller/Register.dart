@@ -25,14 +25,14 @@ void initializeSettings(BuildContext context) async {
 }
 
 //Function to check if all variables are correct
-bool validate_Fields(
+Future<bool> validate_Fields(
   BuildContext context,
   String usernameController,
   String passwordController,
   String repeatPasswordController,
   String emailController,
   String carInfoController,
-) {
+) async {
   initializeSettings(context);
   if (isValidEmail(emailController) &&
       isValidUsername(usernameController) &&
@@ -45,11 +45,123 @@ bool validate_Fields(
       passwordController.isNotEmpty &&
       repeatPasswordController.isNotEmpty &&
       carInfoController.isNotEmpty) {
-    return true;
-  } else if (emailController.isEmpty &&
-      usernameController.isEmpty &&
-      passwordController.isEmpty &&
-      repeatPasswordController.isEmpty &&
+    // Validate with the server
+    final response = await validators_Model(
+      usernameController,
+      passwordController,
+      repeatPasswordController,
+      emailController,
+      carInfoController,
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      Map<String, dynamic> jsonObject = jsonDecode(response.body);
+      int errorCode = jsonObject['errorCode'];
+      print(response.statusCode);
+      print(errorCode);
+      if (errorCode == 1000) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return Report_Modal(
+              context: context,
+              labelTexts: AppLocale.getString(
+                context,
+                AppLocale.username_is_false_small_text,
+                languageCode: current_locale,
+              ),
+              its_error: true,
+            );
+          },
+        );
+        return false;
+      } else if (errorCode == 1001) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return Report_Modal(
+              context: context,
+              labelTexts: AppLocale.getString(
+                context,
+                AppLocale.password_is_false_small_text,
+                languageCode: current_locale,
+              ),
+              its_error: true,
+            );
+          },
+        );
+        return false;
+      } else if (errorCode == 1002) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return Report_Modal(
+              context: context,
+              labelTexts: AppLocale.getString(
+                context,
+                AppLocale.repeat_password_is_false_small_text,
+                languageCode: current_locale,
+              ),
+              its_error: true,
+            );
+          },
+        );
+        return false;
+      } else if (errorCode == 1003) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return Report_Modal(
+              context: context,
+              labelTexts: AppLocale.getString(
+                context,
+                AppLocale.email_is_false_small_text,
+                languageCode: current_locale,
+              ),
+              its_error: true,
+            );
+          },
+        );
+        return false;
+      } else if (errorCode == 1004) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return Report_Modal(
+              context: context,
+              labelTexts: AppLocale.getString(
+                context,
+                AppLocale.car_model_is_false_small_text,
+                languageCode: current_locale,
+              ),
+              its_error: true,
+            );
+          },
+        );
+        return false;
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return Report_Modal(
+              context: context,
+              labelTexts: AppLocale.getString(
+                context,
+                AppLocale.some_fields,
+                languageCode: current_locale,
+              ),
+              its_error: true,
+            );
+          },
+        );
+        return false;
+      }
+    }
+  } else if (emailController.isEmpty ||
+      usernameController.isEmpty ||
+      passwordController.isEmpty ||
+      repeatPasswordController.isEmpty ||
       carInfoController.isEmpty) {
     showDialog(
       context: context,
@@ -66,38 +178,6 @@ bool validate_Fields(
       },
     );
     return false;
-  } else if (!isValidEmail(emailController)) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Report_Modal(
-          context: context,
-          labelTexts: AppLocale.getString(
-            context,
-            AppLocale.email_is_false_small_text,
-            languageCode: current_locale,
-          ),
-          its_error: true,
-        );
-      },
-    );
-    return false;
-  } else if (!isValidUsername(usernameController)) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Report_Modal(
-          context: context,
-          labelTexts: AppLocale.getString(
-            context,
-            AppLocale.username_is_false_small_text,
-            languageCode: current_locale,
-          ),
-          its_error: true,
-        );
-      },
-    );
-    return false;
   } else if (passwordController != repeatPasswordController) {
     showDialog(
       context: context,
@@ -106,70 +186,7 @@ bool validate_Fields(
           context: context,
           labelTexts: AppLocale.getString(
             context,
-            AppLocale.password_or_repeat_password_small_text,
-            languageCode: current_locale,
-          ),
-          its_error: true,
-        );
-      },
-    );
-  } else if (!isValidPassword(passwordController)) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Report_Modal(
-          context: context,
-          labelTexts: AppLocale.getString(
-            context,
-            AppLocale.password_is_false_small_text,
-            languageCode: current_locale,
-          ),
-          its_error: true,
-        );
-      },
-    );
-    return false;
-  } else if (!isValidPassword(repeatPasswordController)) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Report_Modal(
-          context: context,
-          labelTexts: AppLocale.getString(
-            context,
-            AppLocale.repeat_password_is_false_small_text,
-            languageCode: current_locale,
-          ),
-          its_error: true,
-        );
-      },
-    );
-    return false;
-  } else if (!isValidCarModel(carInfoController)) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Report_Modal(
-          context: context,
-          labelTexts: AppLocale.getString(
-            context,
-            AppLocale.car_model_is_false_small_text,
-            languageCode: current_locale,
-          ),
-          its_error: true,
-        );
-      },
-    );
-    return false;
-  } else {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Report_Modal(
-          context: context,
-          labelTexts: AppLocale.getString(
-            context,
-            AppLocale.some_fields,
+            AppLocale.new_password_and_repeat_password_are_not_match_small_text,
             languageCode: current_locale,
           ),
           its_error: true,
@@ -248,9 +265,6 @@ Future<void> register_Data(
         emailController,
         digitCodeController,
         carInfoController);
-
-    final responseData = jsonDecode(response.body);
-
     if (response.statusCode == 200) {
       Navigator.pushNamed(context, AppRoutes.login);
       showDialog(
@@ -268,182 +282,20 @@ Future<void> register_Data(
         },
       );
     } else {
-      final errors = responseData['errors'];
-      if (errors != null && errors.isNotEmpty) {
-        final errorMsg = errors[0]['msg'];
-
-        // Handle specific error messages
-        if (errorMsg == 'Username must be between 2 and 25 characters') {
-          showDialog(
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Report_Modal(
             context: context,
-            builder: (context) {
-              return Report_Modal(
-                context: context,
-                labelTexts: AppLocale.getString(
-                  context,
-                  AppLocale.username_is_false_small_text,
-                  languageCode: current_locale,
-                ),
-                its_error: true,
-              );
-            },
+            labelTexts: AppLocale.getString(
+              context,
+              AppLocale.error_big_text_1,
+              languageCode: current_locale,
+            ),
+            its_error: true,
           );
-        } else if (errorMsg == 'Username must start with a letter') {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return Report_Modal(
-                context: context,
-                labelTexts: AppLocale.getString(
-                  context,
-                  AppLocale.username_is_false_small_text,
-                  languageCode: current_locale,
-                ),
-                its_error: true,
-              );
-            },
-          );
-        } else if (errorMsg ==
-            'Username must contain only letters, numbers, - and _') {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return Report_Modal(
-                context: context,
-                labelTexts: AppLocale.getString(
-                  context,
-                  AppLocale.username_is_false_small_text,
-                  languageCode: current_locale,
-                ),
-                its_error: true,
-              );
-            },
-          );
-        } else if (errorMsg == 'Password must be between 8 and 25 characters' ||
-            errorMsg ==
-                'Password must contain at least 1 lowercase letter, 1 uppercase letter, and 1 number') {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return Report_Modal(
-                context: context,
-                labelTexts: AppLocale.getString(
-                  context,
-                  AppLocale.password_is_false_small_text,
-                  languageCode: current_locale,
-                ),
-                its_error: true,
-              );
-            },
-          );
-        } else if (errorMsg == 'Invalid email format') {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return Report_Modal(
-                context: context,
-                labelTexts: AppLocale.getString(
-                  context,
-                  AppLocale.email_is_false_small_text,
-                  languageCode: current_locale,
-                ),
-                its_error: true,
-              );
-            },
-          );
-        } else if (errorMsg == 'Car info must be between 2 and 25 characters') {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return Report_Modal(
-                context: context,
-                labelTexts: AppLocale.getString(
-                  context,
-                  AppLocale.car_model_is_false_small_text,
-                  languageCode: current_locale,
-                ),
-                its_error: true,
-              );
-            },
-          );
-        } else if (errorMsg == 'Car info must start with a letter') {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return Report_Modal(
-                context: context,
-                labelTexts: AppLocale.getString(
-                  context,
-                  AppLocale.car_model_is_false_small_text,
-                  languageCode: current_locale,
-                ),
-                its_error: true,
-              );
-            },
-          );
-        } else if (errorMsg ==
-            'Car info must contain only letters, numbers, - and _') {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return Report_Modal(
-                context: context,
-                labelTexts: AppLocale.getString(
-                  context,
-                  AppLocale.car_model_is_false_small_text,
-                  languageCode: current_locale,
-                ),
-                its_error: true,
-              );
-            },
-          );
-        } else if (errorMsg == 'Invalid digit code') {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return Report_Modal(
-                context: context,
-                labelTexts: AppLocale.getString(
-                  context,
-                  AppLocale.digit_code_is_false_small_text,
-                  languageCode: current_locale,
-                ),
-                its_error: true,
-              );
-            },
-          );
-        } else {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return Report_Modal(
-                context: context,
-                labelTexts: AppLocale.getString(
-                  context,
-                  AppLocale.error_big_text_1,
-                  languageCode: current_locale,
-                ),
-                its_error: true,
-              );
-            },
-          );
-        }
-      } else {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-              context: context,
-              labelTexts: AppLocale.getString(
-                context,
-                AppLocale.error_big_text_1,
-                languageCode: current_locale,
-              ),
-              its_error: true,
-            );
-          },
-        );
-      }
+        },
+      );
     }
   }
 }
