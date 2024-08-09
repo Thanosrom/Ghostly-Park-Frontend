@@ -5,6 +5,7 @@ import 'package:ghostlypark/Languages.dart';
 //Controllers
 import 'package:ghostlypark/src/Controller/Register.dart';
 import 'package:ghostlypark/src/Controller/Utils/Handle_Button_Clicks.dart';
+import 'package:ghostlypark/src/Controller/Utils/Validators.dart';
 import 'package:ghostlypark/src/Controller/Utils/load_save_language.dart';
 import 'package:ghostlypark/src/Controller/Utils/Go_Back.dart';
 //Components

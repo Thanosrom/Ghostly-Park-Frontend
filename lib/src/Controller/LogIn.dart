@@ -42,27 +42,6 @@ Future<void> login(
   context,
 ) async {
   initializeSettings(context);
-  if (emailController == null ||
-      passwordController == null ||
-      emailController.isEmpty ||
-      passwordController.isEmpty) {
-    initializeSettings(context);
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Report_Modal(
-            context: context,
-            labelTexts: AppLocale.getString(
-              context,
-              AppLocale.email_or_password_fields_are_empty_small_text,
-              languageCode: current_locale,
-            ),
-            its_error: true);
-      },
-    );
-    return;
-  }
-
   if (await handle_Button_Click('LogIn')) {
     final response = await login_Model(emailController, passwordController);
 
@@ -90,87 +69,20 @@ Future<void> login(
       await prefs.setString('token', token);
       // Navigate into Home screen
       Navigator.pushNamed(context, AppRoutes.home);
-    } else if (response.statusCode == 400) {
-      final responseData = jsonDecode(response.body);
-      final error = responseData['errors'][0]['msg'];
-      print(error);
-      if (error == 'Invalid email format') {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-              context: context,
-              labelTexts: AppLocale.getString(
-                context,
-                AppLocale.email_is_false_small_text,
-                languageCode: current_locale,
-              ),
-              its_error: true,
-            );
-          },
-        );
-      } else if (error == 'Password must be between 8 and 25 characters' ||
-          error ==
-              'Password must contain at least 1 lowercase letter, 1 uppercase letter, and 1 number') {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-              context: context,
-              labelTexts: AppLocale.getString(
-                context,
-                AppLocale.password_is_false_small_text,
-                languageCode: current_locale,
-              ),
-              its_error: true,
-            );
-          },
-        );
-      } else {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-                context: context,
-                labelTexts: AppLocale.getString(
-                  context,
-                  AppLocale.error_big_text_1,
-                  languageCode: current_locale,
-                ),
-                its_error: true);
-          },
-        );
-      }
-    } else if (response.statusCode == 401) {
+    } else {
       showDialog(
         context: context,
         builder: (context) {
           return Report_Modal(
-            context: context,
-            labelTexts: AppLocale.getString(
-              context,
-              AppLocale.email_and_password_are_not_correct,
-              languageCode: current_locale,
-            ),
-            its_error: true,
-          );
+              context: context,
+              labelTexts: AppLocale.getString(
+                context,
+                AppLocale.error_big_text_1,
+                languageCode: current_locale,
+              ),
+              its_error: true);
         },
       );
-    } else {
-      // showDialog(
-      //   context: context,
-      //   builder: (context) {
-      //     return Report_Modal(
-      //       context: context,
-      //       labelTexts: AppLocale.getString(
-      //         context,
-      //         AppLocale.error_big_text_1,
-      //         languageCode: current_locale,
-      //       ),
-      //       its_error: true,
-      //     );
-      //},
-      //);
     }
   }
 }

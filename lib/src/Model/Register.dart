@@ -8,31 +8,6 @@ import 'package:http/http.dart' as http;
 //Headers
 import 'package:ghostlypark/src/Model/Headers.dart';
 
-Future<http.Response> validators_Model(
-  String usernameController,
-  String passwordController,
-  String repeatPasswordController,
-  String emailController,
-  String carInfoController,
-) async {
-  try {
-    final response =
-        await http.post(Uri.parse('${dotenv.env['baseUrl']}/validators'),
-            body: jsonEncode({
-              'username': usernameController,
-              'password': passwordController,
-              'repeatPassword': repeatPasswordController,
-              'email': emailController,
-              'carInfo': carInfoController,
-            }),
-            headers: simple_Headers());
-
-    return response;
-  } catch (error) {
-    return http.Response('Error occurred', 400);
-  }
-}
-
 Future<http.Response> check_If_Email_Exist_Model(
   String emailController,
 ) async {

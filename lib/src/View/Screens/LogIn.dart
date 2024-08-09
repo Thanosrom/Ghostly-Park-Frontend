@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 //Languages
 import 'package:ghostlypark/Languages.dart';
+import 'package:ghostlypark/src/Controller/Utils/Validators.dart';
 //Components
 import 'package:ghostlypark/src/View/Components/Big_Buttons.dart';
 import 'package:ghostlypark/src/View/Components/Height_Spacer.dart';
@@ -350,11 +351,18 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                               buttonText: AppLocale.getString(
                                   context, AppLocale.login_button,
                                   languageCode: current_locale),
-                              onPressed: () {
-                                login(emailController.text,
-                                    passwordController.text, context);
-                                emailController.clear();
-                                passwordController.clear();
+                              onPressed: () async {
+                                bool validate = await validate_Login_Fields(
+                                    context,
+                                    passwordController.text,
+                                    emailController.text);
+
+                                if (validate == true) {
+                                  login(emailController.text,
+                                      passwordController.text, context);
+                                }
+                                // emailController.clear();
+                                // passwordController.clear();
                               }),
                           Height_Spacer(),
                           Secondary_Big_Button(
