@@ -1,10 +1,11 @@
 //Function to check if all variables are correct
 // ignore_for_file: use_build_context_synchronously
-import 'dart:convert';
 import 'package:flutter/material.dart';
+//Languages
 import 'package:ghostlypark/Languages.dart';
+//Controllers
 import 'package:ghostlypark/src/Controller/Utils/load_Save_Language.dart';
-import 'package:ghostlypark/src/Model/Utils/Validators.dart';
+//Components
 import 'package:ghostlypark/src/View/Components/Modals/Report_Modal.dart';
 
 String? current_locale;
@@ -17,145 +18,28 @@ void initializeSettings(BuildContext context) async {
   }
 }
 
-Future<bool> validate_Fields(
+Future<bool> validate_Username(
   BuildContext context,
   String usernameController,
-  String passwordController,
-  String repeatPasswordController,
-  String emailController,
-  String carInfoController,
 ) async {
   initializeSettings(context);
-  if (isValidEmail(emailController) &&
-      isValidUsername(usernameController) &&
-      isValidPassword(passwordController) &&
-      isValidPassword(repeatPasswordController) &&
-      isValidCarModel(carInfoController) &&
-      passwordController == repeatPasswordController &&
-      emailController.isNotEmpty &&
-      usernameController.isNotEmpty &&
-      passwordController.isNotEmpty &&
-      repeatPasswordController.isNotEmpty &&
-      carInfoController.isNotEmpty) {
-    // Validate with the server
-    final response = await validators_Model(
-      usernameController,
-      passwordController,
-      repeatPasswordController,
-      emailController,
-      carInfoController,
+  if (usernameController.isEmpty) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Report_Modal(
+            context: context,
+            labelTexts: AppLocale.getString(
+              context,
+              AppLocale.username_is_empty_small_text,
+              languageCode: current_locale,
+            ),
+            its_error: true,
+            is_changed: false);
+      },
     );
-    print("Status: $response.statusCode");
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-      Map<String, dynamic> jsonObject = jsonDecode(response.body);
-      int errorCode = jsonObject['errorCode'];
-      print(response.statusCode);
-      print(errorCode);
-      if (errorCode == 1000) {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-              context: context,
-              labelTexts: AppLocale.getString(
-                context,
-                AppLocale.username_is_false_small_text,
-                languageCode: current_locale,
-              ),
-              its_error: true,
-            );
-          },
-        );
-        return false;
-      } else if (errorCode == 1001) {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-              context: context,
-              labelTexts: AppLocale.getString(
-                context,
-                AppLocale.password_is_false_small_text,
-                languageCode: current_locale,
-              ),
-              its_error: true,
-            );
-          },
-        );
-        return false;
-      } else if (errorCode == 1002) {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-              context: context,
-              labelTexts: AppLocale.getString(
-                context,
-                AppLocale.repeat_password_is_false_small_text,
-                languageCode: current_locale,
-              ),
-              its_error: true,
-            );
-          },
-        );
-        return false;
-      } else if (errorCode == 1003) {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-              context: context,
-              labelTexts: AppLocale.getString(
-                context,
-                AppLocale.email_is_false_small_text,
-                languageCode: current_locale,
-              ),
-              its_error: true,
-            );
-          },
-        );
-        return false;
-      } else if (errorCode == 1004) {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-              context: context,
-              labelTexts: AppLocale.getString(
-                context,
-                AppLocale.car_model_is_false_small_text,
-                languageCode: current_locale,
-              ),
-              its_error: true,
-            );
-          },
-        );
-        return false;
-      } else {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-              context: context,
-              labelTexts: AppLocale.getString(
-                context,
-                AppLocale.some_fields,
-                languageCode: current_locale,
-              ),
-              its_error: true,
-            );
-          },
-        );
-        return false;
-      }
-    }
-  } else if (emailController.isEmpty ||
-      usernameController.isEmpty ||
-      passwordController.isEmpty ||
-      repeatPasswordController.isEmpty ||
-      carInfoController.isEmpty) {
+    return false;
+  } else if (!isValidUsername(usernameController)) {
     showDialog(
       context: context,
       builder: (context) {
@@ -163,7 +47,118 @@ Future<bool> validate_Fields(
           context: context,
           labelTexts: AppLocale.getString(
             context,
-            AppLocale.some_fields,
+            AppLocale.username_is_false_small_text,
+            languageCode: current_locale,
+          ),
+          its_error: true,
+        );
+      },
+    );
+    return false;
+  }
+
+  return true;
+}
+
+Future<bool> validate_Password(
+  BuildContext context,
+  String passwordController,
+) async {
+  initializeSettings(context);
+  if (passwordController.isEmpty) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Report_Modal(
+            context: context,
+            labelTexts: AppLocale.getString(
+              context,
+              AppLocale.password_fields_are_empty_small_text,
+              languageCode: current_locale,
+            ),
+            its_error: true,
+            is_changed: false);
+      },
+    );
+    return false;
+  } else if (!isValidPassword(passwordController)) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Report_Modal(
+          context: context,
+          labelTexts: AppLocale.getString(
+            context,
+            AppLocale.password_is_false_small_text,
+            languageCode: current_locale,
+          ),
+          its_error: true,
+        );
+      },
+    );
+    return false;
+  }
+
+  return true;
+}
+
+Future<bool> validate_RepeatPassword(
+  BuildContext context,
+  String repeatPasswordController,
+) async {
+  initializeSettings(context);
+  if (repeatPasswordController.isEmpty) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Report_Modal(
+            context: context,
+            labelTexts: AppLocale.getString(
+              context,
+              AppLocale.password_or_repeat_password_small_text,
+              languageCode: current_locale,
+            ),
+            its_error: true,
+            is_changed: false);
+      },
+    );
+    return false;
+  } else if (!isValidPassword(repeatPasswordController)) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Report_Modal(
+          context: context,
+          labelTexts: AppLocale.getString(
+            context,
+            AppLocale.repeat_password_is_false_small_text,
+            languageCode: current_locale,
+          ),
+          its_error: true,
+        );
+      },
+    );
+    return false;
+  }
+
+  return true;
+}
+
+Future<bool> validate_Password_And_RepeatPassword(
+  BuildContext context,
+  String passwordController,
+  String repeatPasswordController,
+) async {
+  initializeSettings(context);
+  if (passwordController.isEmpty && repeatPasswordController.isEmpty) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Report_Modal(
+          context: context,
+          labelTexts: AppLocale.getString(
+            context,
+            AppLocale.password_or_repeat_password_small_text,
             languageCode: current_locale,
           ),
           its_error: true,
@@ -179,7 +174,7 @@ Future<bool> validate_Fields(
           context: context,
           labelTexts: AppLocale.getString(
             context,
-            AppLocale.new_password_and_repeat_password_are_not_match_small_text,
+            AppLocale.password_or_repeat_password_small_text,
             languageCode: current_locale,
           ),
           its_error: true,
@@ -188,82 +183,32 @@ Future<bool> validate_Fields(
     );
     return false;
   }
-  return false;
+
+  return true;
 }
 
-//Login
-Future<bool> validate_Login_Fields(
+Future<bool> validate_CarInfo(
   BuildContext context,
-  String passwordController,
-  String emailController,
+  String carInfoController,
 ) async {
   initializeSettings(context);
-  if (isValidEmail(emailController) &&
-      isValidPassword(passwordController) &&
-      emailController.isNotEmpty &&
-      passwordController.isNotEmpty) {
-    // Validate with the server
-    final response =
-        await validators_Login_Model(passwordController, emailController);
-    print("Status: $response.statusCode");
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-      Map<String, dynamic> jsonObject = jsonDecode(response.body);
-      int errorCode = jsonObject['errorCode'];
-      print(response.statusCode);
-      print(errorCode);
-      if (errorCode == 1003) {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-              context: context,
-              labelTexts: AppLocale.getString(
-                context,
-                AppLocale.email_is_false_small_text,
-                languageCode: current_locale,
-              ),
-              its_error: true,
-            );
-          },
-        );
-        return false;
-      } else if (errorCode == 1001) {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-              context: context,
-              labelTexts: AppLocale.getString(
-                context,
-                AppLocale.password_is_false_small_text,
-                languageCode: current_locale,
-              ),
-              its_error: true,
-            );
-          },
-        );
-        return false;
-      } else {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-              context: context,
-              labelTexts: AppLocale.getString(
-                context,
-                AppLocale.some_fields,
-                languageCode: current_locale,
-              ),
-              its_error: true,
-            );
-          },
-        );
-        return false;
-      }
-    }
-  } else if (emailController.isEmpty || passwordController.isEmpty) {
+  if (carInfoController.isEmpty) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Report_Modal(
+            context: context,
+            labelTexts: AppLocale.getString(
+              context,
+              AppLocale.car_model_is_empty_small_text,
+              languageCode: current_locale,
+            ),
+            its_error: true,
+            is_changed: false);
+      },
+    );
+    return false;
+  } else if (!isValidCarModel(carInfoController)) {
     showDialog(
       context: context,
       builder: (context) {
@@ -271,7 +216,7 @@ Future<bool> validate_Login_Fields(
           context: context,
           labelTexts: AppLocale.getString(
             context,
-            AppLocale.some_fields,
+            AppLocale.car_model_is_false_small_text,
             languageCode: current_locale,
           ),
           its_error: true,
@@ -280,32 +225,88 @@ Future<bool> validate_Login_Fields(
     );
     return false;
   }
-  return false;
+
+  return true;
 }
 
+Future<bool> validate_Email(
+  BuildContext context,
+  String emailController,
+) async {
+  initializeSettings(context);
+  if (emailController.isEmpty) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Report_Modal(
+            context: context,
+            labelTexts: AppLocale.getString(
+              context,
+              AppLocale.email_is_empty_small_text,
+              languageCode: current_locale,
+            ),
+            its_error: true,
+            is_changed: false);
+      },
+    );
+    return false;
+  } else if (!isValidEmail(emailController)) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Report_Modal(
+          context: context,
+          labelTexts: AppLocale.getString(
+            context,
+            AppLocale.email_is_false_small_text,
+            languageCode: current_locale,
+          ),
+          its_error: true,
+        );
+      },
+    );
+    return false;
+  }
+
+  return true;
+}
+
+//========================================================
 //Check for valud Email,Username,Password and Car Model
 bool isValidUsername(String username) {
-  //final RegExp usernamePattern = RegExp(r'^[A-Za-z][A-Za-z0-9]{2,25}$');
-  return true;
-  //return usernamePattern.hasMatch(username);
+  final RegExp usernamePattern = RegExp(r'^\p{L}{2,20}$', unicode: true);
+  return usernamePattern.hasMatch(username);
 }
 
 bool isValidEmail(String email) {
-  // final RegExp emailPattern = RegExp(
-  //     r'^[a-zA-Z0-9.!#$%&\*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,5}$');
-  return true;
-  //return emailPattern.hasMatch(email);
+  // Regular expression for validating internationalized email addresses
+  final RegExp emailPattern = RegExp(
+    r'^[^\s@]+@[^\s@]+\.[^\s@]+$', // Basic structure for email validation
+    unicode: true,
+  );
+
+  return emailPattern.hasMatch(email);
 }
 
 bool isValidPassword(String password) {
-  //final RegExp passwordPattern = RegExp(
-  //r'^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?!.*[\\/#$<>%;&|(){}"`[\]]).{8,25}$');
-  return true;
-  //return passwordPattern.hasMatch(password);
+  // Regular expression to match passwords between 8 and 50 characters long
+  // Allows most Unicode characters while avoiding problematic symbols
+  final RegExp passwordPattern = RegExp(
+    r'^[\p{L}\p{N}\p{P}\p{S}\p{Zs}]{8,50}$',
+    unicode: true,
+  );
+
+  // Ensure the password does not contain potentially problematic characters
+  final RegExp problematicPattern = RegExp(
+    r'[\x00-\x1F\x7F]', // Control characters and DEL
+    unicode: true,
+  );
+
+  return passwordPattern.hasMatch(password) &&
+      !problematicPattern.hasMatch(password);
 }
 
 bool isValidCarModel(String carModel) {
-  //final RegExp carModelPattern = RegExp(r'^[A-Za-z0-9\s-]{2,25}$');
-  return true;
-  //return carModelPattern.hasMatch(carModel);
+  final RegExp carModelPattern = RegExp(r'^\p{L}{2,20}$', unicode: true);
+  return carModelPattern.hasMatch(carModel);
 }

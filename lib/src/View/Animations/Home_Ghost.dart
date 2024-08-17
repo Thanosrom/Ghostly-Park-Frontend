@@ -73,7 +73,7 @@ class Home_GhostState extends State<Home_Ghost> with TickerProviderStateMixin {
             showGhost = false;
             showCloud = false;
             controller.stop();
-            controller.dispose();
+            //controller.dispose();
             autochange_timer?.cancel();
           }
         }

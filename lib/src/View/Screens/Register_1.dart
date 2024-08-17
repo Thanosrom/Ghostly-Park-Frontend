@@ -5,7 +5,6 @@ import 'package:ghostlypark/Languages.dart';
 //Controllers
 import 'package:ghostlypark/src/Controller/Register.dart';
 import 'package:ghostlypark/src/Controller/Utils/Handle_Button_Clicks.dart';
-import 'package:ghostlypark/src/Controller/Utils/Validators.dart';
 import 'package:ghostlypark/src/Controller/Utils/load_save_language.dart';
 import 'package:ghostlypark/src/Controller/Utils/Go_Back.dart';
 //Components
@@ -144,39 +143,39 @@ class _Register_1_State extends State<Register_1> {
                             languageCode: current_locale),
                         onPressed: () async {
                           if (await handle_Button_Click('Register_1')) {
-                            bool validate = await validate_Fields(
+                            if (await send_Digit_Code(
+                                context, emailController.text)) {
+                              Navigator.push(
                                 context,
-                                usernameController.text,
-                                passwordController.text,
-                                repeatPasswordController.text,
-                                emailController.text,
-                                carInfoController.text);
-                            if (validate == true) {
-                              if (await send_Digit_Code(
-                                  context, emailController.text)) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Register_2(
-                                      usernameController:
-                                          usernameController.text,
-                                      passwordController:
-                                          passwordController.text,
-                                      repeatPasswordController:
-                                          repeatPasswordController.text,
-                                      emailController: emailController.text,
-                                      carInfoController: carInfoController.text,
-                                    ),
+                                MaterialPageRoute(
+                                  builder: (context) => Register_2(
+                                    usernameController: usernameController.text,
+                                    passwordController: passwordController.text,
+                                    repeatPasswordController:
+                                        repeatPasswordController.text,
+                                    emailController: emailController.text,
+                                    carInfoController: carInfoController.text,
                                   ),
-                                );
-                              }
-                              // usernameController.clear();
-                              // passwordController.clear();
-                              // repeatPasswordController.clear();
-                              // emailController.clear();
-                              // carInfoController.clear();
+                                ),
+                              );
                             }
                           }
+                          // else {
+                          //   showDialog(
+                          //     context: context,
+                          //     builder: (context) {
+                          //       return Report_Modal(
+                          //         context: context,
+                          //         labelTexts: AppLocale.getString(
+                          //           context,
+                          //           AppLocale.error_big_text_1,
+                          //           languageCode: current_locale,
+                          //         ),
+                          //         its_error: true,
+                          //       );
+                          //     },
+                          //   );
+                          // }
                         },
                       ),
                       Height_Spacer(),

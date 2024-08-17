@@ -108,9 +108,9 @@ class _Recovery_Password_State extends State<Recovery_Password_3> {
                                 'Recovery_Password_3')) {
                               change_Password(context, passwordController.text,
                                   repeatPasswordController.text, widget.email);
-                              // passwordController.clear();
-                              // repeatPasswordController.clear();
                             }
+                            // passwordController.clear();
+                            // repeatPasswordController.clear();
                           }),
                       Height_Spacer(),
                       Secondary_Big_Button(

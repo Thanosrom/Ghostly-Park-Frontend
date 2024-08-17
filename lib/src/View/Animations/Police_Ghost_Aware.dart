@@ -74,7 +74,7 @@ class Police_Ghost_AwareState extends State<Police_Ghost_Aware>
             showGhost = false;
             showCloud = false;
             controller.stop();
-            controller.dispose();
+            //controller.dispose();
             autochange_timer?.cancel();
           }
         }

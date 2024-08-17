@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 //Languages
 import 'package:ghostlypark/Languages.dart';
+import 'package:ghostlypark/src/Controller/Utils/Handle_Button_Clicks.dart';
+//Validators
 import 'package:ghostlypark/src/Controller/Utils/Validators.dart';
 //Components
 import 'package:ghostlypark/src/View/Components/Big_Buttons.dart';
@@ -352,12 +354,7 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                                   context, AppLocale.login_button,
                                   languageCode: current_locale),
                               onPressed: () async {
-                                bool validate = await validate_Login_Fields(
-                                    context,
-                                    passwordController.text,
-                                    emailController.text);
-
-                                if (validate == true) {
+                                if (await handle_Button_Click('LogIn')) {
                                   login(emailController.text,
                                       passwordController.text, context);
                                 }
@@ -425,8 +422,10 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                                           ? screenWidth * 0.08
                                           : screenWidth * 0.08,
                                   child: ElevatedButton(
-                                    onPressed: () => {
-                                      _handleSignIn(),
+                                    onPressed: () async {
+                                      if (await handle_Button_Click('LogIn')) {
+                                        _handleSignIn();
+                                      }
                                     },
                                     child: Image.asset(
                                       'assets/google_logo.png',

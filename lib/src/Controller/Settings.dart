@@ -1,6 +1,8 @@
 // ignore_for_file: unused_local_variable, file_names, use_build_context_synchronously
 import 'dart:async';
 import 'package:flutter/material.dart';
+//Validators
+import 'package:ghostlypark/src/Controller/Utils/Validators.dart';
 //Languages
 import 'package:ghostlypark/Languages.dart';
 //Routes
@@ -8,7 +10,6 @@ import 'package:ghostlypark/src/Controller/Routes/Routes.dart';
 //Controllers
 import 'package:ghostlypark/src/Controller/Utils/Go_Back.dart';
 import 'package:ghostlypark/src/Controller/Utils/Handle_Button_Clicks.dart';
-import 'package:ghostlypark/src/Controller/Utils/Validators.dart';
 import 'package:ghostlypark/src/Controller/Utils/load_Save_Delete_UserInfo.dart';
 import 'package:ghostlypark/src/Controller/Utils/load_Save_Language.dart';
 //Components
@@ -69,43 +70,10 @@ Future<void> change_Username(BuildContext context) async {
 Future<void> send_NewUsername(
     BuildContext context, String usernameController) async {
   initializeSettings(context);
-  if (usernameController.isNotEmpty) {
-    if (isValidUsername(usernameController) == true) {
-      final response = await send_NewUsername_Model(usernameController);
-
-      if (response.statusCode == 200) {
-        Go_Back(context);
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-                context: context,
-                labelTexts: AppLocale.getString(
-                  context,
-                  AppLocale.changed_small_text,
-                  languageCode: current_locale,
-                ),
-                its_error: false,
-                is_changed: true);
-          },
-        );
-      } else {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-              context: context,
-              labelTexts: AppLocale.getString(
-                context,
-                AppLocale.error_big_text_1,
-                languageCode: current_locale,
-              ),
-              its_error: true,
-            );
-          },
-        );
-      }
-    } else {
+  if (await validate_Username(context, usernameController)) {
+    final response = await send_NewUsername_Model(usernameController);
+    if (response.statusCode == 200) {
+      Go_Back(context);
       showDialog(
         context: context,
         builder: (context) {
@@ -113,27 +81,29 @@ Future<void> send_NewUsername(
               context: context,
               labelTexts: AppLocale.getString(
                 context,
-                AppLocale.username_is_false_small_text,
+                AppLocale.changed_small_text,
                 languageCode: current_locale,
               ),
-              its_error: true);
+              its_error: false,
+              is_changed: true);
         },
       );
-    }
-  } else {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Report_Modal(
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Report_Modal(
             context: context,
             labelTexts: AppLocale.getString(
               context,
-              AppLocale.username_is_empty_small_text,
+              AppLocale.error_big_text_1,
               languageCode: current_locale,
             ),
-            its_error: true);
-      },
-    );
+            its_error: true,
+          );
+        },
+      );
+    }
   }
 }
 
@@ -170,6 +140,20 @@ Future<void> change_Password(BuildContext context) async {
           if (await handle_Button_Click('Settings_Password')) {
             send_NewPassword(context, oldPasswordController.text,
                 newPasswordController.text, newRepeatPasswordController.text);
+          } else {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return Report_Modal(
+                    context: context,
+                    labelTexts: AppLocale.getString(
+                      context,
+                      AppLocale.this_is_the_old_password_small_text,
+                      languageCode: current_locale,
+                    ),
+                    its_error: true);
+              },
+            );
           }
         },
       );
@@ -186,110 +170,81 @@ Future<void> send_NewPassword(
     String newPasswordController,
     String newRepeatPasswordController) async {
   initializeSettings(context);
-  if (oldPasswordController.isNotEmpty &&
-      newPasswordController.isNotEmpty &&
-      newRepeatPasswordController.isNotEmpty) {
-    if (isValidPassword(oldPasswordController) == true &&
-        isValidPassword(newPasswordController) == true &&
-        isValidPassword(newRepeatPasswordController)) {
-      if (newPasswordController == newRepeatPasswordController) {
-        final response_old = await check_Old_Password(oldPasswordController);
-        if (response_old.statusCode == 200) {
-          final response = await send_NewPassword_Model(newPasswordController);
-          if (response.statusCode == 200) {
-            delete_Credentials();
-            Navigator.pushNamed(context, AppRoutes.login);
-            showDialog(
+  if (newPasswordController != newRepeatPasswordController) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Report_Modal(
+          context: context,
+          labelTexts: AppLocale.getString(
+            context,
+            AppLocale.new_password_and_repeat_password_are_not_match_small_text,
+            languageCode: current_locale,
+          ),
+          its_error: false,
+          is_changed: true,
+        );
+      },
+    );
+  }
+  if (newPasswordController.isEmpty && newRepeatPasswordController.isEmpty) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Report_Modal(
+          context: context,
+          labelTexts: AppLocale.getString(
+            context,
+            AppLocale.password_fields_are_empty_small_text,
+            languageCode: current_locale,
+          ),
+          its_error: false,
+          is_changed: true,
+        );
+      },
+    );
+  }
+  if (await validate_Password(context, newPasswordController) &&
+      await validate_Password(context, newRepeatPasswordController) &&
+      await validate_Password(context, oldPasswordController)) {
+    final response_old = await check_Old_Password(oldPasswordController);
+    if (response_old.statusCode == 200) {
+      final response = await send_NewPassword_Model(newPasswordController);
+      if (response.statusCode == 200) {
+        delete_Credentials();
+        Navigator.pushNamed(context, AppRoutes.login);
+        showDialog(
+          context: context,
+          builder: (context) {
+            return Report_Modal(
               context: context,
-              builder: (context) {
-                return Report_Modal(
-                  context: context,
-                  labelTexts: AppLocale.getString(
-                    context,
-                    AppLocale.password_changed_small_text,
-                    languageCode: current_locale,
-                  ),
-                  its_error: false,
-                  is_changed: true,
-                );
-              },
+              labelTexts: AppLocale.getString(
+                context,
+                AppLocale.password_changed_small_text,
+                languageCode: current_locale,
+              ),
+              its_error: false,
+              is_changed: true,
             );
-          } else {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return Report_Modal(
-                  context: context,
-                  labelTexts: AppLocale.getString(
-                    context,
-                    AppLocale.error_big_text_1,
-                    languageCode: current_locale,
-                  ),
-                  its_error: true,
-                );
-              },
-            );
-          }
-        } else {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return Report_Modal(
-                  context: context,
-                  labelTexts: AppLocale.getString(
-                    context,
-                    AppLocale.this_is_the_old_password_small_text,
-                    languageCode: current_locale,
-                  ),
-                  its_error: true);
-            },
-          );
-        }
+          },
+        );
       } else {
         showDialog(
           context: context,
           builder: (context) {
             return Report_Modal(
-                context: context,
-                labelTexts: AppLocale.getString(
-                  context,
-                  AppLocale
-                      .new_password_and_repeat_password_are_not_match_small_text,
-                  languageCode: current_locale,
-                ),
-                its_error: true);
-          },
-        );
-      }
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return Report_Modal(
               context: context,
               labelTexts: AppLocale.getString(
                 context,
-                AppLocale.password_is_false_small_text,
+                AppLocale.error_big_text_1,
                 languageCode: current_locale,
               ),
-              its_error: true);
-        },
-      );
+              its_error: true,
+            );
+          },
+        );
+      }
     }
-  } else {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Report_Modal(
-            context: context,
-            labelTexts: AppLocale.getString(
-              context,
-              AppLocale.password_fields_are_empty_small_text,
-              languageCode: current_locale,
-            ),
-            its_error: true);
-      },
-    );
   }
 }
 
@@ -321,41 +276,24 @@ Future<void> change_CarInfo(BuildContext context) async {
 Future<void> send_NewCarInfo(
     BuildContext context, String carInfoController) async {
   initializeSettings(context);
-  if (carInfoController.isNotEmpty) {
-    if (isValidCarModel(carInfoController) == true) {
-      final response = await send_NewCarInfo_Model(carInfoController);
-      if (response.statusCode == 200) {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-              context: context,
-              labelTexts: AppLocale.getString(
-                context,
-                AppLocale.changed_small_text,
-                languageCode: current_locale,
-              ),
-              its_error: false,
-              is_changed: true,
-            );
-          },
-        );
-      } else {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-              context: context,
-              labelTexts: AppLocale.getString(
-                context,
-                AppLocale.error_big_text_1,
-                languageCode: current_locale,
-              ),
-              its_error: true,
-            );
-          },
-        );
-      }
+  if (await validate_Password(context, carInfoController)) {
+    final response = await send_NewCarInfo_Model(carInfoController);
+    if (response.statusCode == 200) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Report_Modal(
+            context: context,
+            labelTexts: AppLocale.getString(
+              context,
+              AppLocale.changed_small_text,
+              languageCode: current_locale,
+            ),
+            its_error: false,
+            is_changed: true,
+          );
+        },
+      );
     } else {
       showDialog(
         context: context,
@@ -364,7 +302,7 @@ Future<void> send_NewCarInfo(
             context: context,
             labelTexts: AppLocale.getString(
               context,
-              AppLocale.car_model_is_false_small_text,
+              AppLocale.error_big_text_1,
               languageCode: current_locale,
             ),
             its_error: true,
@@ -372,20 +310,6 @@ Future<void> send_NewCarInfo(
         },
       );
     }
-  } else {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Report_Modal(
-            context: context,
-            labelTexts: AppLocale.getString(
-              context,
-              AppLocale.car_model_is_empty_small_text,
-              languageCode: current_locale,
-            ),
-            its_error: true);
-      },
-    );
   }
 }
 

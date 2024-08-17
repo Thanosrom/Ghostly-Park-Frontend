@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison, use_build_context_synchronously
 import 'package:flutter/material.dart';
+//Validators
+import 'package:ghostlypark/src/Controller/Utils/Validators.dart';
 //Languages
 import 'package:ghostlypark/Languages.dart';
 //Routes
@@ -27,12 +29,30 @@ Future<bool> send_Digit_Code(
   String emailController,
 ) async {
   initializeSettings(context);
-  final isEmailTrue = await check_If_Email_Exist_Model(emailController);
-  if (isEmailTrue.statusCode == 200) {
-    final response =
-        await send_Digit_Code_Model(emailController, current_locale);
-    if (response.statusCode == 200) {
-      return true;
+  if (await validate_Email(context, emailController)) {
+    final isEmailTrue = await check_If_Email_Exist_Model(emailController);
+    if (isEmailTrue.statusCode == 200) {
+      final response =
+          await send_Digit_Code_Model(emailController, current_locale);
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return Report_Modal(
+              context: context,
+              labelTexts: AppLocale.getString(
+                context,
+                AppLocale.digit_code_is_false_small_text,
+                languageCode: current_locale,
+              ),
+              its_error: true,
+            );
+          },
+        );
+        return false;
+      }
     } else {
       showDialog(
         context: context,
@@ -41,7 +61,7 @@ Future<bool> send_Digit_Code(
             context: context,
             labelTexts: AppLocale.getString(
               context,
-              AppLocale.digit_code_is_false_small_text,
+              AppLocale.email_exist_small_text,
               languageCode: current_locale,
             ),
             its_error: true,
@@ -50,23 +70,8 @@ Future<bool> send_Digit_Code(
       );
       return false;
     }
-  } else {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Report_Modal(
-          context: context,
-          labelTexts: AppLocale.getString(
-            context,
-            AppLocale.email_exist_small_text,
-            languageCode: current_locale,
-          ),
-          its_error: true,
-        );
-      },
-    );
-    return false;
   }
+  return false;
 }
 
 //Register the data if all are correct
@@ -80,45 +85,51 @@ Future<void> register_Data(
   String carInfoController,
 ) async {
   initializeSettings(context);
+
   if (context != null && digitCodeController.isNotEmpty) {
-    final response = await register_Data_Model(
-        context,
-        usernameController,
-        passwordController,
-        emailController,
-        digitCodeController,
-        carInfoController);
-    if (response.statusCode == 200) {
-      Navigator.pushNamed(context, AppRoutes.login);
-      showDialog(
-        context: context,
-        builder: (context) {
-          return Report_Modal(
+    if (await validate_Username(context, usernameController) &&
+        await validate_Password(context, passwordController) &&
+        await validate_Email(context, emailController) &&
+        await validate_CarInfo(context, carInfoController)) {
+      final response = await register_Data_Model(
+          context,
+          usernameController,
+          passwordController,
+          emailController,
+          digitCodeController,
+          carInfoController);
+      if (response.statusCode == 200) {
+        Navigator.pushNamed(context, AppRoutes.login);
+        showDialog(
+          context: context,
+          builder: (context) {
+            return Report_Modal(
+                context: context,
+                labelTexts: AppLocale.getString(
+                  context,
+                  AppLocale.registered_small_text,
+                  languageCode: current_locale,
+                ),
+                its_error: false,
+                is_changed: true);
+          },
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return Report_Modal(
               context: context,
               labelTexts: AppLocale.getString(
                 context,
-                AppLocale.registered_small_text,
+                AppLocale.error_big_text_1,
                 languageCode: current_locale,
               ),
-              its_error: false,
-              is_changed: true);
-        },
-      );
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return Report_Modal(
-            context: context,
-            labelTexts: AppLocale.getString(
-              context,
-              AppLocale.error_big_text_1,
-              languageCode: current_locale,
-            ),
-            its_error: true,
-          );
-        },
-      );
+              its_error: true,
+            );
+          },
+        );
+      }
     }
   }
 }

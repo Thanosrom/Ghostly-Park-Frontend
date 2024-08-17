@@ -93,8 +93,8 @@ class _Recovery_Password_State extends State<Recovery_Password_1> {
                                 'Recovery_Password_1')) {
                               send_Digits_To_Recovery_Email(
                                   context, emailController.text);
-                              //emailController.clear();
                             }
+                            //emailController.clear();
                           }),
                       Height_Spacer(),
                       Secondary_Big_Button(

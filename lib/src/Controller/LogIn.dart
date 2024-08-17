@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 //.env
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+//Validators
+import 'package:ghostlypark/src/Controller/Utils/Validators.dart';
 //Languages
 import 'package:ghostlypark/Languages.dart';
-import 'package:ghostlypark/src/Controller/Utils/load_Save_Delete_UserInfo.dart';
 //Libs
 import 'package:provider/provider.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -17,8 +18,7 @@ import 'package:ghostlypark/src/Model/Providers%20-%20Stores/UserState.dart';
 import 'package:ghostlypark/src/Controller/Routes/Routes.dart';
 //Controllers
 import 'package:ghostlypark/src/Controller/Utils/load_Save_Language.dart';
-import 'package:ghostlypark/src/Controller/Utils/handle_Button_Clicks.dart';
-import 'package:ghostlypark/src/Controller/Utils/Validators.dart';
+import 'package:ghostlypark/src/Controller/Utils/load_Save_Delete_UserInfo.dart';
 //Components
 import 'package:ghostlypark/src/View/Components/Modals/Report_Modal.dart';
 //Models
@@ -42,7 +42,9 @@ Future<void> login(
   context,
 ) async {
   initializeSettings(context);
-  if (await handle_Button_Click('LogIn')) {
+
+  if (await validate_Email(context, emailController) &&
+      await validate_Password(context, passwordController)) {
     final response = await login_Model(emailController, passwordController);
 
     if (response.statusCode == 200) {
@@ -77,7 +79,7 @@ Future<void> login(
               context: context,
               labelTexts: AppLocale.getString(
                 context,
-                AppLocale.error_big_text_1,
+                AppLocale.some_fields,
                 languageCode: current_locale,
               ),
               its_error: true);
@@ -88,115 +90,48 @@ Future<void> login(
 }
 
 //Google Config Functions
-
 //Google Login
 Future<void> google_Login(
     String emailController, context, bool isGoogleSignIn) async {
   initializeSettings(context);
-  if (emailController == null || emailController.isEmpty) {
-    initializeSettings(context);
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Report_Modal(
-            context: context,
-            labelTexts: AppLocale.getString(
-              context,
-              AppLocale.email_or_password_fields_are_empty_small_text,
-              languageCode: current_locale,
-            ),
-            its_error: true);
-      },
-    );
-    return;
-  }
-  if (await handle_Button_Click('LogIn')) {
-    if (emailController != null && emailController.isNotEmpty) {
-      if (isValidEmail(emailController)) {
-        final response = await google_Login_Model(emailController);
-        if (response.statusCode == 200) {
-          //Set user profile variables
-          final token = jsonDecode(response.body)['token'].toString();
-          final email = jsonDecode(response.body)['email'].toString();
-          final username = jsonDecode(response.body)['username'].toString();
-          final carInfo = jsonDecode(response.body)['carInfo'].toString();
-          final coins = jsonDecode(response.body)['coins'];
-          final gems = jsonDecode(response.body)['gems'];
+  if (await validate_Email(context, emailController)) {
+    final response = await google_Login_Model(emailController);
+    if (response.statusCode == 200) {
+      //Set user profile variables
+      final token = jsonDecode(response.body)['token'].toString();
+      final email = jsonDecode(response.body)['email'].toString();
+      final username = jsonDecode(response.body)['username'].toString();
+      final carInfo = jsonDecode(response.body)['carInfo'].toString();
+      final coins = jsonDecode(response.body)['coins'];
+      final gems = jsonDecode(response.body)['gems'];
 
-          //Save them into Provider
-          Provider.of<UserState>(context, listen: false).setUserId(
-              email: email,
-              username: username,
-              carInfo: carInfo,
-              coins: coins,
-              gems: gems);
+      //Save them into Provider
+      Provider.of<UserState>(context, listen: false).setUserId(
+          email: email,
+          username: username,
+          carInfo: carInfo,
+          coins: coins,
+          gems: gems);
 
-          //Save token into shared Preferences
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setString('token', token);
-          //Navigate into Home screen
-          Navigator.pushNamed(context, AppRoutes.home);
-        } else {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return Report_Modal(
-                  context: context,
-                  labelTexts: AppLocale.getString(
-                    context,
-                    AppLocale.email_and_password_are_not_correct,
-                    languageCode: current_locale,
-                  ),
-                  its_error: true);
-            },
-          );
-        }
-      } else if (!isValidEmail(emailController)) {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
+      //Save token into shared Preferences
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', token);
+      //Navigate into Home screen
+      Navigator.pushNamed(context, AppRoutes.home);
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Report_Modal(
               context: context,
               labelTexts: AppLocale.getString(
                 context,
-                AppLocale.email_is_false_small_text,
+                AppLocale.password_is_false_small_text,
                 languageCode: current_locale,
               ),
-              its_error: true,
-            );
-          },
-        );
-        return;
-      } else {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Report_Modal(
-                context: context,
-                labelTexts: AppLocale.getString(
-                  context,
-                  AppLocale.error_big_text_1,
-                  languageCode: current_locale,
-                ),
-                its_error: true);
-          },
-        );
-        return;
-      }
-    } else {
-      // showDialog(
-      //   context: context,
-      //   builder: (context) {
-      //     return Report_Modal(
-      //         context: context,
-      //         labelTexts: AppLocale.getString(
-      //           context,
-      //           AppLocale.you_are_out_of_tries_small_text,
-      //           languageCode: current_locale,
-      //         ),
-      //         its_error: true);
-      //   },
-      // );
+              its_error: true);
+        },
+      );
     }
   }
 }
