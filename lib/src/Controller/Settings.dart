@@ -198,8 +198,7 @@ Future<void> send_NewPassword(
             AppLocale.password_fields_are_empty_small_text,
             languageCode: current_locale,
           ),
-          its_error: false,
-          is_changed: true,
+          its_error: true,
         );
       },
     );
@@ -276,7 +275,7 @@ Future<void> change_CarInfo(BuildContext context) async {
 Future<void> send_NewCarInfo(
     BuildContext context, String carInfoController) async {
   initializeSettings(context);
-  if (await validate_Password(context, carInfoController)) {
+  if (await validate_CarInfo(context, carInfoController)) {
     final response = await send_NewCarInfo_Model(carInfoController);
     if (response.statusCode == 200) {
       showDialog(

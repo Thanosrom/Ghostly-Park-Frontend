@@ -122,7 +122,6 @@ Future<void> change_Password(
           password_controller, repeat_password_controller, email);
       if (response.statusCode == 200) {
         Navigator.pushNamed(context, AppRoutes.login);
-
         showDialog(
           context: context,
           builder: (context) {

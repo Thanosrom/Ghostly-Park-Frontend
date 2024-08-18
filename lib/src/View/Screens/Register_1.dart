@@ -5,6 +5,7 @@ import 'package:ghostlypark/Languages.dart';
 //Controllers
 import 'package:ghostlypark/src/Controller/Register.dart';
 import 'package:ghostlypark/src/Controller/Utils/Handle_Button_Clicks.dart';
+import 'package:ghostlypark/src/Controller/Utils/Validators.dart';
 import 'package:ghostlypark/src/Controller/Utils/load_save_language.dart';
 import 'package:ghostlypark/src/Controller/Utils/Go_Back.dart';
 //Components
@@ -143,6 +144,26 @@ class _Register_1_State extends State<Register_1> {
                             languageCode: current_locale),
                         onPressed: () async {
                           if (await handle_Button_Click('Register_1')) {
+                            if (await validate_Username(
+                                    context, usernameController.text) ==
+                                false) return;
+                            if (await validate_Password_And_RepeatPassword(
+                                    context,
+                                    passwordController.text,
+                                    repeatPasswordController.text) ==
+                                false) return;
+                            if (await validate_Password(
+                                    context, passwordController.text) ==
+                                false) return;
+                            if (await validate_Password(
+                                    context, repeatPasswordController.text) ==
+                                false) return;
+                            if (await validate_Email(
+                                    context, emailController.text) ==
+                                false) return;
+                            if (await validate_CarInfo(
+                                    context, carInfoController.text) ==
+                                false) return;
                             if (await send_Digit_Code(
                                 context, emailController.text)) {
                               Navigator.push(

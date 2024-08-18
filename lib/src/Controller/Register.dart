@@ -1,9 +1,9 @@
 // ignore_for_file: unnecessary_null_comparison, use_build_context_synchronously
 import 'package:flutter/material.dart';
-//Validators
-import 'package:ghostlypark/src/Controller/Utils/Validators.dart';
 //Languages
 import 'package:ghostlypark/Languages.dart';
+//Validators
+import 'package:ghostlypark/src/Controller/Utils/Validators.dart';
 //Routes
 import 'package:ghostlypark/src/Controller/Routes/Routes.dart';
 //Components
