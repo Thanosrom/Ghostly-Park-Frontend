@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 //.env
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-//other libs
+//Libs
 import 'package:http/http.dart' as http;
 //Headers
 import 'package:ghostlypark/src/Model/Headers.dart';

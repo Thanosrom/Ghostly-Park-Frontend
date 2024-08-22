@@ -1,11 +1,12 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 import 'package:flutter/material.dart';
+//Validators
+import 'package:ghostlypark/src/Controller/Utils/Validators.dart';
 //Languages
 import 'package:ghostlypark/Languages.dart';
 //Controllers
 import 'package:ghostlypark/src/Controller/Register.dart';
 import 'package:ghostlypark/src/Controller/Utils/Handle_Button_Clicks.dart';
-import 'package:ghostlypark/src/Controller/Utils/Validators.dart';
 import 'package:ghostlypark/src/Controller/Utils/load_save_language.dart';
 import 'package:ghostlypark/src/Controller/Utils/Go_Back.dart';
 //Components
@@ -17,7 +18,7 @@ import 'package:ghostlypark/src/View/Components/Custom_TextFields.dart';
 import 'package:ghostlypark/src/View/Components/Big_Texts.dart';
 //Screens
 import 'package:ghostlypark/src/View/Screens/Register_2.dart';
-//Theme Data
+//Theme
 import 'package:ghostlypark/src/View/Theme/Layout.dart';
 
 class Register_1 extends StatefulWidget {
