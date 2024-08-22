@@ -152,14 +152,10 @@ Future<bool> send_Auth(String? token) async {
       }),
     );
     if (response.statusCode == 200) {
-      print(response.statusCode);
       return true;
     } else {
-      print(response.statusCode);
       return false;
     }
-  } catch (error) {
-    print(error);
-  }
+  } catch (error) {}
   return false;
 }

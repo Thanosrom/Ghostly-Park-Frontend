@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 //Languages
 import 'package:ghostlypark/Languages.dart';
@@ -8,6 +7,7 @@ import 'package:ghostlypark/src/Controller/Utils/load_save_language.dart';
 //Components
 import 'package:ghostlypark/src/View/Components/Height_Spacer.dart';
 import 'package:ghostlypark/src/View/Components/Small_Texts.dart';
+import 'package:ghostlypark/src/View/Components/Modals/Report_Modal.dart';
 //Libs
 import 'package:purchases_flutter/purchases_flutter.dart';
 
@@ -179,19 +179,21 @@ class _Billing_Container_State extends State<Billing_Container> {
                             : screenWidth * 0.005),
                   ),
                 ),
-                onPressed: () => {
-                  // showDialog(
-                  //   context: context,
-                  //   builder: (context) {
-                  //     return Report_Modal(
-                  //         context: context,
-                  //         labelTexts: AppLocale.getString(context,
-                  //             AppLocale.currently_out_of_use_small_text,
-                  //             languageCode: current_locale),
-                  //         its_error: true);
-                  //   },
-                  // ),
-                  purchaseProduct(),
+                onPressed: () async {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Report_Modal(
+                          context: context,
+                          labelTexts: AppLocale.getString(
+                            context,
+                            AppLocale.currently_out_of_use_small_text,
+                            languageCode: current_locale,
+                          ),
+                          its_error: true);
+                    },
+                  );
+                  // await purchaseProduct();
                 },
                 child: Padding(
                   padding: EdgeInsets.all(screenWidth <= 414

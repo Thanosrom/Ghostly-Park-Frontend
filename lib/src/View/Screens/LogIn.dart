@@ -13,6 +13,7 @@ import 'package:ghostlypark/src/View/Components/Custom_TextFields.dart';
 import 'package:ghostlypark/src/View/Components/Small_Texts.dart';
 import 'package:ghostlypark/src/View/Components/Thin_White_Line.dart';
 import 'package:ghostlypark/src/View/Components/Width_Spacer.dart';
+import 'package:ghostlypark/src/View/Components/Modals/Report_Modal.dart';
 //Routes
 import 'package:ghostlypark/src/Controller/Routes/Routes.dart';
 //Controllers
@@ -24,7 +25,7 @@ import 'package:ghostlypark/src/View/Theme/Layout.dart';
 //Libs
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+//import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 //Google Config
 GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -72,34 +73,24 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
   }
 
   void _attemptSignInSilently() async {
-    print("Silently");
     try {
       GoogleSignInAccount? account = await _googleSignIn.signInSilently();
-      print(account);
       if (account == null) {
-        print("No account found, attempting regular sign-in...");
         await _handleSignIn();
       } else {
         final googleSignInAuthentication = await account.authentication;
-        print(googleSignInAuthentication.idToken);
         bool token_verified =
             await send_Auth(googleSignInAuthentication.idToken);
         if (token_verified) {
           google_Login(account.email, context, token_verified);
-        } else {
-          print("Not a Verified Email");
-        }
+        } else {}
       }
-    } catch (error) {
-      print("Silent sign-in failed: $error");
-    }
+    } catch (error) {}
   }
 
   //Auth Scopes
   Future<void> _handleAuthorizeScopes() async {
-    print("Scopes");
     final bool isAuthorized = await _googleSignIn.requestScopes(scopes);
-    print(isAuthorized);
     setState(() {
       _isAuthorized = isAuthorized;
     });
@@ -108,26 +99,19 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
   //Handle Sign In - Sign Out
   Future<void> _handleSignIn() async {
     try {
-      print("Sign in");
       GoogleSignInAccount? account = await _googleSignIn.signIn();
       if (account == null) {
         return null;
       }
       final googleSignInAuthentication = await account.authentication;
-      print(googleSignInAuthentication.idToken);
       bool token_verified = await send_Auth(googleSignInAuthentication.idToken);
       if (token_verified) {
         google_Login(account.email, context, token_verified);
-      } else {
-        print("Not a Verified Email");
-      }
-    } catch (error) {
-      print(error);
-    }
+      } else {}
+    } catch (error) {}
   }
 
   Future<void> handleSignOut() async {
-    print("Sign Out");
     try {
       await _googleSignIn.signOut();
       await _googleSignIn.disconnect();
@@ -135,9 +119,7 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
       //   _currentUser = null;
       //   _userJson = null;
       // });
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
   //Apple configuration
 
@@ -458,23 +440,36 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                                           : screenWidth * 0.08,
                                   child: ElevatedButton(
                                     onPressed: () async {
-                                      final credential = await SignInWithApple
-                                          .getAppleIDCredential(
-                                        scopes: [
-                                          AppleIDAuthorizationScopes.email,
-                                          AppleIDAuthorizationScopes.fullName,
-                                        ],
-                                        webAuthenticationOptions:
-                                            WebAuthenticationOptions(
-                                          clientId:
-                                              'com.ghostlypark.ghostlypark',
-                                          redirectUri: Uri.parse(
-                                              'https://ghostlypark.com'),
-                                        ),
-                                        nonce: 'example-nonce',
-                                        state: 'example-state',
+                                      // final credential = await SignInWithApple
+                                      //     .getAppleIDCredential(
+                                      //   scopes: [
+                                      //     AppleIDAuthorizationScopes.email,
+                                      //     AppleIDAuthorizationScopes.fullName,
+                                      //   ],
+                                      //   webAuthenticationOptions:
+                                      //       WebAuthenticationOptions(
+                                      //     clientId:
+                                      //         'com.ghostlypark.ghostlypark',
+                                      //     redirectUri: Uri.parse(
+                                      //         'https://ghostlypark.com'),
+                                      //   ),
+                                      //   nonce: 'example-nonce',
+                                      //   state: 'example-state',
+                                      // );
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return Report_Modal(
+                                              context: context,
+                                              labelTexts: AppLocale.getString(
+                                                context,
+                                                AppLocale
+                                                    .currently_out_of_use_small_text,
+                                                languageCode: current_locale,
+                                              ),
+                                              its_error: true);
+                                        },
                                       );
-                                      print(credential);
                                     },
                                     child: Image.asset(
                                       'assets/apple_logo.png',

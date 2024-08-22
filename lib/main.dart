@@ -30,6 +30,7 @@ import 'package:ghostlypark/src/View/Screens/Maintenance.dart';
 import 'package:ghostlypark/src/View/Screens/Error.dart';
 import 'package:ghostlypark/src/View/Screens/Ads.dart';
 import 'package:ghostlypark/src/View/Screens/Update.dart';
+import 'package:ghostlypark/src/View/Screens/Billing.dart';
 //Providers
 import 'package:ghostlypark/src/Model/Providers%20-%20Stores/UserState.dart';
 import 'package:ghostlypark/src/Model/Providers%20-%20Stores/Coins_And_Gems.dart';
@@ -54,7 +55,6 @@ void main() async {
 bool isRequestingPermission = false;
 Future<bool> check_Permissions() async {
   if (isRequestingPermission) {
-    //print('Permission request already in progress.');
     return false;
   }
   isRequestingPermission = true;
@@ -76,7 +76,6 @@ Future<bool> check_Permissions() async {
     isRequestingPermission = false;
     return true;
   } catch (error) {
-    //print('Error Permissions ${error}');
     isRequestingPermission = false;
     return false;
   }
@@ -94,7 +93,6 @@ Future<bool> server_Status() async {
       return false;
     }
   } catch (error) {
-    print('Error Server Status ${error}');
     return false;
   }
 }
@@ -111,7 +109,6 @@ Future<bool> maintenance() async {
       return false;
     }
   } catch (error) {
-    print('Error Maintenance ${error}');
     return false;
   }
 }
@@ -134,12 +131,6 @@ Future<bool> check_For_Update() async {
     server_version = versionData['body'];
     formatted_version = '$latest_version+$build_number';
 
-    //print('Latest Version ${latest_version}');
-    //print('Build Number ${build_number}');
-    //print('Formatted Server Version ${formatted_version}');
-    //print('Server Version ${server_version}');
-    //print('Status ${statusCode}');
-
     //If they are not the same then Update
     if (formatted_version == server_version && statusCode == 200) {
       requiresUpdate = false;
@@ -149,7 +140,6 @@ Future<bool> check_For_Update() async {
       return true;
     }
   } catch (error) {
-    //print('Error Update ${error}');
     return false;
   }
 }
@@ -168,7 +158,6 @@ Future<Map<String, dynamic>> check_app_Version_Model() async {
       throw Exception('Failed to load package details');
     }
   } catch (error) {
-    //print('Error App Version');
     return {
       'statusCode': 500,
       'body': '',
@@ -217,13 +206,8 @@ class _MyAppState extends State<MyApp> {
       future: checkAllConditions(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          // print('Connection State ${snapshot.connectionState}');
           return MaterialApp(home: Circular_Indicator());
         } else if (snapshot.hasError) {
-          //print('Error ${snapshot.hasError}');
-          // WidgetsBinding.instance!.addPostFrameCallback((_) {
-          //   runApp(MyApp());
-          // });
           return MaterialApp(home: Circular_Indicator());
         } else {
           //---------------------------------------------------------------------//
@@ -239,10 +223,10 @@ class _MyAppState extends State<MyApp> {
           //---------------------------------------------------------------------//
           bool update_required = conditions.isNotEmpty ? conditions[3] : false;
           //---------------------------------------------------------------------//
-          print('Permissions : ${permissions_granted}');
-          print('Server Status : ${server_status}');
-          print('Maintenance : ${server_under_maintenance}');
-          print('Update : ${update_required}');
+          // print('Permissions : ${permissions_granted}');
+          // print('Server Status : ${server_status}');
+          // print('Maintenance : ${server_under_maintenance}');
+          // print('Update : ${update_required}');
           //---------------------------------------------------------------------//
 
           if (!permissions_granted || !server_status) {
