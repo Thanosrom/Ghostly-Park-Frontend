@@ -180,20 +180,20 @@ class _Billing_Container_State extends State<Billing_Container> {
                   ),
                 ),
                 onPressed: () async {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return Report_Modal(
-                          context: context,
-                          labelTexts: AppLocale.getString(
-                            context,
-                            AppLocale.currently_out_of_use_small_text,
-                            languageCode: current_locale,
-                          ),
-                          its_error: true);
-                    },
-                  );
-                  // await purchaseProduct();
+                  // showDialog(
+                  //   context: context,
+                  //   builder: (context) {
+                  //     return Report_Modal(
+                  //         context: context,
+                  //         labelTexts: AppLocale.getString(
+                  //           context,
+                  //           AppLocale.currently_out_of_use_small_text,
+                  //           languageCode: current_locale,
+                  //         ),
+                  //         its_error: true);
+                  //   },
+                  // );
+                  await purchaseProduct();
                 },
                 child: Padding(
                   padding: EdgeInsets.all(screenWidth <= 414

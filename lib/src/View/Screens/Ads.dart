@@ -49,7 +49,7 @@ Future<http.Response> update_UserCoins(
   }
 }
 
-void _createRewardedAd() {
+void createRewardedAd() {
   RewardedAd.load(
     adUnitId: _adUnitId,
     request: const AdRequest(),
@@ -71,16 +71,16 @@ void _createRewardedAd() {
   );
 }
 
-void _showRewardedAd(UserState userState) {
+void showRewardedAd(UserState userState) {
   try {
     _rewardedAd?.fullScreenContentCallback = FullScreenContentCallback(
       onAdDismissedFullScreenContent: (ad) {
         ad.dispose();
-        _createRewardedAd();
+        createRewardedAd();
       },
       onAdFailedToShowFullScreenContent: (ad, error) {
         ad.dispose();
-        _createRewardedAd();
+        createRewardedAd();
       },
     );
 

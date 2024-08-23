@@ -46,7 +46,6 @@ Future<void> login(
   if (await validate_Email(context, emailController) &&
       await validate_Password(context, passwordController)) {
     final response = await login_Model(emailController, passwordController);
-
     if (response.statusCode == 200) {
       save_Credentials(emailController, passwordController);
       // Set user profile variables
