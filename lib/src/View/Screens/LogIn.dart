@@ -52,7 +52,6 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
   String? current_locale;
   String selected_language = 'en';
   //Google Config Variables
-  bool _isAuthorized = false;
 
   @override
   void initState() {
@@ -69,7 +68,7 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
         current_locale = value;
       });
     });
-    //_attemptSignInSilently();
+    _attemptSignInSilently();
   }
 
   void _attemptSignInSilently() async {
@@ -86,14 +85,6 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
         } else {}
       }
     } catch (error) {}
-  }
-
-  //Auth Scopes
-  Future<void> _handleAuthorizeScopes() async {
-    final bool isAuthorized = await _googleSignIn.requestScopes(scopes);
-    setState(() {
-      _isAuthorized = isAuthorized;
-    });
   }
 
   //Handle Sign In - Sign Out
@@ -379,17 +370,6 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                // Define a fixed size for the buttons
-                                // ElevatedButton(
-                                //   onPressed: _handleSignOut,
-                                //   child: Text('Logout'),
-                                // ),
-                                // Height_Spacer(),
-                                // ElevatedButton(
-                                //   onPressed: _handleSignOut,
-                                //   child: Text('Logout'),
-                                // ),
-                                // Height_Spacer(),
                                 SizedBox(
                                   width: screenWidth <= 414
                                       ? screenWidth * 0.2

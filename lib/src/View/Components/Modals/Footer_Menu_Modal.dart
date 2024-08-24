@@ -9,15 +9,11 @@ import 'package:ghostlypark/src/Controller/Utils/load_Save_Delete_UserInfo.dart'
 import 'package:ghostlypark/src/Controller/Utils/load_Save_Language.dart';
 //Routes
 import 'package:ghostlypark/src/Controller/Routes/Routes.dart';
-//Provider
-import 'package:ghostlypark/src/Model/Providers%20-%20Stores/UserState.dart';
 //Components
 import 'package:ghostlypark/src/View/Components/Small_Texts.dart';
 //import 'package:ghostlypark/src/View/Components/Modals/Report_Modal.dart';
 //Screens
 import 'package:ghostlypark/src/View/Screens/Ads.dart';
-//Libs
-import 'package:provider/provider.dart';
 
 class Footer_Menu_Modal extends StatefulWidget {
   final BuildContext context;
@@ -217,22 +213,8 @@ class _Footer_Menu_Modal_State extends State<Footer_Menu_Modal> {
                       ],
                     ),
                     onTap: () {
-                      // showDialog(
-                      //   context: context,
-                      //   builder: (context) {
-                      //     return Report_Modal(
-                      //         context: context,
-                      //         labelTexts: AppLocale.getString(context,
-                      //             AppLocale.currently_out_of_use_small_text,
-                      //             languageCode: current_locale),
-                      //         its_error: true);
-                      //   },
-                      // );
                       //See Adds first
-                      final userState =
-                          Provider.of<UserState>(context, listen: false);
-                      createRewardedAd();
-                      showRewardedAd(userState);
+                      createRewardedAd(context);
                     },
                   ),
                   SizedBox(

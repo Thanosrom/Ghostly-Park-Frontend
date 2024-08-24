@@ -1,13 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-//Languages
-import 'package:ghostlypark/Languages.dart';
 //Controllers
 import 'package:ghostlypark/src/Controller/Utils/load_save_language.dart';
 //Components
 import 'package:ghostlypark/src/View/Components/Height_Spacer.dart';
 import 'package:ghostlypark/src/View/Components/Small_Texts.dart';
-import 'package:ghostlypark/src/View/Components/Modals/Report_Modal.dart';
 //Libs
 import 'package:purchases_flutter/purchases_flutter.dart';
 
@@ -94,21 +91,16 @@ class _Billing_Container_State extends State<Billing_Container> {
           // orElse: () => null,
         );
 
-        if (package != null) {
-          print("Package found. Initiating purchase...");
-          try {
-            CustomerInfo customerInfo =
-                await Purchases.purchasePackage(package);
-            if (customerInfo.entitlements.all["Free"]?.isActive ?? false) {
-              print("Purchased Coins package successfully!");
-            } else {
-              print("Purchase failed or not active.");
-            }
-          } catch (e) {
-            print("Error during purchase: $e");
+        print("Package found. Initiating purchase...");
+        try {
+          CustomerInfo customerInfo = await Purchases.purchasePackage(package);
+          if (customerInfo.entitlements.all["Free"]?.isActive ?? false) {
+            print("Purchased Coins package successfully!");
+          } else {
+            print("Purchase failed or not active.");
           }
-        } else {
-          print("Package not found.");
+        } catch (e) {
+          print("Error during purchase: $e");
         }
       } else {
         print("Coins offering not found.");
@@ -180,19 +172,6 @@ class _Billing_Container_State extends State<Billing_Container> {
                   ),
                 ),
                 onPressed: () async {
-                  // showDialog(
-                  //   context: context,
-                  //   builder: (context) {
-                  //     return Report_Modal(
-                  //         context: context,
-                  //         labelTexts: AppLocale.getString(
-                  //           context,
-                  //           AppLocale.currently_out_of_use_small_text,
-                  //           languageCode: current_locale,
-                  //         ),
-                  //         its_error: true);
-                  //   },
-                  // );
                   await purchaseProduct();
                 },
                 child: Padding(

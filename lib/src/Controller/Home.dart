@@ -27,8 +27,6 @@ import 'package:ghostlypark/src/View/Components/Toast/Toast_Message.dart';
 import 'package:ghostlypark/src/View/Components/Modals/Report_Modal.dart';
 //Models
 import 'package:ghostlypark/src/Model/Home.dart';
-//Screens
-//import 'package:park/src/View/Screens/Ads.dart';
 
 String? current_locale;
 void initializeSettings(BuildContext context) async {
@@ -859,7 +857,9 @@ Future<List<LatLng>?> tap_Route(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     TextButton(
-                      onPressed: () => {Go_Back(context)},
+                      onPressed: () {
+                        Go_Back(context);
+                      },
                       child: Small_Texts(
                         avoid_flex: true,
                         smallText: AppLocale.getString(

@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <resources> 
     <string name="default_web_client_id">600956322590-q13hed1r2rpoocp85tjtpb0g71p9iao6.apps.googleusercontent.com</string>
-    <!-- <string name="app_name">Ghostly Park</string>
-    <string name="facebook_app_id">1596393630922849</string>
-    <string name="fb_login_protocol_scheme">fb1596393630922849</string>
-    <string name="facebook_client_token">855e74ed9c08e20b35d358accb971a7c</string> -->
 </resources>

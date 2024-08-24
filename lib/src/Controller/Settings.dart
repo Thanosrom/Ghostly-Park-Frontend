@@ -406,12 +406,16 @@ Future<void> delete_User(BuildContext context) async {
                         AppLocale.delete_account_small_text,
                         languageCode: current_locale,
                       ),
-                      onPressed: () async => {
-                        if (await handle_Button_Click('Settings_Delete_User'))
-                          {
-                            send_Delete_User(context),
-                            Go_Back(context),
+                      onPressed: () async {
+                        if (await handle_Button_Click('Settings_Delete_User')) {
+                          final statusCode = await send_Delete_User(context);
+                          send_Delete_User2(context, statusCode);
+                          if (statusCode == 200) {
+                            Navigator.pushNamed(context, AppRoutes.login);
+                          } else {
+                            Go_Back(context);
                           }
+                        }
                       },
                     ),
                     Height_Spacer(),
@@ -434,16 +438,22 @@ Future<void> delete_User(BuildContext context) async {
   );
 }
 
-Future<void> send_Delete_User(BuildContext context) async {
+Future<int> send_Delete_User(BuildContext context) async {
   initializeSettings(context);
-  final response = await delete_User_Model(context);
-  if (response.statusCode == 200) {
+
+  final response = await delete_User_Model();
+  return response.statusCode;
+}
+
+Future<void> send_Delete_User2(BuildContext context, int statusCode) async {
+  initializeSettings(context);
+
+  if (statusCode == 200) {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('autoLoginEnabled', false);
     prefs.remove('autoLoginEnabled');
     prefs.remove('isFirstLaunch');
     delete_Credentials();
-    Navigator.pushNamed(context, AppRoutes.login);
     showDialog(
       context: context,
       builder: (context) {
@@ -455,7 +465,6 @@ Future<void> send_Delete_User(BuildContext context) async {
               languageCode: current_locale,
             ),
             its_error: false,
-            errorCode: response.statusCode,
             is_changed: true);
       },
     );

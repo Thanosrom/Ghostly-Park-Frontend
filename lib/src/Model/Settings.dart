@@ -1,6 +1,5 @@
 // ignore_for_file: unused_local_variable, non_constant_identifier_names, file_names
 import 'dart:convert';
-import 'package:flutter/material.dart';
 //.env
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 //Libs
@@ -64,13 +63,11 @@ Future<http.Response> send_NewCarInfo_Model(String carInfoController) async {
   }
 }
 
-Future<http.Response> delete_User_Model(BuildContext context) async {
+Future<http.Response> delete_User_Model() async {
   try {
     final response = await http.put(
         Uri.parse('${dotenv.env['baseUrl']}/delete_User'),
-        body: jsonEncode({}),
         headers: await token_Headers());
-
     return response;
   } catch (error) {
     return http.Response('Error occurred', 400);
