@@ -116,7 +116,7 @@ Future<void> google_Login(
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('token', token);
       //Navigate into Home screen
-      Navigator.pushNamed(context, AppRoutes.home);
+      Navigator.pushNamed(context, AppRoutes.billing);
     } else {
       showDialog(
         context: context,

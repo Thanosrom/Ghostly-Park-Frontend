@@ -60,6 +60,7 @@ class _BillingState extends State<Billing> {
                 Height_Spacer(),
                 Height_Spacer(),
                 Billing_Container(
+                  what_is_the_product: "Subscription",
                   what_is_about: AppLocale.getString(
                       context, AppLocale.subscription_small_text,
                       languageCode: current_locale),
@@ -77,6 +78,7 @@ class _BillingState extends State<Billing> {
                 Height_Spacer(),
                 Height_Spacer(),
                 Billing_Container(
+                  what_is_the_product: "Coins",
                   what_is_about: AppLocale.getString(
                       context, AppLocale.coins_small_text,
                       languageCode: current_locale),
@@ -87,6 +89,7 @@ class _BillingState extends State<Billing> {
                   image: 'assets/coin_2.png',
                 ),
                 Billing_Container(
+                  what_is_the_product: "Gems",
                   what_is_about: AppLocale.getString(
                       context, AppLocale.gems_small_text,
                       languageCode: current_locale),

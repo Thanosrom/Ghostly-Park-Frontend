@@ -17,7 +17,7 @@ RewardedAd? _rewardedAd;
 int _rewardedScore = 0;
 bool adLoaded = false;
 //final _adUnitId = 'ca-app-pub-3940256099942544/5224354917';
-final _adUnitId = 'ca-app-pub-6837078075079728~1428102168';
+final _adUnitId = 'ca-app-pub-6837078075079728/5720004301';
 
 Future<http.Response> get_Coins_Model() async {
   try {

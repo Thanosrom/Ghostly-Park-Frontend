@@ -1,14 +1,17 @@
-import 'dart:io';
+//import 'dart:io';
 import 'package:flutter/material.dart';
-//Controllers
+//Languages
 import 'package:ghostlypark/src/Controller/Utils/load_save_language.dart';
+//Controllers
+import 'package:ghostlypark/src/Controller/Billing.dart';
 //Components
 import 'package:ghostlypark/src/View/Components/Height_Spacer.dart';
 import 'package:ghostlypark/src/View/Components/Small_Texts.dart';
 //Libs
-import 'package:purchases_flutter/purchases_flutter.dart';
+//import 'package:purchases_flutter/purchases_flutter.dart';
 
 class Billing_Container extends StatefulWidget {
+  final String what_is_the_product;
   final String what_is_about;
   final IconData? icon;
   final String? image;
@@ -17,6 +20,7 @@ class Billing_Container extends StatefulWidget {
 
   const Billing_Container({
     Key? key,
+    required this.what_is_the_product,
     required this.what_is_about,
     this.icon,
     this.image,
@@ -31,12 +35,12 @@ class Billing_Container extends StatefulWidget {
 class _Billing_Container_State extends State<Billing_Container> {
   //Languages
   String? current_locale;
-  bool _purchaseInProgress = false;
+  //bool _purchaseInProgress = false;
 
   @override
   void initState() {
     super.initState();
-    initializePurchases();
+    initializePurchases(context);
     load_Selected_Language().then((value) {
       setState(() {
         current_locale = value;
@@ -47,71 +51,6 @@ class _Billing_Container_State extends State<Billing_Container> {
   @override
   void dispose() {
     super.dispose();
-  }
-
-  Future<void> initializePurchases() async {
-    await Purchases.setLogLevel(LogLevel.debug);
-    PurchasesConfiguration? configuration;
-
-    if (Platform.isAndroid) {
-      configuration =
-          PurchasesConfiguration("goog_gfhcJJpsiAmsjeepIZKgHKqfZWx");
-    } else {
-      // Add iOS configuration if necessary
-    }
-
-    if (configuration != null) {
-      await Purchases.configure(configuration);
-      print('Configured RevenueCat');
-    } else {
-      print("No configuration");
-    }
-  }
-
-  Future<void> purchaseProduct() async {
-    if (_purchaseInProgress) {
-      print("Purchase already in progress");
-      return;
-    }
-
-    setState(() {
-      _purchaseInProgress = true;
-    });
-
-    try {
-      print("Fetching offerings...");
-      Offerings offerings = await Purchases.getOfferings();
-
-      print("Looking for 'Coins' offering...");
-      Offering? coinsOffering = offerings.all["Coins"];
-      if (coinsOffering != null) {
-        print("'Coins' offering found. Looking for package...");
-        Package? package = coinsOffering.availablePackages.firstWhere(
-          (pkg) => pkg.identifier == "\$rc_lifetime",
-          // orElse: () => null,
-        );
-
-        print("Package found. Initiating purchase...");
-        try {
-          CustomerInfo customerInfo = await Purchases.purchasePackage(package);
-          if (customerInfo.entitlements.all["Free"]?.isActive ?? false) {
-            print("Purchased Coins package successfully!");
-          } else {
-            print("Purchase failed or not active.");
-          }
-        } catch (e) {
-          print("Error during purchase: $e");
-        }
-      } else {
-        print("Coins offering not found.");
-      }
-    } catch (e) {
-      print("Error fetching offerings: $e");
-    } finally {
-      setState(() {
-        _purchaseInProgress = false;
-      });
-    }
   }
 
   @override
@@ -172,7 +111,7 @@ class _Billing_Container_State extends State<Billing_Container> {
                   ),
                 ),
                 onPressed: () async {
-                  await purchaseProduct();
+                  await purchaseProduct(widget.what_is_the_product, context);
                 },
                 child: Padding(
                   padding: EdgeInsets.all(screenWidth <= 414

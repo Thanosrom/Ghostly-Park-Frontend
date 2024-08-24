@@ -27,6 +27,7 @@ import 'package:ghostlypark/src/View/Components/Toast/Toast_Message.dart';
 import 'package:ghostlypark/src/View/Components/Modals/Report_Modal.dart';
 //Models
 import 'package:ghostlypark/src/Model/Home.dart';
+import 'package:ghostlypark/src/Model/SubscriptionsCoinsGems.dart';
 
 String? current_locale;
 void initializeSettings(BuildContext context) async {
@@ -64,7 +65,7 @@ Future<void> onPressed_get_Parked_Location_Reward(BuildContext context) async {
         double distance = await Geolocator.distanceBetween(
             position.latitude, position.longitude, parkedLat, parkedLong);
         if (distance < 60) {
-          final response = await plus_Coins_Model();
+          final response = await plus_Coins_Model('reward');
           if (response.statusCode == 200) {
             //Variables to set
             var get_Coins;

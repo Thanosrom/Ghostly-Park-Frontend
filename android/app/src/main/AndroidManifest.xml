@@ -48,7 +48,7 @@
             android:value="ca-app-pub-6837078075079728~1136318856"/> -->
          <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-6837078075079728/5720004301"/>
+            android:value="ca-app-pub-6837078075079728~1428102168"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
