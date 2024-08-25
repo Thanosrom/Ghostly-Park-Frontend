@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 //----------------------------------------------------------------------------------//
 //Subscriptions check
-Future<http.Response> subscription_Model() async {
+Future<http.Response> get_subscription_Model() async {
   try {
     final response = await http.get(
         Uri.parse('${dotenv.env['baseUrl']}/get_Subscription'),

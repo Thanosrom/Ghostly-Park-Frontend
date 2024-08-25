@@ -185,6 +185,18 @@ mixin AppLocale {
 
   //User Profile
   static const String select_your_language = 'select_your_language';
+
+  //Ads
+
+  //Billing
+  static const String bought_subscription_small_text =
+      'bought_subscription_small_text';
+  static const String bought_coins_small_text = 'bought_coins_small_text';
+  static const String bought_gems_small_text = 'bought_gems_small_text';
+  static const String failed_payment_small_text = 'failed_payment_small_text';
+  static const String already_have_subscription_small_text =
+      'already_have_subscription_small_text';
+
   // ----------------------------------------------------------------------------------------------------------------------- //
   //Components
   static const String help_modal_big_text = 'help_modal_big_text';
@@ -479,7 +491,7 @@ mixin AppLocale {
 
     //Billing
     subscription_big_text: 'Subscription',
-    subscription_small_text: 'Subscription Plan \n8.50\$ /per month',
+    subscription_small_text: 'Subscription Plan \n 8.50 \$/per month',
     subscription_button: 'Buy Sub',
 
     coins_and_gems_big_text: 'Coin and Gems',
@@ -575,6 +587,19 @@ mixin AppLocale {
     //User Profile
     select_your_language: 'Select your Language',
 
+    //Ads
+
+    //Billing
+    bought_subscription_small_text:
+        'Your subscription has been successfully purchased',
+    bought_coins_small_text:
+        'Your purchase of coins has been completed successfully',
+    bought_gems_small_text:
+        'Your purchase of gems has been completed successfully',
+    failed_payment_small_text:
+        'Something went wrong with your payment. Please try again or contact support for assistance',
+    already_have_subscription_small_text:
+        'It looks like you already have an active subscription',
     // ----------------------------------------------------------------------------------------------------------------------- //
     //Components
     help_modal_big_text: 'Help',
@@ -792,6 +817,18 @@ mixin AppLocale {
 
     //User Profile
     select_your_language: 'Επέλεξε μια Γλώσσα',
+
+    //Ads
+
+    //Billing
+    bought_subscription_small_text: 'Η συνδρομή σας αγοράστηκε επιτυχώς',
+    bought_coins_small_text: 'Η αγορά των νομισμάτων σας ολοκληρώθηκε επιτυχώς',
+    bought_gems_small_text: 'Η αγορά των διαμαντιών σας ολοκληρώθηκε επιτυχώς',
+    failed_payment_small_text:
+        'Κάτι πήγε στραβά με την πληρωμή σας. Παρακαλώ δοκιμάστε ξανά ή επικοινωνήστε με την υποστήριξη για βοήθεια',
+    already_have_subscription_small_text:
+        'Φαίνεται ότι έχετε ήδη μια ενεργή συνδρομή',
+
     // ----------------------------------------------------------------------------------------------------------------------- //
     //Components
     help_modal_big_text: 'Βοήθεια',
@@ -1006,8 +1043,20 @@ mixin AppLocale {
         '¿Estás seguro de que quieres eliminar tu cuenta?',
     delete_account_small_text: 'Eliminar cuenta',
     account_deleted_small_text: 'Eliminar cuenta',
+
     //User Profile
     select_your_language: 'Selecciona un idioma',
+    //Ads
+
+    //Billing
+    bought_subscription_small_text: 'Tu suscripción ha sido comprada con éxito',
+    bought_coins_small_text: 'Tu compra de monedas se ha completado con éxito',
+    bought_gems_small_text: 'Tu compra de gemas se ha completado con éxito',
+    failed_payment_small_text:
+        'Algo salió mal con tu pago. Por favor, inténtalo de nuevo o contacta con el soporte para asistencia',
+    already_have_subscription_small_text:
+        'Parece que ya tienes una suscripción activa',
+
     // ----------------------------------------------------------------------------------------------------------------------- //
     //Componentes
     help_modal_big_text: 'Ayuda',
@@ -1220,8 +1269,21 @@ mixin AppLocale {
         'Tem a certeza de que pretende apagar a sua conta?',
     delete_account_small_text: 'Apagar conta',
     account_deleted_small_text: 'Apagar conta',
+
     //User Profile
     select_your_language: 'Selecione um idioma',
+
+    //Ads
+
+    //Billing
+    bought_subscription_small_text: 'Sua assinatura foi comprada com sucesso',
+    bought_coins_small_text: 'Sua compra de moedas foi concluída com sucesso',
+    bought_gems_small_text: 'Sua compra de gemas foi concluída com sucesso',
+    failed_payment_small_text:
+        'Algo deu errado com seu pagamento. Por favor, tente novamente ou entre em contato com o suporte para assistência',
+    already_have_subscription_small_text:
+        'Parece que você já tem uma assinatura ativa',
+
     // ----------------------------------------------------------------------------------------------------------------------- //
     //Componentes
     help_modal_big_text: 'Ajuda',
@@ -1436,8 +1498,21 @@ mixin AppLocale {
         'Êtes-vous sûr de vouloir supprimer votre compte ? ',
     delete_account_small_text: ' Supprimer le compte ',
     account_deleted_small_text: ' Compte supprimé ',
+
     //User Profile
     select_your_language: 'Sélectionnez une langue',
+
+    //Ads
+
+    //Billing
+    bought_subscription_small_text: 'Votre abonnement a été acheté avec succès',
+    bought_coins_small_text: 'Votre achat de pièces a été complété avec succès',
+    bought_gems_small_text: 'Votre achat de gemmes a été complété avec succès',
+    failed_payment_small_text:
+        'Quelque chose s\'est mal passé avec votre paiement. Veuillez réessayer ou contacter le support pour obtenir de l\'aide',
+    already_have_subscription_small_text:
+        'Il semble que vous ayez déjà un abonnement actif',
+
     // ----------------------------------------------------------------------------------------------------------------------- //
     //Composants
     help_modal_big_text: ' Aide ',
@@ -1647,8 +1722,23 @@ mixin AppLocale {
         'Sind Sie sicher, dass Sie Ihr Konto löschen wollen?',
     delete_account_small_text: 'Konto löschen',
     account_deleted_small_text: 'Konto gelöscht',
+
     //User Profile
     select_your_language: 'Wähle eine Sprache',
+
+    //Ads
+
+    //Billing
+    bought_subscription_small_text: 'Ihr Abonnement wurde erfolgreich gekauft',
+    bought_coins_small_text:
+        'Ihr Kauf von Münzen wurde erfolgreich abgeschlossen',
+    bought_gems_small_text:
+        'Ihr Kauf von Edelsteinen wurde erfolgreich abgeschlossen',
+    failed_payment_small_text:
+        'Bei Ihrer Zahlung ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie den Support für Hilfe',
+    already_have_subscription_small_text:
+        'Es scheint, dass Sie bereits ein aktives Abonnement haben',
+
     // ----------------------------------------------------------------------------------------------------------------------- //
     //Komponenten
     help_modal_big_text: 'Hilfe',
@@ -1860,8 +1950,21 @@ mixin AppLocale {
         'Вы уверены, что хотите удалить свой аккаунт?',
     delete_account_small_text: 'Удалить аккаунт',
     account_deleted_small_text: 'Аккаунт удален',
+
     //User Profile
     select_your_language: 'Выберите язык',
+
+    //Ads
+
+    //Billing
+    bought_subscription_small_text: 'Ваша подписка успешно приобретена',
+    bought_coins_small_text: 'Ваша покупка монет успешно завершена',
+    bought_gems_small_text: 'Ваша покупка драгоценных камней успешно завершена',
+    failed_payment_small_text:
+        'Что-то пошло не так с вашим платежом. Пожалуйста, попробуйте снова или свяжитесь с поддержкой для получения помощи',
+    already_have_subscription_small_text:
+        'Похоже, у вас уже есть активная подписка',
+
     // ----------------------------------------------------------------------------------------------------------------------- //
     //Компоненты
     help_modal_big_text: 'Помощь',
@@ -2062,8 +2165,19 @@ mixin AppLocale {
     are_you_sure_delete_small_text: '本当にアカウントを削除しますか？',
     delete_account_small_text: 'アカウントを削除します',
     account_deleted_small_text: 'アカウント削除',
+
     //User Profile
     select_your_language: '言語を選択してください',
+
+    //Ads
+
+    //Billing
+    bought_subscription_small_text: 'サブスクリプションが正常に購入されました',
+    bought_coins_small_text: 'コインの購入が正常に完了しました',
+    bought_gems_small_text: 'ジェムの購入が正常に完了しました',
+    failed_payment_small_text: '支払い中に問題が発生しました。もう一度お試しいただくか、サポートにご連絡ください',
+    already_have_subscription_small_text: 'すでにアクティブなサブスクリプションがあります',
+
     // ----------------------------------------------------------------------------------------------------------------------- //
     //コンポーネント
     help_modal_big_text: 'ヘルプ',
@@ -2257,8 +2371,18 @@ mixin AppLocale {
     are_you_sure_delete_small_text: '您确定要删除您的帐户吗？',
     delete_account_small_text: '删除帐户',
     account_deleted_small_text: '已删除帐户',
+
     //User Profile
     select_your_language: '选择语言',
+    //Ads
+
+    //Billing
+    bought_subscription_small_text: '您的订阅已成功购买',
+    bought_coins_small_text: '您的硬币购买已成功完成',
+    bought_gems_small_text: '您的宝石购买已成功完成',
+    failed_payment_small_text: '您的付款出现问题。请重试或联系支持以获得帮助',
+    already_have_subscription_small_text: '您已经拥有一个有效的订阅',
+
     // ----------------------------------------------------------------------------------------------------------------------- //
     //组件
     help_modal_big_text: '帮助',

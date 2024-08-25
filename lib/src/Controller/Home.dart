@@ -198,7 +198,7 @@ Future<Map<String, dynamic>> onPressed_FindLocation(
       final response = await get_FilteredMarkers_Model(
           markers, mapController, newLng, newLat);
       //Getting the Subscription
-      final get_Subscription = await subscription_Model();
+      final get_Subscription = await get_subscription_Model();
       final subscription_body =
           json.decode(get_Subscription.body)[0]['subscription'];
 
@@ -589,7 +589,7 @@ Future<List<Marker>?> get_Filtered_Markers(List<Marker> markers,
         markers, mapController, position.longitude, position.latitude);
 
     //Getting the Subscription
-    final get_Subscription = await subscription_Model();
+    final get_Subscription = await get_subscription_Model();
     final subscription_body =
         json.decode(get_Subscription.body)[0]['subscription'];
 
@@ -878,7 +878,7 @@ Future<List<LatLng>?> tap_Route(
                         var gems_data2;
 
                         //Getting the Subscription
-                        final get_Subscription = await subscription_Model();
+                        final get_Subscription = await get_subscription_Model();
                         final subscription_body = json
                             .decode(get_Subscription.body)[0]['subscription'];
 

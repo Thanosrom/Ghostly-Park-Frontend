@@ -89,7 +89,6 @@ Future<void> login(
 }
 
 //Google Config Functions
-//Google Login
 Future<void> google_Login(
     String emailController, context, bool isGoogleSignIn) async {
   initializeSettings(context);
