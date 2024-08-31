@@ -17,7 +17,7 @@ class Billing_Container extends StatefulWidget {
   final String? image;
   final String what_to_buy_button;
   final bool icon_exist;
-
+  final int price_index;
   const Billing_Container({
     Key? key,
     required this.what_is_the_product,
@@ -26,6 +26,7 @@ class Billing_Container extends StatefulWidget {
     this.image,
     required this.what_to_buy_button,
     required this.icon_exist,
+    required this.price_index,
   }) : super(key: key);
 
   @override
@@ -36,15 +37,23 @@ class _Billing_Container_State extends State<Billing_Container> {
   //Languages
   String? current_locale;
   //bool _purchaseInProgress = false;
-
+  List<String>? prices;
   @override
   void initState() {
     super.initState();
-    initializePurchases(context);
+    fetchPricesAndLanguage();
     load_Selected_Language().then((value) {
       setState(() {
         current_locale = value;
       });
+    });
+  }
+
+  void fetchPricesAndLanguage() async {
+    // Fetch prices from initializePurchases
+    List<String> fetchedPrices = await initializePurchases(context);
+    setState(() {
+      prices = fetchedPrices;
     });
   }
 
@@ -96,6 +105,12 @@ class _Billing_Container_State extends State<Billing_Container> {
               Small_Texts(
                 center: true,
                 smallText: widget.what_is_about,
+                avoid_flex: true,
+              ),
+              Small_Texts(
+                center: true,
+                smallText:
+                    prices != null ? prices![widget.price_index] : 'Loading...',
                 avoid_flex: true,
               ),
               Height_Spacer(),

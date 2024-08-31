@@ -491,15 +491,15 @@ mixin AppLocale {
 
     //Billing
     subscription_big_text: 'Subscription',
-    subscription_small_text: 'Subscription Plan \n 8.50 \$/per month',
+    subscription_small_text: 'Subscription Plan \n /per month',
     subscription_button: 'Buy Sub',
 
     coins_and_gems_big_text: 'Coin and Gems',
 
-    coins_small_text: 'Coin Plan\n3.50\$ /per transaction\n30 coins',
+    coins_small_text: 'Coin Plan\n /per transaction \n 30 coins',
     coins_button: 'Buy Coins',
 
-    gems_small_text: 'Gem Plan\n5.50\$ /per transaction\n30 Gems',
+    gems_small_text: 'Gem Plan \n /per transaction \n 30 Gems',
     gems_button: 'Buy Gems',
 
     //Error
@@ -719,17 +719,17 @@ mixin AppLocale {
 
     //Billing
     subscription_big_text: 'Συνδρομή',
-    subscription_small_text: 'Πρόγραμμα συνδρομής \n8.50\$ /ανά μήνα',
+    subscription_small_text: 'Πρόγραμμα συνδρομής \n /ανά μήνα',
     subscription_button: 'Αγοράστε συνδρομή',
 
     coins_and_gems_big_text: 'Νομίσματα και Διαμάντια',
 
     coins_small_text:
-        'Σχέδιο αγοράς νομισμάτων\n3.50\$ /ανά συναλλαγή\n30 νομίσματα',
+        'Σχέδιο αγοράς νομισμάτων \n /ανά συναλλαγή \n 30 νομίσματα',
     coins_button: 'Αγορά νομισμάτων',
 
     gems_small_text:
-        'Σχέδιο αγοράς Διαμαντιών\n5.50\$ /ανά συναλλαγή\n30 Διαμάντια',
+        'Σχέδιο αγοράς Διαμαντιών \n /ανά συναλλαγή \n 30 Διαμάντια',
     gems_button: 'Αγοράστε Διαμάντια',
 
     //Error
@@ -950,16 +950,16 @@ mixin AppLocale {
 
     //Facturación
     subscription_big_text: 'Suscripción',
-    subscription_small_text: 'Programa de suscripción \n8,50\$ /por mes',
+    subscription_small_text: 'Programa de suscripción \n /por mes',
     subscription_button: 'Comprar suscripción',
 
     coins_and_gems_big_text: 'Monedas y gemas',
 
-    coins_small_text: 'Monedas\n3,50\$/por transacción\n30 monedas',
+    coins_small_text: 'Monedas \n /por transacción \n 30 monedas',
     coins_button: 'Comprar monedas',
 
     gems_small_text:
-        'Plan de compra de diamantes\n5,50\$/por transacción\n30 Diamantes',
+        'Plan de compra de diamantes \n /por transacción \n 30 Diamantes',
     gems_button: 'Comprar diamantes',
 
     //Error
@@ -1177,16 +1177,16 @@ mixin AppLocale {
 
     //Faturação
     subscription_big_text: 'Assinatura',
-    subscription_small_text: 'Plano de subscrição \n8.50\$ /por mês',
+    subscription_small_text: 'Plano de subscrição \n /por mês',
     subscription_button: 'Comprar subscrição',
 
     coins_and_gems_big_text: 'Moedas e pedras preciosas',
 
-    coins_small_text: 'Moedas\n3.50\$/por transação\n30 moedas',
+    coins_small_text: 'Moedas\n /por transação \n30 moedas',
     coins_button: 'Comprar moedas',
 
     gems_small_text:
-        'Plano de compra de diamantes\n5.50\$ /por transação\n30 diamantes',
+        'Plano de compra de diamantes \n /por transação \n 30 diamantes',
     gems_button: 'Comprar diamantes',
 
     //Erro
@@ -1405,15 +1405,15 @@ mixin AppLocale {
 
     //Facturation
     subscription_big_text: 'Abonnement',
-    subscription_small_text: 'Plan d`abonnement \n8.50\$ /par mois',
+    subscription_small_text: 'Plan d`abonnement \n /par mois',
     subscription_button: 'Acheter un abonnement',
 
     coins_and_gems_big_text: ' Pièces et pierres précieuses ',
 
-    coins_small_text: ' Coin Plan \n3.50\$ /par transaction\n30 coins ',
+    coins_small_text: ' Coin Plan \n /par transaction \n 30 coins ',
     coins_button: ' Acheter des pièces ',
 
-    gems_small_text: ' Plan de gemmes 5,50 € par transaction 30 gemmes ',
+    gems_small_text: ' Plan de gemmes \n par transaction \n 30 gemmes ',
     gems_button: 'Acheter des gemmes',
 
     //Erreur
@@ -1632,15 +1632,15 @@ mixin AppLocale {
 
     //Abrechnung
     subscription_big_text: 'Abonnement',
-    subscription_small_text: 'Abonnementplan \n8,50\$ /pro Monat',
+    subscription_small_text: 'Abonnementplan \n /pro Monat',
     subscription_button: 'Abonnement kaufen',
 
     coins_and_gems_big_text: 'Münzen und Edelsteine',
 
-    coins_small_text: 'Münzplan\n3,50\$ /pro Transaktion\n30 Münzen',
+    coins_small_text: 'Münzplan \n /pro Transaktion \n 30 Münzen',
     coins_button: 'Münzen kaufen',
 
-    gems_small_text: 'Gem Plan\n5.50\$ /pro Transaktion\n30 Edelsteine',
+    gems_small_text: 'Gem Plan \n /pro Transaktion \n 30 Edelsteine',
     gems_button: 'Edelsteine kaufen',
 
     //Fehler
@@ -1859,16 +1859,16 @@ mixin AppLocale {
 
     //Биллинг
     subscription_big_text: 'Подписка',
-    subscription_small_text: 'План подписки \n8.50\$ /в месяц',
+    subscription_small_text: 'План подписки \n /в месяц',
     subscription_button: 'Купить подписку',
 
     coins_and_gems_big_text: 'Монеты и драгоценные камни',
 
-    coins_small_text: 'Монетный план\n3.50\$ /за транзакцию\n30 монет',
+    coins_small_text: 'Монетный план \n /за транзакцию \n 30 монет',
     coins_button: 'Купить монеты',
 
     gems_small_text:
-        'План по драгоценным камням\n5.50\$ /за транзакцию\n30 драгоценных камней',
+        'План по драгоценным камням \n /за транзакцию \n 30 драгоценных камней',
     gems_button: 'Купить драгоценные камни',
 
     //Ошибка
@@ -2083,15 +2083,15 @@ mixin AppLocale {
 
     //課金
     subscription_big_text: '購読',
-    subscription_small_text: '月額プラン',
+    subscription_small_text: 'サブスクリプションプラン \n / 月額',
     subscription_button: 'サブスクリプションを購入',
 
     coins_and_gems_big_text: 'コインと宝石',
 
-    coins_small_text: 'コインプラン 3.50\$ コイン/1トランザクション',
+    coins_small_text: 'コインプランコイン/1トランザクション',
     coins_button: 'コインを買う',
 
-    gems_small_text: 'ジェムプラン5.50\$ /1トランザクション 30ジェム',
+    gems_small_text: 'ジェムプラン /1トランザクション 30ジェム',
     gems_button: '宝石を買う',
 
     //エラー
@@ -2293,14 +2293,14 @@ mixin AppLocale {
 
     //账单
     subscription_big_text: '订阅',
-    subscription_small_text: '订阅计划 \n8.50\$ /per月',
+    subscription_small_text: '订阅计划 \n /per月',
     subscription_button: '购买潜水艇',
 
     coins_and_gems_big_text: '硬币和宝石',
-    coins_small_text: '硬币计划\n3.50\$ /每笔交易\n30 硬币',
+    coins_small_text: '硬币计划 \n /每笔交易 \n 30 硬币',
     coins_button: '购买硬币',
 
-    gems_small_text: '宝石计划 5.50\$ 美元/每笔交易/30颗宝石',
+    gems_small_text: '宝石计划 / 每笔交易 / 30颗宝石',
     gems_button: '购买宝石',
 
     //错误

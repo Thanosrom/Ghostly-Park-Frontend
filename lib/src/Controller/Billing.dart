@@ -24,48 +24,41 @@ void initializeSettings(BuildContext context) async {
   }
 }
 
-Future<void> initializePurchases(BuildContext context) async {
+Future<List<String>> initializePurchases(BuildContext context) async {
   initializeSettings(context);
 
   await Purchases.setLogLevel(LogLevel.error);
   PurchasesConfiguration? configuration;
-  try {
-    Offerings offerings = await Purchases.getOfferings();
-    print('======================================================');
-    // Check if there's a current offering
-    if (offerings.current != null) {
-      // Access the available packages
-      List<Package> packages = offerings.current!.availablePackages;
-      print(
-          '222222222======================================================2222222222222');
 
-      // Print product details
-      for (Package package in packages) {
-        print(
-            '33333333333======================================================3333333333333');
-
-        StoreProduct product = package.storeProduct;
-        print('Product Name: ${product.title}');
-        print('Product Price: ${product.priceString}');
-      }
-    } else {
-      print('No current offerings available.');
-    }
-  } on PlatformException catch (e) {
-    // optional error handling
-  }
   if (Platform.isAndroid) {
-    print('Correct');
     configuration = PurchasesConfiguration("goog_gfhcJJpsiAmsjeepIZKgHKqfZWx");
   } else {
     // Add iOS configuration if necessary
   }
-
   if (configuration != null) {
     await Purchases.configure(configuration);
     //print('Configured RevenueCat');
   } else {
     //print("No configuration");
+  }
+
+  try {
+    Offerings offerings = await Purchases.getOfferings();
+    List<String> prices = [];
+    for (var offering in offerings.all.values) {
+      String? priceString_Coins =
+          offerings.all['Coins']?.availablePackages[0].storeProduct.priceString;
+      String? priceString_Gems =
+          offerings.all['Gems']?.availablePackages[0].storeProduct.priceString;
+      String? priceString_Subscription = offerings
+          .all['Subscription']?.availablePackages[0].storeProduct.priceString;
+      prices.add(priceString_Coins ?? '');
+      prices.add(priceString_Gems ?? '');
+      prices.add(priceString_Subscription ?? '');
+    }
+    return prices;
+  } on PlatformException catch (e) {
+    return [];
   }
 }
 

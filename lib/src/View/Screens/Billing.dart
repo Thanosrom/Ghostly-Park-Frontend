@@ -64,6 +64,7 @@ class _BillingState extends State<Billing> {
                   what_is_about: AppLocale.getString(
                       context, AppLocale.subscription_small_text,
                       languageCode: current_locale),
+                  price_index: 2,
                   icon: Icons.subscriptions,
                   icon_exist: true,
                   what_to_buy_button: AppLocale.getString(
@@ -85,6 +86,7 @@ class _BillingState extends State<Billing> {
                   what_to_buy_button: AppLocale.getString(
                       context, AppLocale.coins_button,
                       languageCode: current_locale),
+                  price_index: 0,
                   icon_exist: false,
                   image: 'assets/coin_2.png',
                 ),
@@ -96,6 +98,7 @@ class _BillingState extends State<Billing> {
                   what_to_buy_button: AppLocale.getString(
                       context, AppLocale.gems_button,
                       languageCode: current_locale),
+                  price_index: 1,
                   icon_exist: false,
                   image: 'assets/gem.png',
                 ),
