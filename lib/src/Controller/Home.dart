@@ -220,7 +220,7 @@ Future<Map<String, dynamic>> onPressed_FindLocation(
         //Coins mechanism
         if (coins_data2 > 0 && gems_data2 > 0) {
           //Minues -1 Coin
-          minus_Coins = await minus_Coins_Model();
+          minus_Coins = await minus_Coins_Model('simple');
 
           //Save them in the Provider
           Provider.of<UserState>(context, listen: false)
@@ -606,7 +606,7 @@ Future<List<Marker>?> get_Filtered_Markers(List<Marker> markers,
       //Coins mechanism
       if (coins_data2 > 0) {
         //Minues -1 Coin
-        minus_Coins = await minus_Coins_Model();
+        minus_Coins = await minus_Coins_Model('simple');
         //Save them in the Provider
         Provider.of<UserState>(context, listen: false)
             .setUserId(coins: coins_data2 - 1);

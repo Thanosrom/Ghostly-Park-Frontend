@@ -1,7 +1,5 @@
 // ignore_for_file: camel_case_types
 import 'package:flutter/material.dart';
-//.env
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 //Languages
 import 'package:ghostlypark/Languages.dart';
 //Routes
@@ -12,10 +10,8 @@ import 'package:ghostlypark/src/Controller/Utils/load_Save_Language.dart';
 import 'package:ghostlypark/src/View/Components/Small_Texts.dart';
 import 'package:ghostlypark/src/View/Components/Height_Spacer.dart';
 import 'package:ghostlypark/src/View/Components/Settings_Modals_Buttons.dart';
-//Libs
-import 'package:http/http.dart' as http;
-//Headers
-import 'package:ghostlypark/src/Model/Headers.dart';
+//Models
+import 'package:ghostlypark/src/Model/SubscriptionsCoinsGems.dart';
 
 class Police_Ghost extends StatefulWidget {
   const Police_Ghost({super.key});
@@ -25,17 +21,6 @@ class Police_Ghost extends StatefulWidget {
 }
 
 class PoliceGhost_State extends State<Police_Ghost> {
-  Future<http.Response> minus_5_Coins_Model() async {
-    try {
-      final response = await http.put(
-          Uri.parse('${dotenv.env['baseUrl']}/minus_5_Coins'),
-          headers: await token_Headers());
-      return response;
-    } catch (error) {
-      return http.Response('Error occurred', 400);
-    }
-  }
-
   //Languages
   String? current_locale;
 
@@ -46,7 +31,7 @@ class PoliceGhost_State extends State<Police_Ghost> {
         current_locale = value;
       });
     });
-    minus_5_Coins_Model();
+    minus_Coins_Model('police');
   }
 
   @override

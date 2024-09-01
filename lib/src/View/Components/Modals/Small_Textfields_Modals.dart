@@ -5,8 +5,8 @@ import 'package:ghostlypark/Languages.dart';
 //Controllers
 import 'package:ghostlypark/src/Controller/Utils/Go_Back.dart';
 import 'package:ghostlypark/src/Controller/Utils/load_Save_Language.dart';
-import 'package:ghostlypark/src/View/Components/Circular_Indicator.dart';
 //Components
+import 'package:ghostlypark/src/View/Components/Circular_Indicator.dart';
 import 'package:ghostlypark/src/View/Components/Height_Spacer.dart';
 import 'package:ghostlypark/src/View/Components/Settings_Modals_Buttons.dart';
 import 'package:ghostlypark/src/View/Components/Custom_TextFields.dart';

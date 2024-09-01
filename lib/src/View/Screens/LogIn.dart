@@ -23,6 +23,7 @@ import 'package:ghostlypark/src/Controller/Utils/Handle_Button_Clicks.dart';
 //Theme
 import 'package:ghostlypark/src/View/Theme/Layout.dart';
 //Libs
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 //import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -51,7 +52,6 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
   late FlutterLocalization flutter_localization;
   String? current_locale;
   String selected_language = 'en';
-  //Google Config Variables
 
   @override
   void initState() {
@@ -72,19 +72,23 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
   }
 
   void _attemptSignInSilently() async {
-    try {
-      GoogleSignInAccount? account = await _googleSignIn.signInSilently();
-      if (account == null) {
-        await _handleSignIn();
-      } else {
-        final googleSignInAuthentication = await account.authentication;
-        bool token_verified =
-            await send_Auth(googleSignInAuthentication.idToken);
-        if (token_verified) {
-          google_Login(account.email, context, token_verified);
-        } else {}
-      }
-    } catch (error) {}
+    final storage = FlutterSecureStorage();
+    String? isLoggedIn = await storage.read(key: 'isLoggedIn');
+    if (isLoggedIn == 'true') {
+      try {
+        GoogleSignInAccount? account = await _googleSignIn.signInSilently();
+        if (account == null) {
+          await _handleSignIn();
+        } else {
+          final googleSignInAuthentication = await account.authentication;
+          bool token_verified =
+              await send_Auth(googleSignInAuthentication.idToken);
+          if (token_verified) {
+            google_Login(account.email, context, token_verified);
+          } else {}
+        }
+      } catch (error) {}
+    }
   }
 
   //Handle Sign In - Sign Out
@@ -102,16 +106,6 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
     } catch (error) {}
   }
 
-  Future<void> handleSignOut() async {
-    try {
-      await _googleSignIn.signOut();
-      await _googleSignIn.disconnect();
-      // setState(() {
-      //   _currentUser = null;
-      //   _userJson = null;
-      // });
-    } catch (e) {}
-  }
   //Apple configuration
 
   //Language

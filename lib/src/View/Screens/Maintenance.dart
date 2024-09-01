@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 //Languages
 import 'package:ghostlypark/Languages.dart';
-//Main
-import 'package:ghostlypark/main.dart';
 //Components
 import 'package:ghostlypark/src/View/Components/Big_Buttons.dart';
 import 'package:ghostlypark/src/View/Components/Height_Spacer.dart';
@@ -11,6 +9,8 @@ import 'package:ghostlypark/src/View/Components/Big_Texts.dart';
 import 'package:ghostlypark/src/Controller/Utils/load_save_language.dart';
 //Theme
 import 'package:ghostlypark/src/View/Theme/Layout.dart';
+//Screens
+import 'package:ghostlypark/main.dart';
 
 class Maintenance extends StatefulWidget {
   const Maintenance({Key? key}) : super(key: key);

@@ -114,6 +114,7 @@ Future<void> google_Login(
       //Save token into shared Preferences
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('token', token);
+      await storage.write(key: 'isLoggedIn', value: 'true');
       //Navigate into Home screen
       Navigator.pushNamed(context, AppRoutes.home);
     } else {

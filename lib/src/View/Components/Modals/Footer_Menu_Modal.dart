@@ -12,7 +12,6 @@ import 'package:ghostlypark/src/Controller/Utils/load_Save_Language.dart';
 import 'package:ghostlypark/src/Controller/Routes/Routes.dart';
 //Components
 import 'package:ghostlypark/src/View/Components/Small_Texts.dart';
-//import 'package:ghostlypark/src/View/Components/Modals/Report_Modal.dart';
 //Screens
 import 'package:ghostlypark/src/Controller/Ads.dart';
 
@@ -258,6 +257,7 @@ class _Footer_Menu_Modal_State extends State<Footer_Menu_Modal> {
                     ),
                     onTap: () async {
                       await delete_Credentials();
+                      await handleSignOut();
                       Navigator.pushNamed(context, AppRoutes.login);
                     },
                   ),

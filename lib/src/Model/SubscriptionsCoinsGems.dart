@@ -55,11 +55,13 @@ Future<http.Response> plus_Coins_Model(String type) async {
   }
 }
 
-Future<http.Response> minus_Coins_Model() async {
+Future<http.Response> minus_Coins_Model(String type) async {
   try {
     final response = await http.put(
-        Uri.parse('${dotenv.env['baseUrl']}/minus_Coins'),
-        headers: await token_Headers());
+      Uri.parse('${dotenv.env['baseUrl']}/minus_Coins'),
+      headers: await token_Headers(),
+      body: jsonEncode({'type': type}),
+    );
     return response;
   } catch (error) {
     return http.Response('Error occurred', 400);

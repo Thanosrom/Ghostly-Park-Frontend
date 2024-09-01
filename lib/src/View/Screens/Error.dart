@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 //Languages
 import 'package:ghostlypark/Languages.dart';
-//Main
-import 'package:ghostlypark/main.dart';
 //Controllers
 import 'package:ghostlypark/src/Controller/Utils/load_save_language.dart';
 //Components
@@ -11,6 +9,8 @@ import 'package:ghostlypark/src/View/Components/Height_Spacer.dart';
 import 'package:ghostlypark/src/View/Components/Big_Texts.dart';
 //Theme
 import 'package:ghostlypark/src/View/Theme/Layout.dart';
+//Screens
+import 'package:ghostlypark/main.dart';
 
 class Error extends StatefulWidget {
   const Error({Key? key}) : super(key: key);
