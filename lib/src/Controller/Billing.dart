@@ -1,16 +1,20 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unused_local_variable, non_constant_identifier_names, unused_catch_clause
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+//.env
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 //Languages
 import 'package:ghostlypark/Languages.dart';
 //Controllers
 import 'package:ghostlypark/src/Controller/Utils/load_Save_Language.dart';
+import 'package:ghostlypark/src/Model/Providers%20-%20Stores/UserState.dart';
 //Components
 import 'package:ghostlypark/src/View/Components/Modals/Report_Modal.dart';
 //Models
 import 'package:ghostlypark/src/Model/SubscriptionsCoinsGems.dart';
+import 'package:provider/provider.dart';
 //Libs
 import 'package:purchases_flutter/purchases_flutter.dart';
 
@@ -31,15 +35,12 @@ Future<List<String>> initializePurchases(BuildContext context) async {
   PurchasesConfiguration? configuration;
 
   if (Platform.isAndroid) {
-    configuration = PurchasesConfiguration("goog_gfhcJJpsiAmsjeepIZKgHKqfZWx");
+    configuration = PurchasesConfiguration('${dotenv.env['revenueCatAPI']}');
   } else {
     // Add iOS configuration if necessary
   }
   if (configuration != null) {
     await Purchases.configure(configuration);
-    //print('Configured RevenueCat');
-  } else {
-    //print("No configuration");
   }
 
   try {
@@ -137,20 +138,31 @@ Future<void> purchaseProduct(
           if (whatIsTheProduct == "Coins") {
             final response = await plus_Coins_Model('buy');
             if (response.statusCode == 200) {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return Report_Modal(
-                    context: context,
-                    labelTexts: AppLocale.getString(
-                      context,
-                      AppLocale.bought_coins_small_text,
-                      languageCode: current_locale,
-                    ),
-                    its_error: false,
-                  );
-                },
-              );
+              var get_Coins;
+              var coins_data;
+              var coins_data2;
+              get_Coins = await get_Coins_Model();
+              if (get_Coins.statusCode == 200) {
+                //Decode
+                coins_data = json.decode(get_Coins.body);
+                coins_data2 = coins_data[0]['coins'];
+                Provider.of<UserState>(context, listen: false)
+                    .setUserId(coins: coins_data2);
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Report_Modal(
+                      context: context,
+                      labelTexts: AppLocale.getString(
+                        context,
+                        AppLocale.bought_coins_small_text,
+                        languageCode: current_locale,
+                      ),
+                      its_error: false,
+                    );
+                  },
+                );
+              }
             } else {
               showDialog(
                 context: context,
@@ -172,20 +184,31 @@ Future<void> purchaseProduct(
           if (whatIsTheProduct == "Gems") {
             final response = await plus_Gems_Model();
             if (response.statusCode == 200) {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return Report_Modal(
-                    context: context,
-                    labelTexts: AppLocale.getString(
-                      context,
-                      AppLocale.bought_gems_small_text,
-                      languageCode: current_locale,
-                    ),
-                    its_error: false,
-                  );
-                },
-              );
+              var get_Gems;
+              var gems_data;
+              var gems_data2;
+              get_Gems = await get_Gems_Model();
+              if (get_Gems.statusCode == 200) {
+                //Decode
+                gems_data = json.decode(get_Gems.body);
+                gems_data2 = gems_data[0]['gems'];
+                Provider.of<UserState>(context, listen: false)
+                    .setUserId(gems: gems_data2);
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Report_Modal(
+                      context: context,
+                      labelTexts: AppLocale.getString(
+                        context,
+                        AppLocale.bought_gems_small_text,
+                        languageCode: current_locale,
+                      ),
+                      its_error: false,
+                    );
+                  },
+                );
+              }
             } else {
               showDialog(
                 context: context,

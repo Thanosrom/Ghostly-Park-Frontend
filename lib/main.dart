@@ -28,7 +28,7 @@ import 'package:ghostlypark/src/Controller/Routes/Routes.dart';
 import 'package:ghostlypark/src/View/Screens/Landing_Page.dart';
 import 'package:ghostlypark/src/View/Screens/Maintenance.dart';
 import 'package:ghostlypark/src/View/Screens/Error.dart';
-import 'package:ghostlypark/src/View/Screens/Ads.dart';
+import 'package:ghostlypark/src/Controller/Ads.dart';
 import 'package:ghostlypark/src/View/Screens/Update.dart';
 import 'package:ghostlypark/src/View/Screens/Billing.dart';
 //Providers
