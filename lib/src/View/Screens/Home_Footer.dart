@@ -65,171 +65,178 @@ class _Home_Footer extends State<Home_Footer> {
   }
 
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    return Container(
-      width: double.infinity,
-      height: screenWidth <= 414
-          ? screenWidth * 0.2
-          : screenWidth <= 810
-              ? screenWidth * 0.15
-              : screenWidth * 0.15,
-      decoration: BoxDecoration(
-        color: Colors.transparent.withOpacity(0.7),
-        borderRadius: BorderRadius.circular(screenWidth <= 414
-            ? screenWidth * 0.05
-            : screenWidth <= 810
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final screenWidth = MediaQuery.of(context).size.width;
+
+        return Container(
+          width: double.infinity,
+          height: screenWidth <= 414
+              ? screenWidth * 0.2
+              : screenWidth <= 810
+                  ? screenWidth * 0.15
+                  : screenWidth * 0.15,
+          decoration: BoxDecoration(
+            color: Colors.transparent.withOpacity(0.7),
+            borderRadius: BorderRadius.circular(screenWidth <= 414
                 ? screenWidth * 0.05
-                : screenWidth * 0.05),
-      ),
-      margin: EdgeInsets.all(
-        screenWidth <= 414
-            ? screenWidth * 0.05
-            : screenWidth <= 810
-                ? screenWidth * 0.05
-                : screenWidth * 0.05,
-      ),
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(
-              top: screenWidth <= 414
-                  ? screenWidth * 0.007
-                  : screenWidth <= 810
-                      ? screenWidth * 0.007
-                      : screenWidth * 0.007,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ShaderMask(
-                  blendMode: BlendMode.srcIn,
-                  shaderCallback: (Rect bounds) {
-                    return markerGradient1.createShader(bounds);
-                  },
-                  child: Icon(
-                    Icons.drive_eta,
-                    size: screenWidth <= 414
-                        ? screenWidth * 0.05
-                        : screenWidth <= 810
-                            ? screenWidth * 0.05
-                            : screenWidth * 0.05,
-                  ),
-                ),
-                Small_Texts(
-                  avoid_flex: false,
-                  smallText: AppLocale.getString(
-                      context, AppLocale.minutes_text_5,
-                      languageCode: current_locale),
-                ),
-                Width_Spacer(),
-                ShaderMask(
-                  blendMode: BlendMode.srcIn,
-                  shaderCallback: (Rect bounds) {
-                    return markerGradient2.createShader(bounds);
-                  },
-                  child: Icon(
-                    Icons.drive_eta,
-                    size: screenWidth <= 414
-                        ? screenWidth * 0.05
-                        : screenWidth <= 810
-                            ? screenWidth * 0.05
-                            : screenWidth * 0.05,
-                  ),
-                ),
-                Small_Texts(
-                  avoid_flex: false,
-                  smallText: AppLocale.getString(
-                      context, AppLocale.minutes_text_15,
-                      languageCode: current_locale),
-                ),
-              ],
-            ),
+                : screenWidth <= 810
+                    ? screenWidth * 0.05
+                    : screenWidth * 0.05),
           ),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Small_Buttons(
-                  onPressed: widget.onPressed_UnParked,
-                  icon: Icons.directions_car,
-                ),
-                SizedBox(
-                  width: screenWidth <= 414
-                      ? screenWidth * 0.02
+          margin: EdgeInsets.all(
+            screenWidth <= 414
+                ? screenWidth * 0.05
+                : screenWidth <= 810
+                    ? screenWidth * 0.05
+                    : screenWidth * 0.05,
+          ),
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.only(
+                  top: screenWidth <= 414
+                      ? screenWidth * 0.007
                       : screenWidth <= 810
-                          ? screenWidth * 0.03
-                          : screenWidth * 0.03,
+                          ? screenWidth * 0.007
+                          : screenWidth * 0.007,
                 ),
-                // Small_Buttons(
-                //   onPressed: widget.onPressed_Parked,
-                //   icon: Icons.local_parking,
-                // ),
-                Small_Buttons(
-                  onPressed: widget.onPressed_SearchMarkers,
-                  icon: Icons.local_parking_rounded,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ShaderMask(
+                      blendMode: BlendMode.srcIn,
+                      shaderCallback: (Rect bounds) {
+                        return markerGradient1.createShader(bounds);
+                      },
+                      child: Icon(
+                        Icons.drive_eta,
+                        size: screenWidth <= 414
+                            ? screenWidth * 0.05
+                            : screenWidth <= 810
+                                ? screenWidth * 0.05
+                                : screenWidth * 0.05,
+                      ),
+                    ),
+                    Small_Texts(
+                      avoid_flex: false,
+                      smallText: AppLocale.getString(
+                          context, AppLocale.minutes_text_5,
+                          languageCode: current_locale),
+                    ),
+                    Width_Spacer(),
+                    ShaderMask(
+                      blendMode: BlendMode.srcIn,
+                      shaderCallback: (Rect bounds) {
+                        return markerGradient2.createShader(bounds);
+                      },
+                      child: Icon(
+                        Icons.drive_eta,
+                        size: screenWidth <= 414
+                            ? screenWidth * 0.05
+                            : screenWidth <= 810
+                                ? screenWidth * 0.05
+                                : screenWidth * 0.05,
+                      ),
+                    ),
+                    Small_Texts(
+                      avoid_flex: false,
+                      smallText: AppLocale.getString(
+                          context, AppLocale.minutes_text_15,
+                          languageCode: current_locale),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  width: screenWidth <= 414
-                      ? screenWidth * 0.02
-                      : screenWidth <= 810
-                          ? screenWidth * 0.03
-                          : screenWidth * 0.03,
-                ),
-                Small_Buttons(
-                  onPressed: widget.onPressed_FindMe,
-                  icon: Icons.location_searching,
-                ),
-                SizedBox(
-                  width: screenWidth <= 414
-                      ? screenWidth * 0.02
-                      : screenWidth <= 810
-                          ? screenWidth * 0.03
-                          : screenWidth * 0.03,
-                ),
-                Small_Buttons(
-                  onPressedWithContext: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          backgroundColor: Colors.transparent.withOpacity(0.2),
-                          title: Center(
-                            child: Big_Texts(
-                              bigText: AppLocale.getString(
-                                  context, AppLocale.menu_big_text,
-                                  languageCode: current_locale),
-                            ),
-                          ),
-                          content: Footer_Menu_Modal(
-                            context: context,
-                            onPressed_FindMe: widget.onPressed_FindMe,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            side: const BorderSide(
-                              color: Colors.white70,
-                              style: BorderStyle.solid,
-                            ),
-                            borderRadius: BorderRadius.circular(
-                              screenWidth <= 414
-                                  ? screenWidth * 0.08
-                                  : screenWidth <= 810
-                                      ? screenWidth * 0.05
-                                      : screenWidth * 0.05,
-                            ),
-                          ),
+              ),
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Small_Buttons(
+                      onPressed: widget.onPressed_UnParked,
+                      icon: Icons.directions_car,
+                    ),
+                    SizedBox(
+                      width: screenWidth <= 414
+                          ? screenWidth * 0.02
+                          : screenWidth <= 810
+                              ? screenWidth * 0.03
+                              : screenWidth * 0.03,
+                    ),
+                    // Small_Buttons(
+                    //   onPressed: widget.onPressed_Parked,
+                    //   icon: Icons.local_parking,
+                    // ),
+                    Small_Buttons(
+                      onPressed: widget.onPressed_SearchMarkers,
+                      icon: Icons.local_parking_rounded,
+                    ),
+                    SizedBox(
+                      width: screenWidth <= 414
+                          ? screenWidth * 0.02
+                          : screenWidth <= 810
+                              ? screenWidth * 0.03
+                              : screenWidth * 0.03,
+                    ),
+                    Small_Buttons(
+                      onPressed: widget.onPressed_FindMe,
+                      icon: Icons.location_searching,
+                    ),
+                    SizedBox(
+                      width: screenWidth <= 414
+                          ? screenWidth * 0.02
+                          : screenWidth <= 810
+                              ? screenWidth * 0.03
+                              : screenWidth * 0.03,
+                    ),
+                    Small_Buttons(
+                      onPressedWithContext: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              backgroundColor:
+                                  Colors.transparent.withOpacity(0.2),
+                              title: Center(
+                                child: Big_Texts(
+                                  bigText: AppLocale.getString(
+                                      context, AppLocale.menu_big_text,
+                                      languageCode: current_locale),
+                                ),
+                              ),
+                              content: Footer_Menu_Modal(
+                                context: context,
+                                onPressed_FindMe: widget.onPressed_FindMe,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                side: const BorderSide(
+                                  color: Colors.white70,
+                                  style: BorderStyle.solid,
+                                ),
+                                borderRadius: BorderRadius.circular(
+                                  screenWidth <= 414
+                                      ? screenWidth * 0.08
+                                      : screenWidth <= 810
+                                          ? screenWidth * 0.05
+                                          : screenWidth * 0.05,
+                                ),
+                              ),
+                            );
+                          },
                         );
                       },
-                    );
-                  },
-                  icon: Icons.menu,
+                      icon: Icons.menu,
+                      widthFactor: screenWidth,
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

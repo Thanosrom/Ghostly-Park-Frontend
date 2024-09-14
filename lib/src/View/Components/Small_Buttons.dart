@@ -5,13 +5,18 @@ class Small_Buttons extends StatelessWidget {
   final VoidCallback? onPressed;
   final VoidCallback? onPressedWithContext;
   final IconData? icon;
+  final double? widthFactor;
 
   Small_Buttons(
-      {super.key, this.onPressed, this.onPressedWithContext, this.icon});
+      {super.key,
+      this.onPressed,
+      this.onPressedWithContext,
+      this.icon,
+      this.widthFactor});
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final widthFactor = MediaQuery.of(context).size.width;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -20,24 +25,24 @@ class Small_Buttons extends StatelessWidget {
         ElevatedButton(
           style: ElevatedButton.styleFrom(
             minimumSize: Size(
-              screenWidth <= 414
-                  ? screenWidth * 0.05
-                  : screenWidth <= 810
-                      ? screenWidth * 0.12
-                      : screenWidth * 0.12,
-              screenWidth <= 414
-                  ? screenWidth * 0.12
-                  : screenWidth <= 810
-                      ? screenWidth * 0.08
-                      : screenWidth * 0.08,
+              widthFactor <= 414
+                  ? widthFactor * 0.05
+                  : widthFactor <= 810
+                      ? widthFactor * 0.12
+                      : widthFactor * 0.12,
+              widthFactor <= 414
+                  ? widthFactor * 0.12
+                  : widthFactor <= 810
+                      ? widthFactor * 0.08
+                      : widthFactor * 0.08,
             ),
             backgroundColor: const Color.fromARGB(255, 100, 7, 223),
             shadowColor: Colors.grey,
-            elevation: screenWidth <= 414
-                ? screenWidth * 0.005
-                : screenWidth <= 810
-                    ? screenWidth * 0.005
-                    : screenWidth * 0.005,
+            elevation: widthFactor <= 414
+                ? widthFactor * 0.005
+                : widthFactor <= 810
+                    ? widthFactor * 0.005
+                    : widthFactor * 0.005,
           ),
           onPressed: () {
             if (onPressed != null) {
@@ -51,11 +56,11 @@ class Small_Buttons extends StatelessWidget {
           child: Icon(
             icon,
             color: Colors.white70,
-            size: screenWidth <= 414
-                ? screenWidth * 0.05
-                : screenWidth <= 810
-                    ? screenWidth * 0.03
-                    : screenWidth * 0.03,
+            size: widthFactor <= 414
+                ? widthFactor * 0.05
+                : widthFactor <= 810
+                    ? widthFactor * 0.03
+                    : widthFactor * 0.03,
           ),
         ),
       ],

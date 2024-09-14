@@ -7,6 +7,8 @@ import 'package:ghostlypark/Languages.dart';
 import 'package:ghostlypark/src/Controller/Utils/load_Save_Language.dart';
 //Components
 import 'package:ghostlypark/src/View/Components/Modals/Report_Modal.dart';
+//Libs
+import 'package:email_validator/email_validator.dart';
 
 String? current_locale;
 void initializeSettings(BuildContext context) async {
@@ -274,39 +276,20 @@ Future<bool> validate_Email(
 //========================================================
 //Check for valud Email,Username,Password and Car Model
 bool isValidUsername(String username) {
-  final RegExp usernamePattern = RegExp(r'^\p{L}{2,20}$', unicode: true);
-  return usernamePattern.hasMatch(username);
+  final RegExp usernameModelPattern = RegExp(r'^.{2,25}$');
+  return usernameModelPattern.hasMatch(username);
 }
 
 bool isValidEmail(String email) {
-  // Regular expression for validating internationalized email addresses
-  final RegExp emailPattern = RegExp(
-    r'^[^\s@]+@[^\s@]+\.[^\s@]+$', // Basic structure for email validation
-    unicode: true,
-  );
-
-  return emailPattern.hasMatch(email);
+  return EmailValidator.validate(email);
 }
 
 bool isValidPassword(String password) {
-  // Regular expression to match passwords between 8 and 50 characters long
-  // Allows most Unicode characters while avoiding problematic symbols
-  final RegExp passwordPattern = RegExp(
-    r'^[\p{L}\p{N}\p{P}\p{S}\p{Zs}]{8,50}$',
-    unicode: true,
-  );
-
-  // Ensure the password does not contain potentially problematic characters
-  final RegExp problematicPattern = RegExp(
-    r'[\x00-\x1F\x7F]', // Control characters and DEL
-    unicode: true,
-  );
-
-  return passwordPattern.hasMatch(password) &&
-      !problematicPattern.hasMatch(password);
+  final RegExp passwordModelPattern = RegExp(r'^.{8,25}$');
+  return passwordModelPattern.hasMatch(password);
 }
 
 bool isValidCarModel(String carModel) {
-  final RegExp carModelPattern = RegExp(r'^\p{L}{2,20}$', unicode: true);
+  final RegExp carModelPattern = RegExp(r'^.{2,25}$');
   return carModelPattern.hasMatch(carModel);
 }

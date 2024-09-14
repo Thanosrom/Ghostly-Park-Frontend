@@ -244,6 +244,21 @@ Future<void> send_NewPassword(
         );
       }
     }
+  } else {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Report_Modal(
+          context: context,
+          labelTexts: AppLocale.getString(
+            context,
+            AppLocale.new_password_and_repeat_password_are_not_match_small_text,
+            languageCode: current_locale,
+          ),
+          its_error: true,
+        );
+      },
+    );
   }
 }
 
