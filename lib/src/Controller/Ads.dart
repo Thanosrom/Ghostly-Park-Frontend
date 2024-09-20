@@ -42,7 +42,7 @@ void createRewardedAd(BuildContext context) {
       onAdLoaded: (ad) async {
         _rewardedAd = ad;
         adLoaded = true;
-        showRewardedAd(context);
+        //showRewardedAd(context);
       },
       onAdFailedToLoad: (LoadAdError error) {
         //debugPrint('RewardedAd failed to load: $error');
@@ -60,6 +60,7 @@ void showRewardedAd(BuildContext context) {
   try {
     _rewardedAd?.fullScreenContentCallback = FullScreenContentCallback(
       onAdDismissedFullScreenContent: (ad) {
+        createRewardedAd(context);
         ad.dispose();
       },
       onAdFailedToShowFullScreenContent: (ad, error) {

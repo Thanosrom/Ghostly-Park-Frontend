@@ -140,7 +140,7 @@ Future<void> onPressed_FindMe(
   final status = await Permission.location.request();
   if (status.isGranted) {
     Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
+      desiredAccuracy: LocationAccuracy.best,
     );
     mapController.move(LatLng(position.latitude, position.longitude), 18);
   } else {
@@ -417,7 +417,7 @@ Future<bool> onPressed_UnParked(MapController mapController,
       }
     });
 
-    Future.delayed(Duration(minutes: 1), () {
+    Future.delayed(Duration(minutes: 3), () {
       if (!highSpeedCompleter.isCompleted) {
         highSpeedCompleter.complete(false);
         positionStreamSubscription?.cancel();
@@ -581,7 +581,7 @@ Future<List<Marker>?> get_Filtered_Markers(List<Marker> markers,
   final status = await Permission.location.request();
   if (status.isGranted) {
     Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
+      desiredAccuracy: LocationAccuracy.best,
     );
 
     //Get Filter Markers and spend 1 coin

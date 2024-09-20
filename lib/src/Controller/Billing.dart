@@ -82,6 +82,7 @@ Future<void> purchaseProduct(
         if (customerInfo.entitlements.all["Free"]?.isActive ?? false) {
           //Purchase Subscription
           if (whatIsTheProduct == "Subscription") {
+            print("Subscription ===============================");
             final get_Subscription = await get_subscription_Model();
             final subscription_body =
                 json.decode(get_Subscription.body)[0]['subscription'];
@@ -137,6 +138,7 @@ Future<void> purchaseProduct(
           }
           //Purchase Coins
           if (whatIsTheProduct == "Coins") {
+            print("Coins ===============================");
             final response = await plus_Coins_Model('buy');
             if (response.statusCode == 200) {
               var get_Coins;
@@ -183,6 +185,7 @@ Future<void> purchaseProduct(
           }
           //Purchase Gems
           if (whatIsTheProduct == "Gems") {
+            print("Gems ===============================");
             final response = await plus_Gems_Model();
             if (response.statusCode == 200) {
               var get_Gems;

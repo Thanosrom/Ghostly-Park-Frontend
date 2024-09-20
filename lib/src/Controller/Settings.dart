@@ -243,6 +243,21 @@ Future<void> send_NewPassword(
           },
         );
       }
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Report_Modal(
+            context: context,
+            labelTexts: AppLocale.getString(
+              context,
+              AppLocale.this_is_the_old_password_small_text,
+              languageCode: current_locale,
+            ),
+            its_error: true,
+          );
+        },
+      );
     }
   } else {
     showDialog(
@@ -252,7 +267,7 @@ Future<void> send_NewPassword(
           context: context,
           labelTexts: AppLocale.getString(
             context,
-            AppLocale.new_password_and_repeat_password_are_not_match_small_text,
+            AppLocale.password_is_less_than_8_digits_or_small_text,
             languageCode: current_locale,
           ),
           its_error: true,

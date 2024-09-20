@@ -21,6 +21,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 //Routes
 import 'package:ghostlypark/src/Controller/Routes/Routes.dart';
@@ -40,7 +41,6 @@ void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
     MobileAds.instance.initialize();
-
     //Load .env Variables
     await dotenv.load();
   } catch (error) {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ghostlypark/src/Controller/Utils/load_save_language.dart';
 //Controllers
 import 'package:ghostlypark/src/Controller/Billing.dart';
+import 'package:ghostlypark/src/Controller/Utils/Handle_Button_Clicks.dart';
 //Components
 import 'package:ghostlypark/src/View/Components/Height_Spacer.dart';
 import 'package:ghostlypark/src/View/Components/Small_Texts.dart';
@@ -126,7 +127,9 @@ class _Billing_Container_State extends State<Billing_Container> {
                   ),
                 ),
                 onPressed: () async {
-                  await purchaseProduct(widget.what_is_the_product, context);
+                  if (await handle_Button_Click('Purchase')) {
+                    await purchaseProduct(widget.what_is_the_product, context);
+                  }
                 },
                 child: Padding(
                   padding: EdgeInsets.all(screenWidth <= 414

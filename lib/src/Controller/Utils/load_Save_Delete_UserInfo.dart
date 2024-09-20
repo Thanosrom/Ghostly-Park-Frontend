@@ -5,6 +5,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 //Controllers
 import 'package:ghostlypark/src/Controller/LogIn.dart';
 //import 'package:google_sign_in/google_sign_in.dart';
+//Screens
+import 'package:ghostlypark/src/View/Screens/LogIn.dart';
 
 final storage = FlutterSecureStorage();
 
@@ -34,10 +36,9 @@ delete_Credentials() async {
 }
 
 //const List<String> scopes = <String>['openid', 'profile'];
-Future<void> handleSignOut() async {
+Future<void> signOutUser() async {
   try {
-    // await _googleSignIn.signOut();
-    // await _googleSignIn.disconnect();
+    loginKey.currentState?.handleSignOut();
     await storage.write(key: 'isLoggedIn', value: 'false');
   } catch (e) {}
 }

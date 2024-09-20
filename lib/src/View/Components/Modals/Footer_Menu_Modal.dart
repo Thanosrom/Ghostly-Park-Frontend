@@ -39,6 +39,7 @@ class _Footer_Menu_Modal_State extends State<Footer_Menu_Modal> {
 
   @override
   void initState() {
+    createRewardedAd(context);
     super.initState();
     load_Selected_Language().then((value) {
       setState(() {
@@ -215,7 +216,7 @@ class _Footer_Menu_Modal_State extends State<Footer_Menu_Modal> {
                     onTap: () async {
                       //See Adds first
                       if (await handle_Button_Click('onPressed_Ad')) {
-                        createRewardedAd(context);
+                        showRewardedAd(context);
                       }
                     },
                   ),
@@ -257,7 +258,7 @@ class _Footer_Menu_Modal_State extends State<Footer_Menu_Modal> {
                     ),
                     onTap: () async {
                       await delete_Credentials();
-                      await handleSignOut();
+                      await signOutUser();
                       Navigator.pushNamed(context, AppRoutes.login);
                     },
                   ),

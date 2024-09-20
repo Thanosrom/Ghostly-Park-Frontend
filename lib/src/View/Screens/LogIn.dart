@@ -28,6 +28,9 @@ import 'package:flutter_localization/flutter_localization.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 //import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
+//Global Keys
+final GlobalKey<_LogInState> loginKey = GlobalKey<_LogInState>();
+
 //Google Config
 GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: scopes,
@@ -106,6 +109,14 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
     } catch (error) {}
   }
 
+  Future<void> handleSignOut() async {
+    try {
+      await _googleSignIn.signOut();
+      await _googleSignIn.disconnect();
+    } catch (error) {
+      print('Error signing out: $error');
+    }
+  }
   //Apple configuration
 
   //Language
