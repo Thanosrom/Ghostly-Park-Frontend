@@ -78,7 +78,9 @@ class _Report_Modal_State extends State<Report_Modal> {
                   : screenWidth * 0.05,
         ),
         decoration: BoxDecoration(
-          color: widget.its_error ? Colors.red.withOpacity(0.9) : Colors.black,
+          color: widget.its_error
+              ? Colors.red.withOpacity(0.65)
+              : Colors.black.withOpacity(0.9),
           borderRadius: BorderRadius.all(
             Radius.circular(
               screenWidth <= 414
@@ -88,19 +90,19 @@ class _Report_Modal_State extends State<Report_Modal> {
                       : screenWidth * 0.05,
             ),
           ),
-          boxShadow: [
-            BoxShadow(
-              color: widget.its_error
-                  ? Colors.red.withOpacity(0.9)
-                  : Color.fromARGB(255, 100, 7, 223),
-              offset: Offset(0, 4),
-              blurRadius: screenWidth <= 414
-                  ? screenWidth * 0.01
-                  : screenWidth <= 810
-                      ? screenWidth * 0.01
-                      : screenWidth * 0.01,
-            ),
-          ],
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: widget.its_error
+          //         ? Colors.red.withOpacity(0.5)
+          //         : const Color(0xA216141D).withOpacity(0.5),
+          //     offset: Offset(0, 4),
+          //     blurRadius: screenWidth <= 414
+          //         ? screenWidth * 0.01
+          //         : screenWidth <= 810
+          //             ? screenWidth * 0.01
+          //             : screenWidth * 0.01,
+          //   ),
+          // ],
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

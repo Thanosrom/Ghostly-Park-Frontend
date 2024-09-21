@@ -297,18 +297,28 @@ Future<Map<String, dynamic>> onPressed_FindLocation(
             final Marker marker = Marker(
               point: LatLng(lat, lng),
               builder: (BuildContext context) {
-                return ShaderMask(
-                  blendMode: BlendMode.srcIn,
-                  shaderCallback: (Rect bounds) {
-                    return markerGradient.createShader(bounds);
-                  },
-                  child: Icon(
-                    Icons.drive_eta,
-                    size: screenWidth <= 414
-                        ? screenWidth * 0.03
-                        : screenWidth <= 810
-                            ? screenWidth * 0.035
-                            : screenWidth * 0.035,
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.7),
+                    border: Border.all(
+                      width: 2,
+                      color: Colors.transparent,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: ShaderMask(
+                    blendMode: BlendMode.srcIn,
+                    shaderCallback: (Rect bounds) {
+                      return markerGradient.createShader(bounds);
+                    },
+                    child: Icon(
+                      Icons.drive_eta,
+                      size: screenWidth <= 414
+                          ? screenWidth * 0.03
+                          : screenWidth <= 810
+                              ? screenWidth * 0.035
+                              : screenWidth * 0.035,
+                    ),
                   ),
                 );
               },
@@ -417,7 +427,7 @@ Future<bool> onPressed_UnParked(MapController mapController,
       }
     });
 
-    Future.delayed(Duration(minutes: 3), () {
+    Future.delayed(const Duration(minutes: 2), () {
       if (!highSpeedCompleter.isCompleted) {
         highSpeedCompleter.complete(false);
         positionStreamSubscription?.cancel();
@@ -570,9 +580,6 @@ Future<void> onPressed_Parked(BuildContext context) async {
 Future<List<Marker>?> get_Filtered_Markers(List<Marker> markers,
     MapController mapController, BuildContext context) async {
   initializeSettings(context);
-  //See Adds first
-  // _createRewardedAd(userState);
-  // _showRewardedAd(userState);
   var get_Coins;
   var minus_Coins;
   var coins_data;
@@ -673,18 +680,28 @@ Future<List<Marker>?> get_Filtered_Markers(List<Marker> markers,
           final Marker marker = Marker(
             point: LatLng(lat, lng),
             builder: (BuildContext context) {
-              return ShaderMask(
-                blendMode: BlendMode.srcIn,
-                shaderCallback: (Rect bounds) {
-                  return markerGradient.createShader(bounds);
-                },
-                child: Icon(
-                  Icons.drive_eta,
-                  size: screenWidth <= 414
-                      ? screenWidth * 0.03
-                      : screenWidth <= 810
-                          ? screenWidth * 0.035
-                          : screenWidth * 0.035,
+              return Container(
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.7),
+                  border: Border.all(
+                    width: 2,
+                    color: Colors.transparent,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: ShaderMask(
+                  blendMode: BlendMode.srcIn,
+                  shaderCallback: (Rect bounds) {
+                    return markerGradient.createShader(bounds);
+                  },
+                  child: Icon(
+                    Icons.drive_eta,
+                    size: screenWidth <= 414
+                        ? screenWidth * 0.03
+                        : screenWidth <= 810
+                            ? screenWidth * 0.035
+                            : screenWidth * 0.035,
+                  ),
                 ),
               );
             },
@@ -795,7 +812,7 @@ Future<List<LatLng>?> tap_Route(
         final screenWidth = MediaQuery.of(context).size.width;
 
         return Dialog(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.black.withOpacity(0.6),
           child: Container(
             padding: EdgeInsets.all(
               screenWidth <= 414
@@ -815,7 +832,7 @@ Future<List<LatLng>?> tap_Route(
                     ? screenWidth * 0.5
                     : screenWidth * 0.5,
             decoration: BoxDecoration(
-              color: Colors.black,
+              color: Colors.black.withOpacity(0.6),
               borderRadius: BorderRadius.all(
                 Radius.circular(
                   screenWidth <= 414
@@ -825,17 +842,17 @@ Future<List<LatLng>?> tap_Route(
                           : screenWidth * 0.1,
                 ),
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromARGB(255, 100, 7, 223),
-                  offset: Offset(0, 4),
-                  blurRadius: screenWidth <= 414
-                      ? screenWidth * 0.01
-                      : screenWidth <= 810
-                          ? screenWidth * 0.01
-                          : screenWidth * 0.01,
-                ),
-              ],
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: Colors.transparent,
+              //     offset: Offset(0, 4),
+              //     blurRadius: screenWidth <= 414
+              //         ? screenWidth * 0.01
+              //         : screenWidth <= 810
+              //             ? screenWidth * 0.01
+              //             : screenWidth * 0.01,
+              //   ),
+              // ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

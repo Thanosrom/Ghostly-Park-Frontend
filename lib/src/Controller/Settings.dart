@@ -181,11 +181,11 @@ Future<void> send_NewPassword(
             AppLocale.new_password_and_repeat_password_are_not_match_small_text,
             languageCode: current_locale,
           ),
-          its_error: false,
-          is_changed: true,
+          its_error: true,
         );
       },
     );
+    return;
   }
   if (newPasswordController.isEmpty && newRepeatPasswordController.isEmpty) {
     showDialog(
@@ -202,6 +202,7 @@ Future<void> send_NewPassword(
         );
       },
     );
+    return;
   }
   if (await validate_Password(context, newPasswordController) &&
       await validate_Password(context, newRepeatPasswordController) &&
@@ -227,6 +228,7 @@ Future<void> send_NewPassword(
             );
           },
         );
+        return;
       } else {
         showDialog(
           context: context,
@@ -242,6 +244,7 @@ Future<void> send_NewPassword(
             );
           },
         );
+        return;
       }
     } else {
       showDialog(
@@ -258,23 +261,26 @@ Future<void> send_NewPassword(
           );
         },
       );
+      return;
     }
-  } else {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Report_Modal(
-          context: context,
-          labelTexts: AppLocale.getString(
-            context,
-            AppLocale.password_is_less_than_8_digits_or_small_text,
-            languageCode: current_locale,
-          ),
-          its_error: true,
-        );
-      },
-    );
   }
+  // } else {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return Report_Modal(
+  //         context: context,
+  //         labelTexts: AppLocale.getString(
+  //           context,
+  //           AppLocale.password_is_false_small_text,
+  //           languageCode: current_locale,
+  //         ),
+  //         its_error: true,
+  //       );
+  //     },
+  //   );
+  //   return;
+  // }
 }
 
 Future<void> change_CarInfo(BuildContext context) async {

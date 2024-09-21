@@ -171,8 +171,7 @@ mixin AppLocale {
   static const String
       new_password_and_repeat_password_are_not_match_small_text =
       'new_password_and_repeat_password_are_not_match_small_text';
-  static const String password_is_less_than_8_digits_or_small_text =
-      'password_is_less_than_8_digits_or_small_text';
+
   static const String password_fields_are_empty_small_text =
       'password_fields_are_empty_small_text';
   static const String new_carInfo_small_text = 'new_carInfo_small_text';
@@ -555,9 +554,9 @@ mixin AppLocale {
     email_is_false_small_text: 'The email field is false',
     username_is_false_small_text: 'The username field is false',
     password_is_false_small_text:
-        'The password field is false, it must contain Uppercase, Lowercase, numbers, and be at least 8 characters long',
+        'The password field is false, it must contain at least 8 characters long',
     repeat_password_is_false_small_text:
-        'The repeat password field is false, it must contain Uppercase, Lowercase, numbers, and be at least 8 characters long',
+        'The repeat password field is false, it must contain at least 8 characters long',
     car_model_is_false_small_text: 'The car model field is false',
     email_exist_small_text: 'Email already exist',
 
@@ -574,8 +573,6 @@ mixin AppLocale {
     this_is_the_old_password_small_text: 'This is not the Old Password',
     new_password_and_repeat_password_are_not_match_small_text:
         'New Password and Repeated Password are not match',
-    password_is_less_than_8_digits_or_small_text:
-        'Password length is less than 8 digits ,\n\n or it does not contain any lowercase or upercase letters',
     password_fields_are_empty_small_text: 'Password Fields are Empty',
     new_carInfo_small_text: 'New Car Info',
     car_model_is_empty_small_text: 'Car Model is Empty',
@@ -784,9 +781,9 @@ mixin AppLocale {
     email_is_false_small_text: 'Το πεδίο email είναι λάθος',
     username_is_false_small_text: 'Το πεδίο όνομα χρήστη είναι λάθος',
     password_is_false_small_text:
-        'Το πεδίο κωδικού πρόσβασης είναι λάθος, πρέπει να περιέχει κεφαλαία, πεζά, αριθμούς και να είναι τουλάχιστον 8 χαρακτήρες',
+        'Το πεδίο κωδικού πρόσβασης είναι λάθος, πρέπει να περιέχει τουλάχιστον 8 χαρακτήρες',
     repeat_password_is_false_small_text:
-        'Το πεδίο επανάληψης κωδικού πρόσβασης είναι λάθος, πρέπει να περιέχει κεφαλαία, σύμβολα, αριθμούς και να είναι τουλάχιστον 8 χαρακτήρες',
+        'Το πεδίο επανάληψης κωδικού πρόσβασης είναι λάθος, πρέπει να περιέχει τουλάχιστον 8 χαρακτήρες',
     car_model_is_false_small_text: 'Το πεδίο μοντέλο αυτοκινήτου είναι λάθος',
     email_exist_small_text: 'Το email υπάρχει ήδη',
 
@@ -804,8 +801,6 @@ mixin AppLocale {
         'Αυτός δεν είναι ο παλιός κωδικός πρόσβασης',
     new_password_and_repeat_password_are_not_match_small_text:
         'Ο νέος κωδικός πρόσβασης και ο επαναλαμβανόμενος κωδικός πρόσβασης δεν ταιριάζουν',
-    password_is_less_than_8_digits_or_small_text:
-        'Το πεδίο κωδικός έχει λιγότερα από 8 ψηφία,\n\n ή δεν περιέχει καθόλου κεφαλαία και πεζά γράμματα',
     password_fields_are_empty_small_text:
         'Το πεδία του κωδικού πρόσβασης είναι κενό',
     new_carInfo_small_text: 'Νέο μοντέλο αυτοκινήτου',
@@ -1014,9 +1009,9 @@ mixin AppLocale {
     email_is_false_small_text: 'El campo de correo electrónico es falso',
     username_is_false_small_text: 'El campo de nombre de usuario es falso',
     password_is_false_small_text:
-        'El campo de contraseña es falso, debe contener mayúsculas, minúsculas, números y tener al menos 8 caracteres',
+        'El campo de contraseña es incorrecto, debe contener al menos 8 caracteres',
     repeat_password_is_false_small_text:
-        'El campo de repetir contraseña es falso, debe contener mayúsculas, minúsculas, números y tener al menos 8 caracteres',
+        'El campo de repetir contraseña es incorrecto, debe contener al menos 8 caracteres',
     car_model_is_false_small_text: 'El campo de modelo de coche es falso',
     email_exist_small_text: 'El correo electrónico ya existe',
 
@@ -1033,8 +1028,6 @@ mixin AppLocale {
     this_is_the_old_password_small_text: 'Esta no es la contraseña antigua',
     new_password_and_repeat_password_are_not_match_small_text:
         'La nueva contraseña y la contraseña repetida no coinciden',
-    password_is_less_than_8_digits_or_small_text:
-        'El campo de contraseña tiene menos de 8 dígitos,\n o no contiene mayúsculas ni minúsculas',
     password_fields_are_empty_small_text:
         'Los campos de contraseña están vacíos',
     new_carInfo_small_text: 'Nuevo modelo de coche',
@@ -1240,9 +1233,9 @@ mixin AppLocale {
     email_is_false_small_text: 'O campo de email é falso',
     username_is_false_small_text: 'O campo de nome de usuário é falso',
     password_is_false_small_text:
-        'O campo de senha é falso, deve conter maiúsculas, minúsculas, números e ter pelo menos 8 caracteres',
+        'O campo de senha está incorreto, deve conter pelo menos 8 caracteres',
     repeat_password_is_false_small_text:
-        'O campo de repetir senha é falso, deve conter maiúsculas, minúsculas, números e ter pelo menos 8 caracteres',
+        'O campo de repetir senha está incorreto, deve conter pelo menos 8 caracteres',
     car_model_is_false_small_text: 'O campo de modelo de carro é falso',
     email_exist_small_text: 'O email já existe',
 
@@ -1259,8 +1252,6 @@ mixin AppLocale {
     this_is_the_old_password_small_text: 'Esta não é a palavra-passe antiga',
     new_password_and_repeat_password_are_not_match_small_text:
         'A nova palavra-passe e a palavra-passe repetida não coincidem',
-    password_is_less_than_8_digits_or_small_text:
-        'O campo da palavra-passe tem menos de 8 dígitos,\n\nou não contém letras maiúsculas e minúsculas',
     password_fields_are_empty_small_text:
         'Os campos da palavra-passe estão vazios',
     new_carInfo_small_text: 'Modelo do novo automóvel',
@@ -1469,9 +1460,9 @@ mixin AppLocale {
     email_is_false_small_text: 'Le champ email est faux',
     username_is_false_small_text: 'Le champ nom d’utilisateur est faux',
     password_is_false_small_text:
-        'Le champ mot de passe est faux, il doit contenir des majuscules, des minuscules, des chiffres et doit avoir au moins 8 caractères',
+        'Le champ du mot de passe est incorrect, il doit contenir au moins 8 caractères',
     repeat_password_is_false_small_text:
-        'Le champ répéter le mot de passe est faux, il doit contenir des majuscules, des minuscules, des chiffres et doit avoir au moins 8 caractères',
+        'Le champ de répétition du mot de passe est incorrect, il doit contenir au moins 8 caractères',
     car_model_is_false_small_text: 'Le champ modèle de voiture est faux',
     email_exist_small_text: 'L’email existe déjà',
 
@@ -1488,8 +1479,6 @@ mixin AppLocale {
     this_is_the_old_password_small_text: ' Ce n`est pas l`ancien mot de passe ',
     new_password_and_repeat_password_are_not_match_small_text:
         'Le nouveau mot de passe et le mot de passe répété ne correspondent pas',
-    password_is_less_than_8_digits_or_small_text:
-        ' La longueur du mot de passe est inférieure à 8 chiffres ou il ne contient pas de lettres minuscules ou majuscules ',
     password_fields_are_empty_small_text:
         ' Les champs du mot de passe sont vides ',
     new_carInfo_small_text: ' Informations sur la nouvelle voiture ',
@@ -1694,9 +1683,9 @@ mixin AppLocale {
     email_is_false_small_text: 'Das E-Mail-Feld ist falsch',
     username_is_false_small_text: 'Das Benutzername-Feld ist falsch',
     password_is_false_small_text:
-        'Das Passwort-Feld ist falsch, es muss Großbuchstaben, Kleinbuchstaben,Zahlen enthalten und mindestens 8 Zeichen lang sein',
+        'Das Passwortfeld ist falsch, es muss mindestens 8 Zeichen lang sein',
     repeat_password_is_false_small_text:
-        'Das Wiederholung-Passwort-Feld ist falsch, es muss Großbuchstaben, Kleinbuchstaben, Zahlen enthalten und mindestens 8 Zeichen lang sein',
+        'Das Feld für die Wiederholung des Passworts ist falsch, es muss mindestens 8 Zeichen lang sein',
     car_model_is_false_small_text: 'Das Autotyp-Feld ist falsch',
     email_exist_small_text: 'Die E-Mail existiert bereits',
 
@@ -1713,8 +1702,6 @@ mixin AppLocale {
     this_is_the_old_password_small_text: 'Dies ist nicht das alte Passwort',
     new_password_and_repeat_password_are_not_match_small_text:
         'Neues Passwort und wiederholtes Passwort stimmen nicht überein',
-    password_is_less_than_8_digits_or_small_text:
-        'Das Passwort ist weniger als 8 Ziffern lang, oder es enthält keine Klein- oder Großbuchstaben',
     password_fields_are_empty_small_text: 'Passwortfelder sind leer',
     new_carInfo_small_text: 'Neuwagen-Info',
     car_model_is_empty_small_text: 'Fahrzeugmodell ist leer',
@@ -1922,9 +1909,9 @@ mixin AppLocale {
     email_is_false_small_text: 'Поле электронной почты неверное',
     username_is_false_small_text: 'Поле имени пользователя неверное',
     password_is_false_small_text:
-        'Поле пароля недействительно, должно содержать заглавные, строчные буквы, цифры и иметь длину не менее 8 символов',
+        'Поле пароля неверно, оно должно содержать как минимум 8 символов',
     repeat_password_is_false_small_text:
-        'Поле повторения пароля неверно, должно содержать прописные, строчные буквы, цифры и иметь длину не менее 8 символов',
+        'Поле повторного ввода пароля неверно, оно должно содержать как минимум 8 символов',
     car_model_is_false_small_text: 'Поле модели автомобиля неверное',
     email_exist_small_text: 'Электронная почта уже существует',
 
@@ -1941,8 +1928,6 @@ mixin AppLocale {
     this_is_the_old_password_small_text: 'Это не старый пароль',
     new_password_and_repeat_password_are_not_match_small_text:
         'Новый пароль и повторный пароль не совпадают',
-    password_is_less_than_8_digits_or_small_text:
-        'Длина пароля меньше 8 цифр,\n\n или он не содержит строчных и прописных букв',
     password_fields_are_empty_small_text: 'Поля пароля пусты',
     new_carInfo_small_text: 'Информация о новом автомобиле',
     car_model_is_empty_small_text: 'Модель автомобиля пуста',
@@ -2139,9 +2124,8 @@ mixin AppLocale {
     digit_code_is_false_small_text: 'ディジットコードは偽です',
     email_is_false_small_text: 'メールフィールドが間違っています',
     username_is_false_small_text: 'ユーザー名フィールドが間違っています',
-    password_is_false_small_text: '密码字段在那里。大写、小写、数字、小写、小写、8个字符、必填字符、有',
-    repeat_password_is_false_small_text:
-        '密码再次适用デマードが间违规おらます。大写、小写、数字、小写、小写、8个字符、必填字符、有',
+    password_is_false_small_text: 'パスワードフィールドが無効です。8文字以上でなければなりません',
+    repeat_password_is_false_small_text: 'パスワード再入力フィールドが無効です。8文字以上でなければなりません',
     car_model_is_false_small_text: '車種フィールドが間違っています',
     email_exist_small_text: 'メールはすでに存在します',
 
@@ -2157,8 +2141,6 @@ mixin AppLocale {
     this_is_the_old_password_small_text: 'これは古いパスワードではありません',
     new_password_and_repeat_password_are_not_match_small_text:
         '新しいパスワードと繰り返されたパスワードは一致しません',
-    password_is_less_than_8_digits_or_small_text:
-        '「パスワードの長さが8桁未満、または小文字や大文字が含まれていません',
     password_fields_are_empty_small_text: 'パスワードフィールドが空です',
     new_carInfo_small_text: '新車情報',
     car_model_is_empty_small_text: '車種が空です',
@@ -2346,10 +2328,8 @@ mixin AppLocale {
     digit_code_is_false_small_text: '数字代码为假',
     email_is_false_small_text: '电子邮件字段是错误的',
     username_is_false_small_text: '用户名字段是错误的',
-    password_is_false_small_text:
-        '秘密のアルファベットはデジタル化されており、大目盛り、小目盛り、数字、および 8 文字のみを含める必要があります',
-    repeat_password_is_false_small_text:
-        '重い秘密の手紙はデジタル化されており、大縮尺、小縮尺、数字、および 8 文字のみを含める必要があります',
+    password_is_false_small_text: '密码字段无效，必须至少包含8个字符',
+    repeat_password_is_false_small_text: '重复密码字段无效，必须至少包含8个字符',
     car_model_is_false_small_text: '汽车型号字段是错误的',
     email_exist_small_text: '电子邮件已存在',
 
@@ -2364,7 +2344,6 @@ mixin AppLocale {
     password_changed_small_text: '密码已更改',
     this_is_the_old_password_small_text: '这不是旧密码',
     new_password_and_repeat_password_are_not_match_small_text: '新密码和重复密码不匹配',
-    password_is_less_than_8_digits_or_small_text: '0密码长度小于 8 位数，或不包含任何小写或大写字母',
     password_fields_are_empty_small_text: '密码字段为空',
     new_carInfo_small_text: '新车信息',
     car_model_is_empty_small_text: '汽车型号为空',

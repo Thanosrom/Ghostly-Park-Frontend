@@ -44,7 +44,7 @@ class PoliceGhost_State extends State<Police_Ghost> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Dialog(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.red.withOpacity(0.65),
       child: Container(
         alignment: Alignment.center,
         width: screenWidth <= 414
@@ -75,17 +75,17 @@ class PoliceGhost_State extends State<Police_Ghost> {
             ),
           ),
           color: Colors.transparent,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.red.withOpacity(0.9),
-              offset: Offset(0, 4),
-              blurRadius: screenWidth <= 414
-                  ? screenWidth * 0.01
-                  : screenWidth <= 810
-                      ? screenWidth * 0.01
-                      : screenWidth * 0.01,
-            ),
-          ],
+          //   boxShadow: [
+          //     BoxShadow(
+          //       color: Colors.red.withOpacity(0.9),
+          //       offset: Offset(0, 4),
+          //       blurRadius: screenWidth <= 414
+          //           ? screenWidth * 0.01
+          //           : screenWidth <= 810
+          //               ? screenWidth * 0.01
+          //               : screenWidth * 0.01,
+          //     ),
+          //   ],
         ),
         child: SingleChildScrollView(
           child: Column(

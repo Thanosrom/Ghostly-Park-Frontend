@@ -8,6 +8,7 @@ import 'package:ghostlypark/src/Controller/Utils/Handle_Button_Clicks.dart';
 //Components
 import 'package:ghostlypark/src/View/Components/Height_Spacer.dart';
 import 'package:ghostlypark/src/View/Components/Small_Texts.dart';
+import 'package:ghostlypark/src/View/Components/Circular_Indicator.dart';
 //Libs
 //import 'package:purchases_flutter/purchases_flutter.dart';
 
@@ -19,6 +20,7 @@ class Billing_Container extends StatefulWidget {
   final String what_to_buy_button;
   final bool icon_exist;
   final int price_index;
+
   const Billing_Container({
     Key? key,
     required this.what_is_the_product,
@@ -37,7 +39,7 @@ class Billing_Container extends StatefulWidget {
 class _Billing_Container_State extends State<Billing_Container> {
   //Languages
   String? current_locale;
-  //bool _purchaseInProgress = false;
+  bool isLoading = false;
   List<String>? prices;
   @override
   void initState() {
@@ -127,9 +129,15 @@ class _Billing_Container_State extends State<Billing_Container> {
                   ),
                 ),
                 onPressed: () async {
+                  setState(() {
+                    isLoading = true;
+                  });
                   if (await handle_Button_Click('Purchase')) {
                     await purchaseProduct(widget.what_is_the_product, context);
                   }
+                  setState(() {
+                    isLoading = false;
+                  });
                 },
                 child: Padding(
                   padding: EdgeInsets.all(screenWidth <= 414
@@ -177,6 +185,10 @@ class _Billing_Container_State extends State<Billing_Container> {
               ),
             ],
           ),
+        ),
+        Visibility(
+          visible: isLoading,
+          child: const Circular_Indicator(isTransparent: true),
         ),
         Height_Spacer(),
         Height_Spacer(),

@@ -105,7 +105,7 @@ class _Small_Textfield_Modal_State extends State<Small_Textfield_Modal> {
                     ? screenWidth * 0.55
                     : screenWidth * 0.55,
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: Colors.black.withOpacity(0.9),
           borderRadius: BorderRadius.circular(
             screenWidth <= 414
                 ? screenWidth * 0.05
@@ -115,7 +115,7 @@ class _Small_Textfield_Modal_State extends State<Small_Textfield_Modal> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Color.fromARGB(255, 100, 7, 223),
+              color: Colors.white70.withOpacity(0.5),
               offset: Offset(0, 4),
               blurRadius: screenWidth <= 414
                   ? screenWidth * 0.01

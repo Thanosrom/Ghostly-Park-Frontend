@@ -255,16 +255,16 @@ class _Home_Header extends State<Home_Header> {
                                 ? screenWidth * 0.03
                                 : screenWidth * 0.03,
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color.fromARGB(255, 100, 7, 223),
-                          blurRadius: screenWidth <= 414
-                              ? screenWidth * 0.1
-                              : screenWidth <= 810
-                                  ? screenWidth * 0.1
-                                  : screenWidth * 0.1,
-                        ),
-                      ],
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //     color: const Color.fromARGB(255, 100, 7, 223),
+                      //     blurRadius: screenWidth <= 414
+                      //         ? screenWidth * 0.1
+                      //         : screenWidth <= 810
+                      //             ? screenWidth * 0.1
+                      //             : screenWidth * 0.1,
+                      //   ),
+                      // ],
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
