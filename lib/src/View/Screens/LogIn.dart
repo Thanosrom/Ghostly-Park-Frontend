@@ -35,7 +35,12 @@ final GlobalKey<_LogInState> loginKey = GlobalKey<_LogInState>();
 GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: scopes,
 );
-const List<String> scopes = <String>['openid', 'profile'];
+
+const List<String> scopes = <String>[
+  'openid',
+  // 'email',
+  // 'profile',
+];
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
@@ -74,8 +79,9 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
     _attemptSignInSilently();
   }
 
+  final storage = FlutterSecureStorage();
+
   void _attemptSignInSilently() async {
-    final storage = FlutterSecureStorage();
     String? isLoggedIn = await storage.read(key: 'isLoggedIn');
     if (isLoggedIn == 'true') {
       try {
@@ -97,6 +103,9 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
   //Handle Sign In - Sign Out
   Future<void> _handleSignIn() async {
     try {
+      await _googleSignIn.signOut();
+      // await _googleSignIn.requestScopes(scopes);
+      // await _googleSignIn.canAccessScopes(scopes);
       GoogleSignInAccount? account = await _googleSignIn.signIn();
       if (account == null) {
         return null;
@@ -111,11 +120,9 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
 
   Future<void> handleSignOut() async {
     try {
-      await _googleSignIn.signOut();
       await _googleSignIn.disconnect();
-    } catch (error) {
-      print('Error signing out: $error');
-    }
+      await _googleSignIn.signOut();
+    } catch (error) {}
   }
   //Apple configuration
 
@@ -389,7 +396,7 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                                   child: ElevatedButton(
                                     onPressed: () async {
                                       if (await handle_Button_Click('LogIn')) {
-                                        _handleSignIn();
+                                        await _handleSignIn();
                                       }
                                     },
                                     child: Image.asset(

@@ -33,12 +33,9 @@ save_Credentials(String emailController, String passwordController) async {
 delete_Credentials() async {
   await storage.delete(key: 'username');
   await storage.delete(key: 'password');
+  await storage.write(key: 'isLoggedIn', value: 'false');
 }
 
-//const List<String> scopes = <String>['openid', 'profile'];
 Future<void> signOutUser() async {
-  try {
-    loginKey.currentState?.handleSignOut();
-    await storage.write(key: 'isLoggedIn', value: 'false');
-  } catch (e) {}
+  await loginKey.currentState?.handleSignOut();
 }

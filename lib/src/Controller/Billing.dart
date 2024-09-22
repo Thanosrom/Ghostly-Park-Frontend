@@ -9,6 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ghostlypark/Languages.dart';
 //Controllers
 import 'package:ghostlypark/src/Controller/Utils/load_Save_Language.dart';
+import 'package:ghostlypark/src/View/Components/Circular_Indicator.dart';
 //Components
 import 'package:ghostlypark/src/View/Components/Modals/Report_Modal.dart';
 //Providers
@@ -66,7 +67,10 @@ Future<List<String>> initializePurchases(BuildContext context) async {
 
 Future<void> purchaseProduct(
     String whatIsTheProduct, BuildContext context) async {
+  OverlayEntry? overlayEntry;
   try {
+    overlayEntry = _showLoadingIndicator(context);
+    bool checker = false;
     initializeSettings(context);
     List<String> identifiers = ["\$rc_lifetime", "\$rc_monthly", "\$rc_weekly"];
     Offerings offerings = await Purchases.getOfferings();
@@ -230,44 +234,27 @@ Future<void> purchaseProduct(
               );
             }
           }
-        } // } else if (customerInfo.entitlements.all["Pro"]?.isActive ?? false) {
-        //   //Purchase Subscription
-        //   if (whatIsTheProduct == "Subscription") {
-        //     final response = await plus_Subscription_Model();
-        //     if (response.statusCode == 200) {
-        //       showDialog(
-        //         context: context,
-        //         builder: (context) {
-        //           return Report_Modal(
-        //             context: context,
-        //             labelTexts: "Congrats you bought some Subscription...",
-        //             its_error: false,
-        //           );
-        //         },
-        //       );
-        //     } else {
-        //       showDialog(
-        //         context: context,
-        //         builder: (context) {
-        //           return Report_Modal(
-        //             context: context,
-        //             labelTexts: "Failed Payment ...",
-        //             its_error: false,
-        //           );
-        //         },
-        //       );
-        //     }
-        //   }
-        // } else {
-        //   print("Purchase failed or not active.");
-        // }
-      } catch (e) {
-        // print("Error during purchase: $e");
-      }
-    } else {
-      //print("${whatIsTheProduct} offering not found.");
-    }
+        }
+      } catch (e) {}
+    } else {}
   } catch (e) {
-    //print("Error fetching offerings: $e");
-  } finally {}
+  } finally {
+    if (overlayEntry != null) {
+      overlayEntry.remove();
+    }
+  }
+}
+
+OverlayEntry _showLoadingIndicator(BuildContext context) {
+  final overlayState = Navigator.of(context).overlay;
+  final overlayEntry = OverlayEntry(
+    builder: (context) => const Center(
+      child: Circular_Indicator(isTransparent: true),
+    ),
+  );
+
+  // Insert the overlay entry into the overlay
+  overlayState?.insert(overlayEntry);
+
+  return overlayEntry;
 }

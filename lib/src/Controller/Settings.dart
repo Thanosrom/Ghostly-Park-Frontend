@@ -12,6 +12,7 @@ import 'package:ghostlypark/src/Controller/Utils/Go_Back.dart';
 import 'package:ghostlypark/src/Controller/Utils/Handle_Button_Clicks.dart';
 import 'package:ghostlypark/src/Controller/Utils/load_Save_Delete_UserInfo.dart';
 import 'package:ghostlypark/src/Controller/Utils/load_Save_Language.dart';
+import 'package:ghostlypark/src/Model/Providers%20-%20Stores/UserState.dart';
 //Components
 import 'package:ghostlypark/src/View/Components/Height_Spacer.dart';
 import 'package:ghostlypark/src/View/Components/Modals/Small_Textfields_Modals.dart';
@@ -20,6 +21,7 @@ import 'package:ghostlypark/src/View/Components/Settings_Modals_Buttons.dart';
 import 'package:ghostlypark/src/View/Components/Small_Texts.dart';
 //Models
 import 'package:ghostlypark/src/Model/Settings.dart';
+import 'package:provider/provider.dart';
 //Libs
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -73,6 +75,9 @@ Future<void> send_NewUsername(
   if (await validate_Username(context, usernameController)) {
     final response = await send_NewUsername_Model(usernameController);
     if (response.statusCode == 200) {
+      //Save them into Provider
+      Provider.of<UserState>(context, listen: false)
+          .setUserId(username: usernameController);
       Go_Back(context);
       showDialog(
         context: context,
@@ -313,6 +318,10 @@ Future<void> send_NewCarInfo(
   initializeSettings(context);
   if (await validate_CarInfo(context, carInfoController)) {
     final response = await send_NewCarInfo_Model(carInfoController);
+    //Save them into Provider
+    Provider.of<UserState>(context, listen: false)
+        .setUserId(carInfo: carInfoController);
+
     if (response.statusCode == 200) {
       showDialog(
         context: context,
@@ -489,7 +498,8 @@ Future<void> send_Delete_User2(BuildContext context, int statusCode) async {
     prefs.setBool('autoLoginEnabled', false);
     prefs.remove('autoLoginEnabled');
     prefs.remove('isFirstLaunch');
-    delete_Credentials();
+    await delete_Credentials();
+    await signOutUser();
     showDialog(
       context: context,
       builder: (context) {
