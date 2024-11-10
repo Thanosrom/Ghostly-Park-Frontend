@@ -206,7 +206,7 @@ class _MyAppState extends State<MyApp> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return MaterialApp(home: Circular_Indicator());
         } else if (snapshot.hasError) {
-          return MaterialApp(home: Circular_Indicator());
+          return MaterialApp(home: Error());
         } else {
           //---------------------------------------------------------------------//
           List<bool> conditions = snapshot.data ?? [];
@@ -262,7 +262,7 @@ class _MyAppState extends State<MyApp> {
               ),
             );
           } else {
-            return MaterialApp(home: Circular_Indicator());
+            return MaterialApp(home: Error());
           }
         }
       },

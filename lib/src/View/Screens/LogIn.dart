@@ -38,8 +38,8 @@ GoogleSignIn _googleSignIn = GoogleSignIn(
 
 const List<String> scopes = <String>[
   'openid',
-  // 'email',
-  // 'profile',
+  'email',
+  'profile',
 ];
 
 class LogIn extends StatefulWidget {
@@ -104,18 +104,23 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
   Future<void> _handleSignIn() async {
     try {
       await _googleSignIn.signOut();
-      // await _googleSignIn.requestScopes(scopes);
-      // await _googleSignIn.canAccessScopes(scopes);
+      //await _googleSignIn.requestScopes(scopes);
+      //await _googleSignIn.canAccessScopes(scopes);
       GoogleSignInAccount? account = await _googleSignIn.signIn();
       if (account == null) {
+        print("Its Null");
         return null;
       }
       final googleSignInAuthentication = await account.authentication;
+      print("After auth");
       bool token_verified = await send_Auth(googleSignInAuthentication.idToken);
       if (token_verified) {
+        print("Verified token");
         google_Login(account.email, context, token_verified);
       } else {}
-    } catch (error) {}
+    } catch (error) {
+      print("Error ${error}");
+    }
   }
 
   Future<void> handleSignOut() async {
@@ -124,6 +129,7 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
       await _googleSignIn.signOut();
     } catch (error) {}
   }
+
   //Apple configuration
 
   //Language

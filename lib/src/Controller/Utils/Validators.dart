@@ -277,19 +277,25 @@ Future<bool> validate_Email(
 //Check for valud Email,Username,Password and Car Model
 bool isValidUsername(String username) {
   final RegExp usernameModelPattern = RegExp(r'^.{2,25}$');
+  print(usernameModelPattern.hasMatch(username));
   return usernameModelPattern.hasMatch(username);
 }
 
 bool isValidEmail(String email) {
+  print(EmailValidator.validate(email));
   return EmailValidator.validate(email);
 }
 
 bool isValidPassword(String password) {
   final RegExp passwordModelPattern = RegExp(r'^.{8,25}$');
+  print(passwordModelPattern.hasMatch(password));
+
   return passwordModelPattern.hasMatch(password);
 }
 
 bool isValidCarModel(String carModel) {
   final RegExp carModelPattern = RegExp(r'^.{2,25}$');
+  print(carModelPattern.hasMatch(carModel));
+
   return carModelPattern.hasMatch(carModel);
 }

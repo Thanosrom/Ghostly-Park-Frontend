@@ -27,7 +27,6 @@ Future<http.Response> login_Model(
 }
 
 //Google Login
-
 Future<http.Response> google_Login_Model(String emailController) async {
   try {
     final response = await http.post(
