@@ -185,7 +185,7 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                           iconSize: screenWidth <= 414
                               ? screenWidth * 0.07
                               : screenWidth <= 810
-                                  ? screenWidth * 0.05
+                                  ? screenWidth * 0.07
                                   : screenWidth * 0.05,
                           //elevation: 16,
                           style: const TextStyle(
@@ -262,12 +262,12 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                         width: screenWidth <= 414
                             ? screenWidth * 0.4
                             : screenWidth <= 810
-                                ? screenWidth * 0.4
+                                ? screenWidth * 0.45
                                 : screenWidth * 0.4,
                         height: screenWidth <= 414
                             ? screenWidth * 0.3
                             : screenWidth <= 810
-                                ? screenWidth * 0.2
+                                ? screenWidth * 0.25
                                 : screenWidth * 0.2,
                       ),
                     ),
@@ -278,12 +278,12 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                       width: screenWidth <= 414
                           ? screenWidth * 0.5
                           : screenWidth <= 810
-                              ? screenWidth * 0.4
+                              ? screenWidth * 0.45
                               : screenWidth * 0.4,
                       height: screenWidth <= 414
                           ? screenWidth * 0.2
                           : screenWidth <= 810
-                              ? screenWidth * 0.2
+                              ? screenWidth * 0.25
                               : screenWidth * 0.2,
                     ),
                     // Height_Spacer(),
@@ -390,15 +390,15 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                               children: [
                                 SizedBox(
                                   width: screenWidth <= 414
-                                      ? screenWidth * 0.2
+                                      ? screenWidth * 0.19
                                       : screenWidth <= 810
-                                          ? screenWidth * 0.2
-                                          : screenWidth * 0.2,
+                                          ? screenWidth * 0.19
+                                          : screenWidth * 0.19,
                                   height: screenWidth <= 414
                                       ? screenWidth * 0.12
                                       : screenWidth <= 810
-                                          ? screenWidth * 0.08
-                                          : screenWidth * 0.08,
+                                          ? screenWidth * 0.12
+                                          : screenWidth * 0.12,
                                   child: ElevatedButton(
                                     onPressed: () async {
                                       if (await handle_Button_Click('LogIn')) {
@@ -427,15 +427,15 @@ class _LogInState extends State<LogIn> with TickerProviderStateMixin {
                                 ),
                                 SizedBox(
                                   width: screenWidth <= 414
-                                      ? screenWidth * 0.2
+                                      ? screenWidth * 0.19
                                       : screenWidth <= 810
-                                          ? screenWidth * 0.2
-                                          : screenWidth * 0.2,
+                                          ? screenWidth * 0.19
+                                          : screenWidth * 0.19,
                                   height: screenWidth <= 414
                                       ? screenWidth * 0.12
                                       : screenWidth <= 810
-                                          ? screenWidth * 0.08
-                                          : screenWidth * 0.08,
+                                          ? screenWidth * 0.12
+                                          : screenWidth * 0.12,
                                   child: ElevatedButton(
                                     onPressed: () async {
                                       // final credential = await SignInWithApple

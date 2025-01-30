@@ -30,12 +30,12 @@ class _Custom_TextFieldState extends State<Custom_TextField> {
       width: screenWidth <= 414
           ? screenWidth * 0.8
           : screenWidth <= 810
-              ? screenWidth * 0.65
+              ? screenWidth * 0.75
               : screenWidth * 0.65,
       height: screenWidth <= 414
           ? screenWidth * 0.15
           : screenWidth <= 810
-              ? screenWidth * 0.1
+              ? screenWidth * 0.12
               : screenWidth * 0.1,
       child: TextField(
         obscureText: widget.havePassword == true ? _obscureText : false,
@@ -46,7 +46,7 @@ class _Custom_TextFieldState extends State<Custom_TextField> {
             fontSize: screenWidth <= 414
                 ? screenWidth * 0.035
                 : screenWidth <= 810
-                    ? screenWidth * 0.025
+                    ? screenWidth * 0.03
                     : screenWidth * 0.025,
           ),
           icon: Icon(

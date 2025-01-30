@@ -179,13 +179,13 @@ class _HomeState extends State<Home> {
                                 screenWidth <= 414
                                     ? screenWidth * 0.1
                                     : screenWidth <= 810
-                                        ? screenWidth * 0.1
-                                        : screenWidth * 0.1,
+                                        ? screenWidth * 0.12
+                                        : screenWidth * 0.12,
                                 screenWidth <= 414
                                     ? screenWidth * 0.1
                                     : screenWidth <= 810
-                                        ? screenWidth * 0.05
-                                        : screenWidth * 0.05,
+                                        ? screenWidth * 0.07
+                                        : screenWidth * 0.07,
                               ),
                               headingSectorColor: Colors.blue,
                               markerDirection: MarkerDirection.heading,

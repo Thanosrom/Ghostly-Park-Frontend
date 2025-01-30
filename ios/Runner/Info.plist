@@ -45,5 +45,122 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+
+	<!-- Adding Libs -->
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>comgooglemaps</string>
+		<string>baidumap</string>
+		<string>iosamap</string>
+		<string>waze</string>
+		<string>yandexmaps</string>
+		<string>yandexnavi</string>
+		<string>citymapper</string>
+		<string>mapswithme</string>
+		<string>osmandmaps</string>
+		<string>dgis</string>
+		<string>qqmap</string>
+		<string>here-location</string>
+		<string>tomtomgo</string>
+		<string>copilot</string>
+		<string>com.sygic.aura</string>
+		<string>nmap</string>
+		<string>kakaomap</string>
+		<string>tmap</string>
+		<string>szn-mapy</string>
+		<string>mappls</string>
+		<string>tel</string>
+		<string>sms</string>
+		<string>mailto</string>
+		<string>http</string>
+		<string>https</string>
+	</array>
+
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access to location when open.</string>
+
+	<!-- =========================================== -->
+	<!-- URL schemes for url_launcher -->
+	<!-- <key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tel</string>
+		<string>sms</string>
+		<string>mailto</string>
+		<string>http</string>
+		<string>https</string>
+	</array> -->
+
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to your camera to take pictures.</string>
+
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need access to your location to show nearby places.</string>
+
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your photo library to select pictures.</string>
+
+
+	<key>UIBackgroundModes</key>
+	<array>
+	<string>fetch</string>
+	<string>remote-notification</string>
+	</array>
+
+	<!-- Google Sign-In: URL scheme for Google Sign-In -->
+	<!-- <key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.YOUR_CLIENT_ID</string>
+			</array>
+		</dict>
+	</array> -->
+
+	<!-- Sign In with Apple -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.apple.auth</string>
+			</array>
+		</dict>
+	</array>
+
+	<!-- Geolocation permissions for geolocator and geocoding -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your location is needed to show nearby places.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Your location is needed to show nearby places at all times.</string>
+
+	<!-- Image Picker Permissions -->
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to your camera to take pictures.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your photo library to select pictures.</string>
+
+	<!-- WebView permissions (if needed) -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+
+	<!-- Google Mobile Ads -->
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-6837078075079728~1428102168</string>
+
+	<!-- In-App Purchases -->
+	<key>SKAdNetworkItems</key>
+	<array>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>v9w7pqw74u.skadnetwork</string>
+		</dict>
+	</array>
+	
 </dict>
 </plist>

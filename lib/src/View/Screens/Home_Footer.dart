@@ -74,8 +74,8 @@ class _Home_Footer extends State<Home_Footer> {
           height: screenWidth <= 414
               ? screenWidth * 0.2
               : screenWidth <= 810
-                  ? screenWidth * 0.15
-                  : screenWidth * 0.15,
+                  ? screenWidth * 0.18
+                  : screenWidth * 0.16,
           decoration: BoxDecoration(
             color: Colors.transparent.withOpacity(0.7),
             borderRadius: BorderRadius.circular(screenWidth <= 414

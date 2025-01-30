@@ -80,7 +80,7 @@ class Secondary_Big_Button extends StatelessWidget {
                       fontSize: screenWidth <= 414
                           ? screenWidth * 0.04
                           : screenWidth <= 810
-                              ? screenWidth * 0.03
+                              ? screenWidth * 0.04
                               : screenWidth * 0.03,
                       color: Colors.white70,
                       fontWeight: FontWeight.bold,

@@ -61,18 +61,18 @@ class _Reward_And_help_State extends State<Reward_And_help>
           width: screenWidth <= 414
               ? screenWidth * 0.15
               : screenWidth <= 810
-                  ? screenWidth * 0.1
+                  ? screenWidth * 0.11
                   : screenWidth * 0.1,
           height: screenWidth <= 414
               ? screenWidth * 0.15
               : screenWidth <= 810
-                  ? screenWidth * 0.1
+                  ? screenWidth * 0.11
                   : screenWidth * 0.1,
           padding: EdgeInsets.all(
             screenWidth <= 414
                 ? screenWidth * 0.02
                 : screenWidth <= 810
-                    ? screenWidth * 0.02
+                    ? screenWidth * 0.01
                     : screenWidth * 0.02,
           ),
           decoration: BoxDecoration(
@@ -140,12 +140,12 @@ class _Reward_And_help_State extends State<Reward_And_help>
           width: screenWidth <= 414
               ? screenWidth * 0.15
               : screenWidth <= 810
-                  ? screenWidth * 0.1
+                  ? screenWidth * 0.11
                   : screenWidth * 0.1,
           height: screenWidth <= 414
               ? screenWidth * 0.15
               : screenWidth <= 810
-                  ? screenWidth * 0.1
+                  ? screenWidth * 0.11
                   : screenWidth * 0.1,
           padding: EdgeInsets.all(
             screenWidth <= 414
@@ -219,12 +219,12 @@ class _Reward_And_help_State extends State<Reward_And_help>
           width: screenWidth <= 414
               ? screenWidth * 0.15
               : screenWidth <= 810
-                  ? screenWidth * 0.1
+                  ? screenWidth * 0.11
                   : screenWidth * 0.1,
           height: screenWidth <= 414
               ? screenWidth * 0.15
               : screenWidth <= 810
-                  ? screenWidth * 0.1
+                  ? screenWidth * 0.11
                   : screenWidth * 0.1,
           decoration: BoxDecoration(
             boxShadow: [
